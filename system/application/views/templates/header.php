@@ -1,0 +1,91 @@
+<?php
+
+function status_to_class($status){
+	if($status == 1){
+		return 'up';
+	}elseif($status == 0){
+		return 'down';
+	}else{
+		return 'unknown';
+	}
+}
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<?php if (isset($title)): ?>
+			<title>[ATG] Addiction to Gaming - <?php echo $title ?></title>
+		<?php else: ?>
+			<title>[ATG] Addiction to Gaming</title>
+		<?php endif ?>
+		
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/assets/css/master.css" type="text/css" media="screen" charset="utf-8">
+		<?php if (isset($stylesheets)): ?>
+			<?php foreach ($stylesheets as $stylesheet): ?>
+				<link rel="stylesheet" href="/assets/css/<?php echo $stylesheet ?>" type="text/css" media="screen" charset="utf-8">
+			<?php endforeach ?>
+		<?php endif ?>
+		
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/assets/js/cufon.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/assets/js/MyriadPro.font.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			Cufon.replace('.cufon');
+		</script>
+		
+		<?php if (isset($scripts)): ?>
+			<?php foreach ($scripts as $script): ?>
+				<script src="/assets/js/<?php echo $script ?>" type="text/javascript" charset="utf-8"></script>
+			<?php endforeach ?>
+		<?php endif ?>
+	</head>
+	
+	<body>
+		<div id="wrapper">
+			<div id="header"></div>
+			
+			<div id="nav">
+				<ul class="cufon">
+					<li><a href="/">Home</a></li>
+					<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
+					<li><a href="/stats">Stats</a></li>
+					<li><a href="/sourcebans">Bans</a></li>
+					<li><a href="/servers">Servers</a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			
+			<div id="server_status">
+				<div class="heading cufon">Server Status</div>
+				<?php $servers = $this->serversmodel->list_servers($games) ?>
+				<?php $i = 1; foreach ($servers as $server): ?>
+					<?php if ($i % 4 == 1 && $i !== 1): ?><div class="clear"></div></div><?php endif; ?>
+					<?php if ($i % 4 == 1): ?>
+						<div class="row">
+							<div class="server rowstart" title="<?php echo $server->hostname ?>" >
+								<div class="status <?php echo status_to_class($server->status) ?>"></div>
+								<div class="server_name"><?php echo $server->name ?></div>
+								<?php if ($server->status == 1): ?>
+									<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
+								<?php endif ?>
+							</div>
+					<?php else: ?>
+						<div class="server" title="<?php echo $server->hostname ?>" >
+							<div class="status <?php echo status_to_class($server->status) ?>"></div>
+							<div class="server_name"><?php echo $server->name ?></div>
+							<?php if ($server->status == 1): ?>
+								<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
+							<?php endif ?>
+						</div>
+					<?php endif ?>
+				<?php $i++; endforeach ?>
+					<div class="clear"></div>
+				</div>
+			</div>

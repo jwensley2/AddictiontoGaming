@@ -1,0 +1,42 @@
+/***** News *****/
+.news_item .title {
+font-size:16pt;
+}
+
+.news_item .content {
+margin:12px 0;
+line-height:18px;
+letter-spacing:.5px;
+word-spacing:3px;
+}
+
+.news_item .content .edit_date {
+color:#9698A3;
+font-style:italic;
+margin-top:2px;
+letter-spacing: normal;
+word-spacing: 0;
+}
+
+.news_item .user,.news_item .edit_user {
+color:inherit;
+font-weight:700;
+text-decoration:none;
+}
+
+.news_item .user:hover,.news_item .edit_user:hover {
+color:red;
+}
+
+.news_item .date {
+text-align:right;
+}
+
+.news_item .content p+p{
+margin-top:8px;
+}
+
+.news_item ul{
+list-style:disc outside none;
+margin-left:30px;
+}

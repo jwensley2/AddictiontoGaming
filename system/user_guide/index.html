@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter PayPal Library</title>
+
+<style type='text/css' media='all'>@import url('userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='userguide.css' />
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Ran Aroussi' />
+<meta name='description' content='Code Igniter PayPal Library' />
+
+</head>
+<body>
+
+<div id="masthead"><h1>PayPal_Lib :: Code Igniter PayPal Library (v. 0.1)</h1></div>
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>User Guide</h1>
+<p>
+	This library provides a neat and simple method to interface with PayPal and
+	the PayPal Instant Payment Notification (IPN) interface. 
+	It requires the developer (that should be you) to understand the PayPal
+	process and know the variables you want/need to pass to PayPal to achieve what you want.
+</p>
+
+<h2>Configuring the Library</h2>
+<p>This library needs the following configuration items to be present:</p>
+<p>If (and where) to log IPN to file:</p>
+<code>
+	$config['paypal_lib_ipn_log_file'] = BASEPATH . 'logs/paypal_ipn.log';<br />
+	$config['paypal_lib_ipn_log'] = TRUE;
+</code>
+<p>Where are the buttons located at:</p>
+<code>
+	$config['paypal_lib_button_path'] = 'buttons';
+</code>
+<p>What is the default currency?</p>
+<code>
+	$config['paypal_lib_currency_code'] = 'USD';
+</code>
+
+<h2>Loading this Library</h2>
+<p>This library is loaded using the following code:</p>
+<code>$this->load->library('paypal_lib');</code>
+<p>PayPal_Lib requires the <em>url</em> and <em>form</em> helpers to be loaded.</p>
+
+
+<p><br />The following functions are available:</p>
+
+<h2>add_field()</h2>
+<p>
+	Builds the hidden form values that will be sent to PayPal as POST variables.
+	If the value is already in the array, it will be overwritten.
+</p>
+<code>
+	$this->paypal_lib->add_field('business', 'YOUR_PAYPAL_EMAIL_HERE');<br />
+    $this->paypal_lib->add_field('return', site_url('paypal/success'));<br />
+    $this->paypal_lib->add_field('cancel_return', site_url('paypal/cancel'));<br />
+    $this->paypal_lib->add_field('notify_url', site_url('paypal/ipn'));<br />
+
+    $this->paypal_lib->add_field('item_name', 'Paypal Test Transaction');<br />
+    $this->paypal_lib->add_field('item_number', '123');<br />
+    $this->paypal_lib->add_field('amount', '39.85');
+</code>
+
+
+<h2>paypal_form()</h2>
+<p>
+	Generates the PayPal form, based on the fields specified using add_field(). 
+	By default, the form name is "paypal_form" and the submit button's caption is "Pay now!".
+</p>
+<code>$this->paypal_lib->paypal_form();</code>
+<p>Optionally, you can specify the form name:</p>
+<code>$this->paypal_lib->paypal_form('your_form_name');</code>
+
+
+
+<h2>paypal_auto_form()</h2>
+<p>
+	This function actually generates an entire HTML page consisting of
+	a form with hidden elements which is submitted to PayPal via the 
+	BODY element's onLoad attribute.	
+</p>
+<code>$this->paypal_lib->paypal_auto_form();</code>
+
+
+<h2>button()</h2>
+<p>Changes the default caption of the submit button.</p>
+<code>$this->paypal_lib->button('Click here to pay now (please)!');</code>
+
+
+<h2>image()</h2>
+<p>Display a specified image button instead of regular submit button, based on the path specified in the config file.</p>
+<code>$this->paypal_lib->image('button_01.gif');</code>
+
+
+<h2>validate_ipn()</h2>
+<p>
+	Validates the data received from PayPal's IPN system and sends an confirmation of receipt back to PayPal
+	This is where you update your database to activate or process the order, or setup
+	the database with the user's order details, email an administrator, etc.
+</p>
+<p>
+	Access to the data sent is done via the ipn_data() array.
+</p>
+<code>
+	if ($this->paypal_lib->validate_ipn()) <br />
+	{<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;// Do something with the data<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;print_r($this->paypal_lib->ipn_data);<br />
+	}
+</code>
+<p><small>
+	* Check the PayPal documentation for specifics on what information is available in the IPN POST variables.  
+	Basically, all the POST vars which PayPal sends, which we send back for validation, are now stored
+	in the ipn_data() array.
+</small></p>
+
+
+<h2>dump()</h2>
+<p>
+	Used for debugging, this function will output all the field/value pairs
+	that are currently defined in the instance of the class using the
+	add_field() function.
+</p>
+<code>$this->paypal_lib->dump();</code>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+	Distributed under <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a> by <a href="http://aroussi.com/weblog">Ran Aroussi</a> (based on the Paypal PHP class by <a href="http://www.micahcarrick.com">Micah Carrick</a>).
+</p>
+</div>
+
+</body>
+</html>

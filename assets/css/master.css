@@ -1,0 +1,275 @@
+/***** Element Styles *****/
+body {
+background-color:#101620;
+color:#FFF;
+font-family:arial;
+font-size:10pt;
+}
+
+a {
+color:#FFF;
+}
+
+a:hover {
+color:red;
+}
+
+/***** Wrapper *****/
+#wrapper {
+background-color:#737280;
+margin:auto;
+padding:0 10px;
+width:800px;
+}
+
+/***** Header *****/
+#header {
+background-image:url(/assets/images/banner.jpg);
+border-bottom:1px solid #000;
+border-left:1px solid #000;
+border-right:1px solid #000;
+height:200px;
+width:800px;
+}
+
+/***** Navigation *****/
+#nav {
+border:1px solid #FFF;
+margin:16px 0;
+}
+
+#nav ul {
+clear:both;
+float:none;
+}
+
+#nav ul li {
+background-color:#2d303f;
+float:left;
+width:158.8px;
+}
+
+#nav ul li+li {
+border-left:1px solid #FFF;
+}
+
+#nav ul li a {
+color:#FFF;
+display:block;
+font-family:arial;
+font-size:18pt;
+height:30px;
+padding:14px 0 6px 10px;
+text-decoration:none;
+}
+
+#nav ul li a:hover {
+background-color:#101620;
+}
+
+/***** Server Status *****/
+#server_status .heading {
+color:#2d303f;
+font-size:16pt;
+}
+
+#server_status .row + .row {
+margin-top:8px;
+}
+
+#server_status .server {
+background-color:#2d303f;
+float:left;
+height:24px;
+margin-left:8px;
+width:194px;
+}
+
+#server_status .server:first-child {
+margin-left:0;
+}
+
+#server_status .server .status {
+float:left;
+height:24px;
+width:8px;
+}
+
+#server_status .server .status.up {
+background-color:#0ca32c;
+}
+
+#server_status .server .status.down {
+background-color:#d81717;
+}
+
+#server_status .server .status.unknown {
+background-color:#FF0;
+}
+
+#server_status .server_name {
+float:left;
+padding:3px 5px;
+width:126px;
+}
+
+#server_status .num_players {
+float:left;
+padding:3px 5px;
+text-align:right;
+width:40px;
+}
+
+/******************* Content *******************/
+#content {
+margin-top:16px;
+}
+
+#content_right {
+float:left;
+margin-left:16px;
+width:492px;
+}
+
+#content_right .block {
+background-color:#2d303f;
+border:1px solid #FFF;
+padding:12px;
+width:466px;
+}
+
+#content_right .block + .block {
+margin-top:16px;
+}
+
+#content_right .block .title {
+font-size:16pt;
+margin-bottom:16px;
+}
+
+#page_title {
+font-size:18pt;
+}
+
+/******************* Sidebar *******************/
+#content_left {
+float:left;
+}
+
+#content_left .block {
+background-color:#2d303f;
+border:1px solid #FFF;
+padding:8px;
+width:274px;
+}
+
+#content_left .block + .block {
+margin-top:8px;
+}
+
+#content_left .block .heading {
+font-size:16pt;
+margin-bottom:8px;
+}
+
+/***** Donations *****/
+#donation_totals .total {
+float:left;
+width:137px;
+}
+
+#donation_totals .goal {
+float:left;
+text-align:right;
+width:137px;
+}
+
+#donations #donate_button {
+background-color:#9698a3;
+margin-top:8px;
+text-align:center;
+}
+
+#donations #donate_button a {
+color:#101620;
+display:block;
+font-size:16pt;
+padding:8px 0;
+text-decoration:none;
+}
+
+#donations #donate_button a:hover {
+background-color:#101620;
+color:#FFF;
+}
+
+/***** Twitter Feed *****/
+#twitter .tweet +.tweet {
+margin-top:8px;
+}
+
+#twitter .tweet .msg {
+background-color:#9698a3;
+border:1px solid #FFF;
+color:#101620;
+padding:5px;
+}
+
+#twitter .tweet .date {
+text-align:right;
+}
+
+/******************* Footer *******************/
+#footer {
+background-color:#2d303f;
+border-left:1px solid #fff;
+border-right:1px solid #fff;
+border-top:1px solid #fff;
+margin-top:16px;
+padding:5px 0;
+text-align:center;
+width:800px;
+}
+
+/******************* Other Stuff *******************/
+.clear {
+clear:both;
+}
+
+.small {
+font-size:8pt;
+}
+
+/***** Form Styles *****/
+form input[type='text'] {
+background-color:#FFF;
+border:3px solid #9698A3;
+font-size:11pt;
+padding:4px;
+}
+
+form input[type='submit'] {
+background-color:#9698A3;
+border:3px solid #FFF;
+color:#000;
+font-size:10pt;
+padding:3px;
+}
+
+form input[type='submit']:hover {
+background-color:#101620;
+color:#FFF;
+}
+
+form .row + .row {
+margin-top:8px;
+}
+
+form .row .heading {
+font-size:12pt;
+}
+
+#content_right .block.validation_error {
+background-color:#991B29;
+font-size:11pt;
+}
