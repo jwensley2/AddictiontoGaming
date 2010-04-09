@@ -51,7 +51,7 @@ $autoload['libraries'] = array('Phpbb_lib', 'session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('permission', 'url');
+$autoload['helper'] = array('permission', 'url', 'dump', 'serverstatus');
 
 
 /*

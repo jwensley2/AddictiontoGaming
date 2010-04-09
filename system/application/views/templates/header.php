@@ -1,17 +1,3 @@
-<?php
-
-function status_to_class($status){
-	if($status == 1){
-		return 'up';
-	}elseif($status == 0){
-		return 'down';
-	}else{
-		return 'unknown';
-	}
-}
-
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
@@ -25,6 +11,7 @@ function status_to_class($status){
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="/assets/css/master.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/assets/css/server_popups.css" type="text/css" media="screen" charset="utf-8">
 		<?php if (isset($stylesheets)): ?>
 			<?php foreach ($stylesheets as $stylesheet): ?>
 				<link rel="stylesheet" href="/assets/css/<?php echo $stylesheet ?>" type="text/css" media="screen" charset="utf-8">
@@ -35,6 +22,7 @@ function status_to_class($status){
 		<script src="/assets/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/cufon.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/MyriadPro.font.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/assets/js/server_popups.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 			Cufon.replace('.cufon');
@@ -48,6 +36,7 @@ function status_to_class($status){
 	</head>
 	
 	<body>
+		<div id="server_popup_holder">a</div>
 		<div id="wrapper">
 			<div id="header"></div>
 			
@@ -75,6 +64,7 @@ function status_to_class($status){
 								<?php if ($server->status == 1): ?>
 									<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
 								<?php endif ?>
+								<div class="server_id"><?php echo $server->id ?></div>
 							</div>
 					<?php else: ?>
 						<div class="server" title="<?php echo $server->hostname ?>" >
@@ -83,6 +73,7 @@ function status_to_class($status){
 							<?php if ($server->status == 1): ?>
 								<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
 							<?php endif ?>
+							<div class="server_id"><?php echo $server->id ?></div>
 						</div>
 					<?php endif ?>
 				<?php $i++; endforeach ?>

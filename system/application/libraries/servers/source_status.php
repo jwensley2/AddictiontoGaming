@@ -54,13 +54,13 @@ class Source_status
 	
 	//Get a list of players on the server with their kills and connection time
 	function get_server_players($host, $port)
-	{		
+	{	
 		//Open a socket to the server
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str, $this->timeout);
 		socket_set_timeout($socket, $this->timeout);
 		
 		//Send the Challenge command
-		$command = "\xFF\xFF\xFF\xFF\x57";
+		$command = "\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF";
 		fwrite($socket, $command);
 		
 		//Discard the junk from the response and read the challenge number
@@ -78,22 +78,28 @@ class Source_status
 		
 		$players = array();
 		if(ord(substr($response, 0, 1)) == 0){
+			$i = 1;
 			while($response !== false){
-				$id = $this->get_byte($response);
+				$id = $i;
+				$this->get_byte($response);
 				
-				$players[$id]['name'] = $this->get_string($response);
-				$players[$id]['kills'] = $this->get_long($response);
-				$players[$id]['time'] = $this->get_float($response);
+				$players[$id]->name = $this->get_string($response);
+				$players[$id]->kills = $this->get_long($response);
+				$this->get_float($response);
+				
+				$i++;
 			}
 		}
 		
-		function sort_by_kills($a, $b)
-		{
-			if($a['kills'] == $b['kills']){ return 0;}
-			if($a['kills'] > $b['kills']){
-				return -1;
-			}else{
-				return 1;
+		if(!function_exists('sort_by_kills')){
+			function sort_by_kills($a, $b)
+			{
+				if($a->kills == $b->kills){ return 0;}
+				if($a->kills > $b->kills){
+					return -1;
+				}else{
+					return 1;
+				}
 			}
 		}
 		

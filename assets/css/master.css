@@ -95,11 +95,11 @@ height:24px;
 width:8px;
 }
 
-#server_status .server .status.up {
+#server_status .server .status.online {
 background-color:#0ca32c;
 }
 
-#server_status .server .status.down {
+#server_status .server .status.offline {
 background-color:#d81717;
 }
 
@@ -118,6 +118,10 @@ float:left;
 padding:3px 5px;
 text-align:right;
 width:40px;
+}
+
+#server_status .server_id{
+display:none;
 }
 
 /******************* Content *******************/

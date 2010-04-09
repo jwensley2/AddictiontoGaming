@@ -30,6 +30,18 @@ class Home extends MY_Controller
 		$this->load->view('templates/footer');
 
 	}
+	
+	function vent()
+	{
+		$this->load->library('servers/ventrilo_status.php');
+		
+		dump($this->ventrilo_status->get_full_server_status('vent30.gameservers.com', '4631'));
+	}
+	
+	function bw()
+	{
+		dump($this->source_status->get_server_players('69.39.236.40', '27015'));
+	}
 }
 
 ?>
