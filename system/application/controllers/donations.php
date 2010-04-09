@@ -63,11 +63,6 @@ class Donations extends MY_Controller {
 			$this->donations_lib->add_donation($email, $txn_id, $amount, $fee);
 		}
 	}
-	
-	function top()
-	{
-		var_dump($this->donations_lib->list_top_donors(5));
-	}
 }
 
 ?>

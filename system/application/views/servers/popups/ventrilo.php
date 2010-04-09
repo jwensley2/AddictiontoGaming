@@ -30,6 +30,7 @@
 	<ul id="channel_list">
 		<li class="channel">
 			<?php echo $hostname ?>
+			<?php if(!$player_list){ $player_list = array(); } ?>
 			<?php
 				foreach($player_list AS &$player){
 			        echo '<ul>';

@@ -145,6 +145,7 @@ class Ventrilo_status
 	
 	private function format_client_array($clients)
 	{
+		if(!is_array($clients)){ return null; }
 		foreach($clients AS $client){
 			$formatted_clients[] = (object) array(
 				'name'		=> $client['NAME'],
