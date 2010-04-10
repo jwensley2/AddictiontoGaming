@@ -14,11 +14,19 @@ padding:8px;
 background-color:#2D303F;
 }
 
-.server_popup .hostname{
-font-weight:bold;
+.server_popup .close{
+float:right;
+cursor:pointer;
 }
+
 .server_popup .status{
 font-weight:bold;
+float:left;
+}
+
+.server_popup .hostname{
+font-weight:bold;
+clear:both;
 }
 
 .server_popup .status.online{

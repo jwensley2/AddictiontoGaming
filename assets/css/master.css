@@ -85,6 +85,10 @@ margin-left:8px;
 width:194px;
 }
 
+#server_status .server.selected{
+background-color:#101620;
+}
+
 #server_status .server:first-child {
 margin-left:0;
 }
