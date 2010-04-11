@@ -192,6 +192,10 @@ text-align:right;
 width:137px;
 }
 
+#donation_progress{
+margin:auto;
+}
+
 #donations #donate_button {
 background-color:#9698a3;
 margin-top:8px;

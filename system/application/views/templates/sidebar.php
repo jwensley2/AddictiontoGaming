@@ -28,6 +28,7 @@
 				<div class="goal">Goal: $<?php echo $goal ?></div>
 			</div>
 			<div class="clear"></div>
+			<img id="donation_progress" src="/assets/images/donation_progress.png" />
 			<div id="donate_button">
 				<a href="/donations">Donate Now</a>
 			</div>

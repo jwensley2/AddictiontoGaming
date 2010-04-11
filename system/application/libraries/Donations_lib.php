@@ -2,6 +2,9 @@
 
 class Donations_lib {
 	
+	protected $sprite_path = './assets/images/donation_progress_sprites.png';
+	protected $donation_progress_path = './assets/images/donation_progress.png';
+	
 	function Donations_lib()
 	{
 		$CI =& get_instance();
@@ -131,9 +134,12 @@ class Donations_lib {
 		$CI->db->where('email', $email);
 		$CI->db->update('donators');
 		
+		//Update the donation progress bar
+		$this->generate_progress_bar();
+		
 		return array(TRUE, "Donation added");
 	}
-	
+
 	function list_top_donors($count = 5)
 	{
 		$CI =& get_instance();
@@ -146,6 +152,59 @@ class Donations_lib {
 		$query = $CI->db->get('donations, donators');
 		
 		return $query->result();
+	}
+
+	function generate_progress_bar()
+	{	
+		$CI =& get_instance();
+		
+		define('END_XPOS', 248); // End X position of the cart on the track
+		define('RATIO', .928813559); // Ration to resize the sprites by
+		//sprite =	array(x, y, w, h)
+		$point1 =	array(0, 0, 282, 31);
+		$point2 =	array(0, 31, 282, 31);
+		$point3 =	array(0, 63, 282, 31);
+		$cart	=	array(0, 94, 51, 43);
+		
+		// Get the total donations for the month and the monthly cost
+		$total = $this->get_total_donations();
+		$cost = $CI->settingsmodel->get_setting('MONTHLY_COST');
+		
+		// Calculate the percentage of the cost that has been donated
+		$percent = round((100 / $cost) * $total);
+		if($percent > 100){ $percent = 100; }
+	
+		// Set the track sprite to use based on percentage completed
+		switch ($percent) {
+			case ($percent >= 100):
+				$track = $point3;
+				break;
+			case ($percent >= 50):
+				$track = $point2;
+				break;
+			default:
+				$track = $point1;
+				break;
+		};
+		
+		// Calculate the position of the cart on the track
+		$cart_xpos = ($percent / 100) * (END_XPOS * RATIO);
+		
+		// Create empty image to copy sprites into and load sprites file
+		$image = imagecreatetruecolor(294 * RATIO, 60 * RATIO);
+		$sprites = imagecreatefrompng($this->sprite_path);
+
+		// Make the background transparent
+		$trans_colour = imagecolorallocatealpha($image, 0, 0, 0, 127);
+		imagefill($image, 0, 0, $trans_colour);
+		
+		// Copy the sprites into the final image
+		imagecopyresampled($image, $sprites, 9, 25, $track[0], $track[1], $track[2] * RATIO, $track[3] * RATIO, $track[2], $track[3]);
+		imagecopyresampled($image, $sprites, $cart_xpos, 5, $cart[0], $cart[1], $cart[2] * RATIO, $cart[3] * RATIO, $cart[2], $cart[3]);
+		
+		imagealphablending($image, false);
+		imagesavealpha($image, true);
+		imagepng($image, $this->donation_progress_path);
 	}
 }
 

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Donations controller to handle donation related pages
+ *
+ * @package default
+ * @author Joseph Wensley
+ */
 class Donations extends MY_Controller {
 	
 	function Donations()
@@ -15,6 +21,12 @@ class Donations extends MY_Controller {
 		$this->header_data['stylesheets'][] = 'donations.css';
 	}
 	
+	/**
+	 * Display the donations page which contains a donation form and list of recent donations and the top donors
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function index()
 	{
 		$content_data['donators'] = $this->donations_lib->get_donor_list();
@@ -25,7 +37,12 @@ class Donations extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 	
-	
+	/**
+	 * Receives and handles PayPal IPN calls using the Paypal_lib
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function ipn()
 	{
 		$to = 'joseph.wensley@gmail.com';
@@ -62,6 +79,17 @@ class Donations extends MY_Controller {
 			$this->donations_lib->add_donor($email, $first_name, $last_name, $ingame_name, $steam_id);
 			$this->donations_lib->add_donation($email, $txn_id, $amount, $fee);
 		}
+	}
+	
+	/**
+	 * Call this page to manually generate the donation progress image
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
+	function generate_image()
+	{
+		$this->donations_lib->generate_progress_bar();
 	}
 }
 
