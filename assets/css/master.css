@@ -180,6 +180,10 @@ font-size:16pt;
 margin-bottom:8px;
 }
 
+#content_left .block .heading a{
+text-decoration: none;
+}
+
 /***** Donations *****/
 #donation_totals .total {
 float:left;
@@ -196,13 +200,13 @@ width:137px;
 margin:auto;
 }
 
-#donations #donate_button {
+#donations_module #donate_button {
 background-color:#9698a3;
 margin-top:8px;
 text-align:center;
 }
 
-#donations #donate_button a {
+#donations_module #donate_button a {
 color:#101620;
 display:block;
 font-size:16pt;
@@ -210,24 +214,30 @@ padding:8px 0;
 text-decoration:none;
 }
 
-#donations #donate_button a:hover {
+#donations_module #donate_button a:hover {
 background-color:#101620;
 color:#FFF;
 }
 
+/***** Player of the Week *****/
+#potw_module .content .heading{
+ font-size:inherit;
+font-weight:bold;
+}
+
 /***** Twitter Feed *****/
-#twitter .tweet +.tweet {
+#twitter_module .tweet +.tweet {
 margin-top:8px;
 }
 
-#twitter .tweet .msg {
+#twitter_module .tweet .msg {
 background-color:#9698a3;
 border:1px solid #FFF;
 color:#101620;
 padding:5px;
 }
 
-#twitter .tweet .date {
+#twitter_module .tweet .date {
 text-align:right;
 }
 
@@ -254,6 +264,17 @@ font-size:8pt;
 
 /***** Form Styles *****/
 form input[type='text'] {
+background-color:#FFF;
+border:3px solid #9698A3;
+font-size:11pt;
+padding:4px;
+}
+
+form input[type='text']:focus {
+background-color:#EEEA89;
+}
+
+form input[type='file'] {
 background-color:#FFF;
 border:3px solid #9698A3;
 font-size:11pt;

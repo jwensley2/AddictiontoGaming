@@ -23,7 +23,7 @@
 						<?php $item->edit_user_info = $this->phpbb_lib->getUserById($item->edit_user_id); ?>
 						<div class="edit_date">
 							Last Edited <?php echo date('M j, Y \a\t g:i a', $item->modified) ?> by 
-							<a class="edit_user" style="color:#<?php echo $item->edit_user_info['user_colour'] ?>" href="<?php echo FORUM_ROOT_PATH.'memberlist.php?mode=viewprofile&u='.$item->edit_user_info['user_id'] ?>">
+							<a class="edit_user" style="color:#<?php echo $item->edit_user_info['user_colour'] ?>" href="<?php echo FORUM_ROOT_PATH.'memberlist.php?mode=viewprofile&amp;u='.$item->edit_user_info['user_id'] ?>">
 								<?php echo $item->edit_user_info['username']?>
 							</a>
 						</div>
@@ -32,7 +32,7 @@
 				<?php $item->user_info = $this->phpbb_lib->getUserById($item->user_id); ?>
 				<div class="date">
 					Posted <?php echo date('M j, Y \a\t g:i a', $item->date) ?> by 
-					<a class="user" style="color:#<?php echo $item->user_info['user_colour'] ?>" href="<?php echo FORUM_ROOT_PATH.'memberlist.php?mode=viewprofile&u='.$item->user_info['user_id'] ?>">
+					<a class="user" style="color:#<?php echo $item->user_info['user_colour'] ?>" href="<?php echo FORUM_ROOT_PATH.'memberlist.php?mode=viewprofile&amp;u='.$item->user_info['user_id'] ?>">
 						<?php echo $item->user_info['username']?>
 					</a>
 					<?php if ($permissions['news']): ?>

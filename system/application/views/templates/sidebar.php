@@ -7,20 +7,23 @@
 					<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
 						<li><a href="/admin/news/submit">Submit News</a></li>
 					<?php endif; ?>
+					<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
+						<li><a href="/admin/potw/submit">Add Player of the Week</a></li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
 	<?php endif ?>
 	
 	<?php
-	$CI =& get_instance();
-	$CI->load->library('Donations_lib');
+		$CI =& get_instance();
+		$CI->load->library('Donations_lib');
 	
-	$goal = $this->settingsmodel->get_setting('MONTHLY_COST');
-	$total = $CI->donations_lib->get_total_donations();
+		$goal = $this->settingsmodel->get_setting('MONTHLY_COST');
+		$total = $CI->donations_lib->get_total_donations();
 	?>
 	
-	<div id="donations" class="block">
+	<div id="donations_module" class="block">
 		<div class="heading cufon">Donations</div>
 		<div class="content">
 			<div id="donation_totals">
@@ -28,12 +31,41 @@
 				<div class="goal">Goal: $<?php echo $goal ?></div>
 			</div>
 			<div class="clear"></div>
-			<img id="donation_progress" src="/assets/images/donation_progress.png" />
+			<img id="donation_progress" src="/assets/images/donation_progress.png" alt="Donation Progress"/>
 			<div id="donate_button">
 				<a href="/donations">Donate Now</a>
 			</div>
 		</div>
 	</div>
+	
+	<?php	
+		$CI =& get_instance();
+		$CI->load->model('potwmodel');
+	
+		$player = $CI->potwmodel->get_current_member();
+	?>
+	<?php if ($player): ?>
+		<div id="potw_module" class="block">
+			<div class="heading cufon">Player of the Week</div>
+			<div class="content">
+				<div class="photo">
+					<img src="/assets/images/potw_pictures/<?php echo $player->id ?>_thumb.jpg"/>
+				</div>
+				<div class="name">
+					<span class="heading">Name:</span> <?php echo $player->name ?>
+				</div>
+				<div class="real_name">
+					<span class="heading">Real Name:</span> <?php echo $player->real_name ?>
+				</div>
+				<?php if ($player->steam_id): ?>
+					<div class="stats">
+						<span class="heading">Stats:</span> <a href="/stats/hlstats.php?mode=search&amp;q=<?php echo $player->steam_id ?>&amp;st=uniqueid&amp;game=">View Stats</a>
+					</div>
+				<?php endif ?>
+				<div class="interview_link"><a href="<?php echo $player->forum_post_url ?>">Read the full interview</a></div>
+			</div>
+		</div>
+	<?php endif ?>
 	
 	<?php
 		$CI =& get_instance();
@@ -45,8 +77,8 @@
 		$CI->twitter_lib->auth($twitter_user, $twitter_pass);
 		$timeline = $CI->twitter_lib->user_timeline(3);
 	?>
-	<div id="twitter" class="block">
-		<div class="heading cufon">Twitter Feed</div>
+	<div id="twitter_module" class="block">
+		<div class="heading cufon"><a href="http://twitter.com/<?php echo $twitter_user ?>">Twitter Feed</a></div>
 		<div class="content">
 			<?php foreach ($timeline as $tweet): ?>
 				<div class="tweet">

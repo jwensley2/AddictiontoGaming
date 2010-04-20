@@ -13,6 +13,29 @@ $config = array(
 			'rules' => 'trim|required|max_length[5000]|xss_clean',
 		),
 	),
+	
+	'potw' => array(
+		array(
+			'field' => 'name',
+			'label' => 'Name',
+			'rules' => 'trim|required|max_length[100]|xss_clean',
+		),
+		array(
+			'field' => 'real_name',
+			'label' => 'Real Name',
+			'rules' => 'trim|required|max_length[100]|xss_clean',
+		),
+		array(
+			'field' => 'steam_id',
+			'label' => 'Steam ID',
+			'rules' => 'trim|max_length[30]|callback__steam_id_check|xss_clean',
+		),
+		array(
+			'field' => 'start_date',
+			'label' => 'Start Date',
+			'rules' => 'trim|max_length[10]|valid_date|xss_clean',
+		),
+	),
 );
 
 ?>

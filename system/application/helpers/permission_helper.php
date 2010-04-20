@@ -9,7 +9,7 @@ function permission($allowed_groups = array())
 		//Get the groups that the user belongs to
 		$user_groups = $CI->phpbb_lib->getUserGroupMembership();
 		
-		if($CI->phpbb_lib->isGroupMember('founder')){
+		if($CI->phpbb_lib->isGroupMember('Founder')){
 			return true;
 		}else{
 			foreach($allowed_groups as $allowed_group){

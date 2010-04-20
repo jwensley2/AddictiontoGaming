@@ -40,7 +40,7 @@
 				<table>
 					<tr>
 						<td style="display:none">
-							<input type="hidden" name="cmd" value=" _donations" / >
+							<input type="hidden" name="cmd" value=" _donations" />
 							<input type="hidden" name="business" value="addictiontogaming@gmail.com" />
 							<input type="hidden" name="item_name" value="Donation" />
 							<input type="hidden" name="on0" value="SteamID" />
@@ -52,15 +52,15 @@
 						<td><input type="text" name="amount" value="5.00" /></td>
 					</tr>
 					<tr>
-						<th>SteamID:</td>
+						<th>SteamID:</th>
 						<td><input type="text" name="os0"/> <span class="small">(e.g. STEAM_0:0:3883133)</span></td>
 					</tr>
 					<tr>
-						<th>Ingame Name:</td>
+						<th>Ingame Name:</th>
 						<td><input type="text" name="os1"/> <span class="small">(e.g. [ATG] Joe)</span></td>
 						</tr>
 					<tr>
-						<td colspan="2" align="center"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"></td>
+						<td colspan="2" align="center"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" /></td>
 					</tr>
 				</table>
 			</form>
