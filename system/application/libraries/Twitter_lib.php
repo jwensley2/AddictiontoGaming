@@ -61,7 +61,7 @@ class Twitter_lib
 				$relative = "1 hour ago";
 				break;
 			case ($diff < 86400):
-				$relative = round($diff / 3600) == 1 ? "1 hour ago" : round($diff / 60)." hours ago";
+				$relative = round($diff / 3600) == 1 ? "1 hour ago" : round($diff / 3600)." hours ago";
 				break;
 			case ($diff < 604800):
 				$relative = round($diff / 86400) == 1 ? "1 day ago" : round($diff / 86400)." days ago";
