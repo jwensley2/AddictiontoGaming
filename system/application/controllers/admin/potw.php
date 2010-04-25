@@ -31,6 +31,7 @@ class Potw extends MY_Controller
 		//$this->settingsmodel->set_setting_array('ADMIN_PANEL_PERMISSIONS', array('Founder', 'Manager', 'Community Team'));
 		
 		$motw_permissions = $this->settingsmodel->get_setting_array('POTW_PERMISSIONS');
+		$data['upcoming_players'] = $this->potwmodel->get_upcoming_players();
 		if(permission($motw_permissions)){
 			$this->load->view('templates/header', $this->header_data);
 			$this->load->view('/admin/potw/submit.php', $data);

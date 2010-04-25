@@ -21,11 +21,23 @@
 
 
 	<div id="content_right">
-		<div id="page_title" class="block cufon">MotW Administration - Add Member</div>
+		<div id="page_title" class="block cufon">PotW Administration - Add Player</div>
 		
 		<?php echo validation_errors('<div class="block validation_error">', '</div>'); ?>
 		
 		<div class="block">
+			<div class="title">Upcoming Players</div>
+			<?php if ($upcoming_players): ?>
+				<?php foreach ($upcoming_players AS $player): ?>
+					<?php echo date('M d, Y', $player->start_date) ?> - <?php echo $player->name ?>
+				<?php endforeach ?>
+			<?php else: ?>
+				There are no upcoming Players of the Week
+			<?php endif ?>
+		</div>
+		
+		<div class="block">
+			<div class="title">Add a new Player</div>
 			<?php echo form_open_multipart('/admin/potw/submit_process/', array('id' => 'motw_form')) ?>
 				<div class="row">
 					<div class="heading">Photo</div>

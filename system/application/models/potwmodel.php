@@ -45,6 +45,12 @@ class Potwmodel extends Model
 		return $query->row();
 	}
 	
+	/**
+	 * Check to see if there is a new player of the week to display and set them to motw if there is.
+	 *
+	 * @return bool Returns TRUE if it changes the motw or FALSE if it doesn't
+	 * @author Joseph Wensley
+	 */
 	function set_current_member()
 	{
 		$now = time();
@@ -69,6 +75,31 @@ class Potwmodel extends Model
 		return FALSE;
 	}
 	
+	/**
+	 * Retrieves a list of upcoming potw from the db
+	 *
+	 * @return object
+	 * @author Joseph Wensley
+	 */
+	function get_upcoming_players()
+	{
+		$now = time();
+		
+		$this->db->select('name, UNIX_TIMESTAMP(start_date) as start_date');
+		$this->db->where("`start_date` > FROM_UNIXTIME($now)", NULL, FALSE);
+		$query = $this->db->get('players_of_the_week');
+		
+		return $query->result();
+	}
+	
+	/**
+	 * Sets the post_url of a member in the database
+	 *
+	 * @param string $member_id 
+	 * @param string $post_url 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function set_post_url($member_id, $post_url)
 	{
 		$this->db->where('id', $member_id);
