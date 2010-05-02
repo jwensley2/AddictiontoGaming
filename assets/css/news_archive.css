@@ -1,4 +1,14 @@
-/***** News *****/
+/***** News Months List *****/
+ul#archive_months li + li{
+margin-top:8px;
+}
+
+#archive_months a{
+	font-size: 14pt;
+	text-decoration:none;
+}
+
+/***** News Posts *****/
 .news_item .title {
 font-size:16pt;
 font-weight:bold;

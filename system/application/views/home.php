@@ -14,9 +14,13 @@
 		
 		<div id="page_title" class="block cufon">News and Announcements</div>
 		
+		<a class="block link cufon" href="/news/archive">
+			&raquo; View News Archive
+		</a>
+		
 		<?php foreach ($news as $item): ?>
 			<div class="block news_item">
-				<div class="title"><?php echo $item->title ?></div>
+				<div class="title cufon"><?php echo $item->title ?></div>
 				<div class="content">
 					<?php echo $item->content ?>
 					<?php if ($item->date !== $item->modified): ?>
@@ -42,6 +46,10 @@
 				</div>
 			</div>
 		<?php endforeach ?>
+		
+			<a class="block link cufon" href="/news/archive">
+				&raquo; View News Archive
+			</a>
 	</div>
 	<div class="clear"></div>
 </div>

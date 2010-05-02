@@ -146,9 +146,26 @@ padding:12px;
 width:466px;
 }
 
+
 #content_right .block + .block {
 margin-top:16px;
 }
+
+#content_right .block.error {
+background-color:#991B29;
+font-size:11pt;
+}
+
+#content_right .block.link{
+font-size:14pt;
+display:block;
+text-decoration:none;
+}
+#content_right .block.link:hover{
+background-color:#101620;
+}
+
+
 
 #content_right .block .title {
 font-size:16pt;
@@ -157,6 +174,7 @@ margin-bottom:16px;
 
 #page_title {
 font-size:18pt;
+font-weight:bold;
 }
 
 /******************* Sidebar *******************/
