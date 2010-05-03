@@ -29,8 +29,10 @@ class Donations extends MY_Controller {
 	 */
 	function index()
 	{
-		$content_data['donators'] = $this->donations_lib->get_donor_list();
-		$content_data['top_donors'] = $this->donations_lib->list_top_donors(5);
+		$this->header_data['title'] = 'Make a Donation';
+		
+		$content_data['donators'] = $this->donations_lib->get_donation_list();
+		$content_data['top_donors'] = $this->donations_lib->list_top_donors(10);
 		
 		$this->load->view('templates/header', $this->header_data);
 		$this->load->view('donations/donations', $content_data);

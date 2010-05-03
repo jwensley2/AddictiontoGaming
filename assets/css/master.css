@@ -85,7 +85,7 @@ margin-left:8px;
 width:194px;
 }
 
-#server_status .server.selected{
+#server_status .server.selected {
 background-color:#101620;
 }
 
@@ -124,7 +124,7 @@ text-align:right;
 width:40px;
 }
 
-#server_status .server_id{
+#server_status .server_id {
 display:none;
 }
 
@@ -146,7 +146,6 @@ padding:12px;
 width:466px;
 }
 
-
 #content_right .block + .block {
 margin-top:16px;
 }
@@ -156,25 +155,32 @@ background-color:#991B29;
 font-size:11pt;
 }
 
-#content_right .block.link{
-font-size:14pt;
+#content_right .block.link {
 display:block;
+font-size:14pt;
 text-decoration:none;
 }
-#content_right .block.link:hover{
+
+#content_right .block.link:hover {
 background-color:#101620;
 }
 
-
-
 #content_right .block .title {
 font-size:16pt;
-margin-bottom:16px;
+margin-bottom: 4px;
+}
+
+#content_right .block * + .title {
+margin-top:16px;
+}
+
+#content_right .block .title.cufon{
+font-weight:bold;
 }
 
 #page_title {
 font-size:18pt;
-font-weight:bold;
+font-weight:700;
 }
 
 /******************* Sidebar *******************/
@@ -198,8 +204,8 @@ font-size:16pt;
 margin-bottom:8px;
 }
 
-#content_left .block .heading a{
-text-decoration: none;
+#content_left .block .heading a {
+text-decoration:none;
 }
 
 /***** Donations *****/
@@ -214,7 +220,7 @@ text-align:right;
 width:137px;
 }
 
-#donation_progress{
+#donation_progress {
 margin:auto;
 }
 
@@ -238,9 +244,9 @@ color:#FFF;
 }
 
 /***** Player of the Week *****/
-#potw_module .content .heading{
- font-size:inherit;
-font-weight:bold;
+#potw_module .content .heading {
+font-size:inherit;
+font-weight:700;
 }
 
 /***** Twitter Feed *****/
@@ -249,10 +255,14 @@ margin-top:8px;
 }
 
 #twitter_module .tweet .msg {
+word-wrap: break-word;
+text-align: left;
 background-color:#9698a3;
 border:1px solid #FFF;
 color:#101620;
+overflow:hidden;
 padding:5px;
+width:262px;
 }
 
 #twitter_module .tweet .date {

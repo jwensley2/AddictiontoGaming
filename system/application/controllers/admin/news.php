@@ -19,10 +19,7 @@ class News extends MY_Controller
 	}
 	
 	function edit($news_id)
-	{	
-		//$this->settingsmodel->set_setting_array('NEWS_PERMISSIONS', array('Founder', 'Manager', 'Community Team'));
-		//$this->settingsmodel->set_setting_array('ADMIN_PANEL_PERMISSIONS', array('Founder', 'Manager', 'Community Team'));
-		
+	{
 		$news_permissions = $this->settingsmodel->get_setting_array('NEWS_PERMISSIONS');
 		if(permission($news_permissions) && $news_id){
 			$data['news'] = $this->newsmodel->get_news_item($news_id);

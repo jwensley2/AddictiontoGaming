@@ -22,6 +22,7 @@ class Home extends MY_Controller
 		//$this->settingsmodel->set_setting_array('NEWS_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
 		//$this->settingsmodel->set_setting_array('MOTW_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
 		//$this->settingsmodel->set_setting_array('ADMIN_PANEL_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
+		$this->settingsmodel->set_setting_array('DONOR_LIST_PERMISSIONS', array('Founder', 'Managers'));
 		
 		$data['news'] = $this->newsmodel->get_latest_news();
 		$data['permissions']['news'] = permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'));

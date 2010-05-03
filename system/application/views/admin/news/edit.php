@@ -26,7 +26,7 @@
 
 
 	<div id="content_right">
-		<div id="page_title" class="block cufon">News Administration</div>
+		<div id="page_title" class="block cufon">Admin - News - Edit News</div>
 		
 		<?php echo validation_errors('<div class="block validation_error">', '</div>'); ?>
 		

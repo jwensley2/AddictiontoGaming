@@ -5,10 +5,13 @@
 			<div class="content">
 				<ul>
 					<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
-						<li><a href="/admin/news/submit">Submit News</a></li>
+						<li>&raquo; <a href="/admin/news/submit">Submit News</a></li>
 					<?php endif; ?>
 					<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
-						<li><a href="/admin/potw/submit">Add Player of the Week</a></li>
+						<li>&raquo; <a href="/admin/potw/submit">Add Player of the Week</a></li>
+					<?php endif; ?>
+					<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
+						<li>&raquo; <a href="/admin/donations/donors">Donor List</a></li>
 					<?php endif; ?>
 				</ul>
 			</div>

@@ -15,19 +15,21 @@ class Donations_lib {
 	
 	function get_billing_start_date()
 	{
-		if(date('j') >= $this->billing_day){
-			return date('Y-m-12 0:0:0');
+		$billing_day =& $this->billing_day;
+		if(date('j') >= $billing_day){
+			return mktime(0,0,0,date('m'),$billing_day,date('Y'));
 		}else{
-			return date('Y-m-12 0:0:0',mktime(0,0,0,date('m')-1,12,date('Y')));
+			return mktime(0,0,0,date('m')-1,$billing_day,date('Y'));
 		}
 	}
 
 	function get_billing_end_date()
 	{
-		if(date('j') < $this->billing_day){
-			return date('Y-m-12 0:0:0');
+		$billing_day =& $this->billing_day;
+		if(date('j') < $billing_day){
+			return mktime(0,0,0,date('m'),$billing_day,date('Y'));
 		}else{
-			return date('Y-m-12 0:0:0',mktime(0,0,0,date('m')+1,12,date('Y')));
+			return mktime(0,0,0,date('m')+1,$billing_day,date('Y'));
 		}
 	}
 
@@ -39,7 +41,7 @@ class Donations_lib {
 		if(!$end_date){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('SUM(amount) AS amount');
-		$CI->db->where("donations.date BETWEEN '$start_date' AND '$end_date'");
+		$CI->db->where("donations.date BETWEEN FROM_UNIXTIME('$start_date') AND FROM_UNIXTIME('$end_date')");
 		$query = $CI->db->get('donations');
 		
 		$amount = $query->row()->amount;
@@ -49,7 +51,7 @@ class Donations_lib {
 		return $amount;
 	}
 	
-	function get_donor_list($start_date = null, $end_date = null)
+	function get_donation_list($start_date = null, $end_date = null)
 	{
 		$CI =& get_instance();
 		
@@ -58,8 +60,21 @@ class Donations_lib {
 		
 		$CI->db->select('donators.*, donations.*');
 		$CI->db->where('donators.email = donations.donator_email');
-		$CI->db->where("donations.date BETWEEN '$start_date' AND '$end_date'");
+		$CI->db->where("donations.date BETWEEN FROM_UNIXTIME('$start_date') AND FROM_UNIXTIME('$end_date')", null, FALSE);
 		$CI->db->order_by('donations.date');
+		$query = $CI->db->get('donations, donators');
+		
+		return $query->result();
+	}
+	
+	function get_donor_list()
+	{
+		$CI =& get_instance();
+		
+		$CI->db->select('*, UNIX_TIMESTAMP(expire_date) as expire_date, SUM(amount) AS total');
+		$CI->db->group_by('donators.email');
+		$CI->db->where('donations.donator_email = donators.email');
+		$CI->db->order_by('expire_date', 'desc');
 		$query = $CI->db->get('donations, donators');
 		
 		return $query->result();
@@ -100,6 +115,7 @@ class Donations_lib {
 		$CI->db->set('donator_email', $email);
 		$CI->db->insert('donations');
 		
+/*
 		$donationtimes = array(
 			5 => 1,
 			10 => 2,
@@ -112,17 +128,22 @@ class Donations_lib {
 			45 => 13,
 			50 => 14,
 		);
+*/
 		
 		$CI->db->select('UNIX_TIMESTAMP(expire_date) AS expire_date');
 		$query = $CI->db->get_where('donators', array('email' => $email));
 		$row = $query->row();
 		$expire_date = $row->expire_date;
 		
+/*
 		foreach($donationtimes as $amnt => $months){
 			if($amount >= $amnt){
 				$expire_in_months = $months;
 			}
 		}
+*/
+		
+		$months = floor($amnt / 5);
 		
 		if($expire_date < time() OR !$expire_date){
 			$expire_date = mktime(0, 0, 0, date('n', time()) + $expire_in_months, date('j', time()), date('Y', time()));

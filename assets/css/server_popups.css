@@ -1,110 +1,106 @@
-#server_popup_holder{
-position:absolute;
-z-index:1;
-left:20px;
-top:20px;
+#server_popup_holder {
 display:none;
-width: 300px;
+left:20px;
+position:absolute;
+top:20px;
+width:300px;
+z-index:1;
 }
 
-
-.server_popup{
-border:1px solid white;
-padding:8px;
+.server_popup {
 background-color:#2D303F;
+border:1px solid #FFF;
+padding:8px;
 }
 
-.server_popup .close{
-float:right;
+.server_popup .close {
 cursor:pointer;
+float:right;
 }
 
-.server_popup .status{
-font-weight:bold;
+.server_popup .status {
 float:left;
+font-weight:700;
 }
 
-.server_popup .hostname{
-font-weight:bold;
+.server_popup .hostname {
 clear:both;
+font-weight:700;
 }
 
-.server_popup .status.online{
+.server_popup .status.online {
 color:green;
 }
-.server_popup .status.offline{
+
+.server_popup .status.offline {
 color:red;
 }
-.server_popup .status.unknown{
-color:#FFFF00;
+
+.server_popup .status.unknown {
+color:#FF0;
 }
+
 /***** Ventrilo Popup *****/
-
-#channel_list{
-border:1px solid white;
+#channel_list {
 background-color:#9698A3;
+border:1px solid #FFF;
 color:#101620;
-padding:8px;
 margin-top:10px;
+padding:8px;
 }
 
-#channel_list li.channel{
-list-style: square url(/assets/images/channelopen.png) inside;
-font-weight:bold;
+#channel_list li.channel {
+font-weight:700;
+list-style:square url(/assets/images/channelopen.png) inside;
 }
 
-#channel_list .channel li{
-margin-left: 25px;
+#channel_list .channel li {
+margin-left:25px;
 }
 
-#channel_list .channel .player{
-list-style: circle url(/assets/images/voiceoff.png) inside;
-font-weight:normal;
+#channel_list .channel .player {
+font-weight:400;
+list-style:circle url(/assets/images/voiceoff.png) inside;
 }
 
 /***** Source Popup *****/
-
-table#player_list{
-border:1px solid white;
+table#player_list {
 background-color:#9698A3;
+border:1px solid #FFF;
 color:#101620;
+margin-top:10px;
 padding:8px;
 width:100%;
-margin-top:10px;
 }
 
-div#player_list{
-border:1px solid white;
+div#player_list {
 background-color:#9698A3;
+border:1px solid #FFF;
 color:#101620;
-padding:8px;
 margin-top:10px;
+padding:8px;
 }
 
-#player_list .headings{
-border-bottom: 1px solid black;
+#player_list .headings {
+border-bottom:1px solid #000;
 }
 
-#player_list th{
-font-weight:bold;
+#player_list th {
+font-weight:700;
 }
 
-#player_list .color1{
+#player_list .color1 {
 background-color:#AAACB8;
 }
 
-#player_list td,#player_list th{
+#player_list td,#player_list th {
 padding:2px 4px;
-} 
+}
 
-#player_list .name{
+#player_list .name {
 width:250px;
 }
 
-#player_list .kills{
+#player_list .kills {
 text-align:right;
-}
-/***** Other Popup *****/
-#other_popup{
-	#
 }

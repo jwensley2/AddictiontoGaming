@@ -14,7 +14,7 @@ class Potw extends MY_Controller
 		
 		//Set header data
 		$this->header_data['stylesheets'][]	= 'admin/potw.css';
-		$this->header_data['title']			= 'Player of the Week Administration';
+		$this->header_data['title']			= 'Administration '.SEP.' Player of the Week';
 		$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
 		$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js';
 	}

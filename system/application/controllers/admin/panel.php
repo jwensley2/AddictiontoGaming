@@ -13,9 +13,7 @@ class Panel extends MY_Controller
 		$this->load->model(array('serversmodel', 'newsmodel'));
 		//Set header data
 		$this->header_data['stylesheets'][]	= 'admin/news.css';
-		$this->header_data['title']			= 'News Administration';
-		$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
-		$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js'; 
+		$this->header_data['title']			= 'Administration Panel';
 	}
 	
 	function index()
@@ -25,7 +23,9 @@ class Panel extends MY_Controller
 		
 		$admin_permissions = $this->settingsmodel->get_setting_array('ADMIN_PANEL_PERMISSIONS');
 		if(permission($admin_permissions)){
-			echo "Admin panel";
+			$this->load->view('templates/header', $this->header_data);
+			$this->load->view('admin/panel');
+			$this->load->view('templates/footer');
 		}else{
 			redirect($this->last_page);
 		}

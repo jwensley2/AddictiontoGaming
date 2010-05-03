@@ -5,10 +5,13 @@
 			<div class="content">
 				<ul>
 					<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
-						<li><a href="/admin/news/submit">Submit News</a></li>
+						<li>&raquo; <a href="/admin/news/submit">Submit News</a></li>
 					<?php endif; ?>
 					<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
-						<li><a href="/admin/potw/submit">Add Player of the Week</a></li>
+						<li>&raquo; <a href="/admin/potw/submit">Add Player of the Week</a></li>
+					<?php endif; ?>
+					<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
+						<li>&raquo; <a href="/admin/donations/donors">Donor List</a></li>
 					<?php endif; ?>
 				</ul>
 			</div>
@@ -62,7 +65,7 @@
 						<span class="heading">Stats:</span> <a href="/stats/hlstats.php?mode=search&amp;q=<?php echo $player->steam_id ?>&amp;st=uniqueid&amp;game=">View Stats</a>
 					</div>
 				<?php endif ?>
-				<div class="interview_link"><a href="<?php echo $player->forum_post_url ?>">Read the full interview</a></div>
+				<div class="interview_link"><a href="<?php echo $player->forum_post_url ?>">&raquo; Read the full interview</a></div>
 			</div>
 		</div>
 	<?php endif ?>
@@ -82,7 +85,7 @@
 		<div class="content">
 			<?php foreach ($timeline as $tweet): ?>
 				<div class="tweet">
-					<div class="msg"><?php echo auto_link(xss_clean($tweet->text)) ?></div>
+					<div class="msg"><?php echo auto_link(xss_clean($tweet->text), 'both', TRUE) ?></div>
 					<div class="date"><?php echo $CI->twitter_lib->relative_time($tweet->created_at) ?></div>
 				</div>
 			<?php endforeach ?>

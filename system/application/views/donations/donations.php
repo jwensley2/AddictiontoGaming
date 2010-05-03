@@ -31,7 +31,7 @@
 		
 		<div id="page_title" class="block cufon">Donations</div>
 		<div class="block">
-			<div class="title">Make a Donation</div>
+			<div class="title cufon">Make a Donation</div>
 			<p>
 				If you wish to make a donation you can do so using the form below.
 				<br />If you are not a Steam user you may enter STEAM_0:0:0 in the Steam ID field
@@ -67,7 +67,7 @@
 		</div>
 		
 		<div class="block">
-			<div class="title">This months donations</div>
+			<div class="title cufon">This months donations</div>
 			<table id="donation_list">
 				<tr class="headings">
 					<th class="name">Name</th>
@@ -89,7 +89,7 @@
 		</div>
 		
 		<div class="block">
-			<div class="title">Top 5 Donors</div>
+			<div class="title cufon">Top 10 Donors</div>
 			<table id="top_donors">
 				<?php foreach ($top_donors as $key => $donator): ?>
 					<tr class="<?php echo alternator('color1', 'color2') ?>">

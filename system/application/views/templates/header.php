@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<?php if (isset($title)): ?>
-			<title>[ATG] Addiction to Gaming - <?php echo $title ?></title>
+			<title>[ATG] Addiction to Gaming <?php echo SEP ?> <?php echo $title ?></title>
 		<?php else: ?>
 			<title>[ATG] Addiction to Gaming</title>
 		<?php endif ?>
