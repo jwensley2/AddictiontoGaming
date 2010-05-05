@@ -80,6 +80,12 @@ class Donations extends MY_Controller {
 			
 			$this->donations_lib->add_donor($email, $first_name, $last_name, $ingame_name, $steam_id);
 			$this->donations_lib->add_donation($email, $txn_id, $amount, $fee);
+			
+			$steam_id_pattern = "/^STEAM_[0-9]:[0-9]:[0-9]+$/";
+			if(preg_match($steam_id_pattern, $steam_id) && isset($ingame_name)){
+				$this->load->model('sourcebansmodel');
+				$this->sourcebansmodel->add_donor($ingame_name, $steam_id, $email);
+			}
 		}
 	}
 	
