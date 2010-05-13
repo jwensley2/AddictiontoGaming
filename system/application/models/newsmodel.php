@@ -76,7 +76,7 @@ class Newsmodel extends Model
 	{			
 		$data['title']			= $this->input->post('title');
 		$data['content']		= $this->input->post('content');
-		$data['edit_user_id']	= $this->phpbb->getUserInfo('user_id');
+		$data['edit_user_id']	= $this->phpbb_lib->getUserInfo('user_id');
 		$this->db->set('modified', 'FROM_UNIXTIME('.time().')', FALSE);
 		$this->db->where('id', $id);
 		$this->db->update('news', $data);
@@ -92,7 +92,7 @@ class Newsmodel extends Model
 	{			
 		$data['title']		= $this->input->post('title');
 		$data['content']	= $this->input->post('content');
-		$data['user_id']	= $this->phpbb->getUserInfo('user_id');
+		$data['user_id']	= $this->phpbb_lib->getUserInfo('user_id');
 		$this->db->set('date', 'FROM_UNIXTIME('.time().')', FALSE);
 		$this->db->set('modified', 'FROM_UNIXTIME('.time().')', FALSE);
 		$this->db->insert('news', $data);

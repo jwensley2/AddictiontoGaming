@@ -50,6 +50,7 @@ class News extends MY_Controller
 	
 	function delete($news_id)
 	{
+		$news_permissions = $this->settingsmodel->get_setting_array('NEWS_PERMISSIONS');
 		if(permission($news_permissions)){
 			$this->newsmodel->delete_news_item($news_id);
 			redirect('/');
