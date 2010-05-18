@@ -48,11 +48,18 @@
 		$player = $CI->potwmodel->get_current_member();
 	?>
 	<?php if ($player): ?>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function(){
+				$('#potw_module .photo a').colorbox();
+			})
+		</script>
 		<div id="potw_module" class="block">
 			<div class="heading cufon">Player of the Week</div>
 			<div class="content">
 				<div class="photo">
-					<img src="/assets/images/potw_pictures/<?php echo $player->id ?>_thumb.jpg"/>
+					<a href="/assets/images/potw_pictures/<?php echo $player->id ?>_full.jpg">
+						<img src="/assets/images/potw_pictures/<?php echo $player->id ?>_thumb.jpg"/>
+					</a>
 				</div>
 				<div class="name">
 					<span class="heading">Name:</span> <?php echo $player->name ?>

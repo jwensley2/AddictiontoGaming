@@ -11,6 +11,7 @@
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" media="screen" charset="utf-8" />
 		<link rel="stylesheet" href="/assets/css/master.css" type="text/css" media="screen" charset="utf-8" />
+		<link rel="stylesheet" href="/assets/colorbox/colorbox.css" type="text/css" media="screen" charset="utf-8" />
 		<link rel="stylesheet" href="/assets/css/server_popups.css" type="text/css" media="screen" charset="utf-8" />
 		<link rel="stylesheet" href="/assets/css/custom-theme/jquery-ui.css" type="text/css" media="screen" charset="utf-8" />
 		<?php if (isset($stylesheets)): ?>
@@ -22,6 +23,7 @@
 		<!-- Scripts -->
 		<script src="/assets/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/jquery-ui-1.8.custom.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/assets/colorbox/jquery.colorbox-min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/cufon.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/MyriadPro.font.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/assets/js/server_popups.js" type="text/javascript" charset="utf-8"></script>
