@@ -101,6 +101,8 @@ padding:2px 4px;
 width:250px;
 }
 
+#source_popup .connecting { color: red;}
+
 #player_list .kills {
 text-align:right;
 }

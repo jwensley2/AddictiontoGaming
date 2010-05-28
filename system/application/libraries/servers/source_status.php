@@ -39,7 +39,7 @@ class Source_status
 
 		if(!empty($response)){
 			$server_info['hostname'] 	= $this->get_string($response);
-			$server_info['map'] 		= $this->get_string($response);
+			$server_info['mapname'] 		= $this->get_string($response);
 			$this->get_string($response);
 			$this->get_string($response);
 			$this->get_short_unsigned($response);

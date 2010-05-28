@@ -3,6 +3,7 @@
 	<div class="status <?php echo status_to_class($status) ?>"><?php echo status_to_word($status) ?></div>
 	<div class="hostname"><?php echo $hostname ?></div>
 	<div class="ip"><?php echo $ip ?>:<?php echo $port ?></div>
+	<div class="mapname">Map: <?php echo $mapname ?></div>
 	<div>Players: <?php echo $players ?> / <?php echo $max_players ?></div>
 	<?php if ($player_list): ?>
 		<table id="player_list">
@@ -13,7 +14,11 @@
 			<?php foreach ($player_list AS $player): ?>
 				<?php $color = alternator('color1', 'color2') ?>
 				<tr class="<?php echo $color ?>">
-					<td class="name"><?php echo $player->name ?></td>
+					<?php if (!empty($player->name)): ?>
+						<td class="name"><?php echo $player->name ?></td>
+					<?php else: ?>
+						<td class="name connecting">Connecting</td>
+					<?php endif ?>
 					<td class="kills"><?php echo $player->kills ?></td>
 				</tr>
 			<?php endforeach ?>

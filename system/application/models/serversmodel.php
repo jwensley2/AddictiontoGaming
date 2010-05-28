@@ -131,8 +131,8 @@ class Serversmodel extends Model
 			$this->db->where('id', $server->id);
 			$this->db->update('servers', $data);
 			
+			$this->db->delete('players', array('server_id' => $server->id));
 			if($server->player_list){
-				$this->db->delete('players', array('server_id' => $server->id));
 				foreach($server->player_list AS $player){
 					$player->server_id = $server->id;
 					$this->db->insert('players', $player);	
@@ -158,6 +158,8 @@ class Serversmodel extends Model
 				$server->hostname		= $server_info['hostname'];
 				$server->players		= $server_info['players'];
 				$server->max_players	= $server_info['max_players'];
+				$server->mapname		= $server_info['mapname'];
+				
 			}else{
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
 				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', false);
