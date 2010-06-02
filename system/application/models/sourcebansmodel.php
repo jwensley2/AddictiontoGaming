@@ -36,6 +36,8 @@ class Sourcebansmodel extends Model
 		if($query->num_rows() == 0){
 			$password = $this->hash_password('donor');
 
+
+			// Create an account for the donor
 			$this->sm_db->set('user', $username);
 			$this->sm_db->set('authid', $steam_id);
 			$this->sm_db->set('email', $email);
@@ -45,6 +47,16 @@ class Sourcebansmodel extends Model
 			$this->sm_db->set('validate', 0);
 
 			$this->sm_db->insert('sb_admins');
+			
+			$admin_id = $this->sm_db->insert_id();
+			
+			// Set access to the "All Servers" (id #2) group
+			$this->sm_db->set('admin_id', $admin_id);
+			$this->sm_db->set('group_id', 4);
+			$this->sm_db->set('srv_group_id', 2);
+			$this->sm_db->set('server_id', -1);
+			
+			$this->sm_db->insert('sb_admins_servers_groups');
 			
 			// SEND AN EMAIL SAYING THE USER WAS AUTOMATICALLY ADDED
 			$this->load->helper('email');
