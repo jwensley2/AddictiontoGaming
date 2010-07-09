@@ -14,6 +14,10 @@
 		
 		<div id="page_title" class="block cufon">Admin - Servers - Server List</div>
 		
+		<a class="block link cufon" href="/admin/servers/add">
+			&raquo; Add a Server
+		</a>
+		
 		<div class="block">
 			<table id="server_list" border="0" cellspacing="0" cellpadding="0">
 				<tr class="headings1">

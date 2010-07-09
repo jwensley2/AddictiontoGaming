@@ -39,6 +39,11 @@ $config = array(
 	
 	'server' => array(
 		array(
+			'field' => 'name',
+			'label' => 'Name',
+			'rules' => 'trim|required|xss_clean',
+		),
+		array(
 			'field' => 'ip',
 			'label' => 'IP',
 			'rules' => 'trim|required|valid_ip',

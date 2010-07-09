@@ -14,6 +14,12 @@ class Serversmodel extends Model
 		$this->load->library(array('servers/source_status', 'servers/ventrilo_status'));
 	}
 	
+	/**
+	 * Get a list of the servers without grabbing live data
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function quick_list_servers()
 	{
 		$this->db->order_by('game, ip, port');
@@ -22,12 +28,47 @@ class Serversmodel extends Model
 		return $query->result();
 	}
 	
+	function add_server()
+	{
+		$data['name']	= $this->input->post('name');
+		$data['ip']		= $this->input->post('ip');
+		$data['port']	= $this->input->post('port');
+		$data['game']	= $this->input->post('game');
+		
+		$this->db->insert('servers', $data);
+	}
+	
+	function edit_server($id)
+	{
+		$data['name']	= $this->input->post('name');
+		$data['ip']		= $this->input->post('ip');
+		$data['port']	= $this->input->post('port');
+		$data['game']	= $this->input->post('game');
+		
+		$this->db->where('id', $id);
+		$this->db->update('servers', $data);
+	}
+	
+	/**
+	 * Delete a server from the DB
+	 *
+	 * @param string $id 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function delete_server($id)
 	{
 		$this->db->where('id', $id);
 		$this->db->delete('servers');
 	}
 	
+	/**
+	 * List servers and grab live data if the server info is out of date
+	 *
+	 * @param string $order 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function list_servers($order = null)
 	{
 		if(!$order){
@@ -74,7 +115,13 @@ class Serversmodel extends Model
 		return $servers;
 	}
 	
-	
+	/**
+	 * Get the info for a specific server and update it with live data if needed
+	 *
+	 * @param string $server_id 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function get_server_info($server_id)
 	{
 		$this->db->select('*, UNIX_TIMESTAMP(updated) AS updated, UNIX_TIMESTAMP(full_updated) AS full_updated');
@@ -111,7 +158,13 @@ class Serversmodel extends Model
 		return $server_info;
 	}
 	
-	//Get the status of a source server and update the database
+	/**
+	 * Get the status of a Source server and update the DB
+	 *
+	 * @param string $server 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	private function get_source_server_status(&$server){
 		if($server->full_updated < (time() - $this->full_update_delay)){
 			
@@ -189,7 +242,13 @@ class Serversmodel extends Model
 		}
 	}
 	
-	//Get the status of a ventrilo server and update the database
+	/**
+	 * Get the status of a Ventrilo server and update the Database
+	 *
+	 * @param string $server 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	private function get_ventrilo_server_status(&$server)
 	{
 		$server->channels = unserialize($server->channels);

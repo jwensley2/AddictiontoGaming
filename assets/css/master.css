@@ -1,4 +1,7 @@
-/***** Element Styles *****/
+/****************************************
+* HTML Tags
+****************************************/
+
 body {
 background-color:#101620;
 color:#FFF;
@@ -18,7 +21,65 @@ strong {
 font-weight: bold;
 }
 
-/***** Wrapper *****/
+/***** Form Styles *****/
+form input[type='text'] {
+background-color:#FFF;
+border:3px solid #9698A3;
+font-size:11pt;
+padding:4px;
+}
+
+form input[type='text']:focus {
+background-color:#EEEA89;
+}
+
+form input[type='file'] {
+background-color:#FFF;
+border:3px solid #9698A3;
+font-size:11pt;
+padding:4px;
+}
+
+form input[type='submit'] {
+background-color:#9698A3;
+border:3px solid #FFF;
+color:#000;
+font-size:10pt;
+padding:3px;
+}
+
+form input[type='submit']:hover {
+background-color:#101620;
+color:#FFF;
+}
+
+form select{
+background-color:#FFFFFF;
+border:3px solid #9698A3;
+padding:4px;
+font-size:11pt;
+}
+
+form select:focus{
+background-color:#EEEA89;
+}
+
+form select option{
+background-color:#fff;
+}
+
+form .row + .row {
+margin-top:8px;
+}
+
+form .row .heading {
+font-size:12pt;
+}
+
+/****************************************
+* Page Structure
+****************************************/
+
 #wrapper {
 background-color:#737280;
 margin:auto;
@@ -132,7 +193,10 @@ width:40px;
 display:none;
 }
 
-/******************* Content *******************/
+/****************************************
+* Content
+****************************************/
+
 #content {
 margin-top:16px;
 }
@@ -187,7 +251,10 @@ font-size:18pt;
 font-weight:700;
 }
 
-/******************* Sidebar *******************/
+/****************************************
+* Sidebar
+****************************************/
+
 #content_left {
 float:left;
 }
@@ -273,7 +340,10 @@ width:262px;
 text-align:right;
 }
 
-/******************* Footer *******************/
+/****************************************
+* Footer
+****************************************/
+
 #footer {
 background-color:#2d303f;
 border-left:1px solid #fff;
@@ -285,53 +355,16 @@ text-align:center;
 width:800px;
 }
 
-/******************* Other Stuff *******************/
+/****************************************
+* Miscellaneous
+****************************************/
+
 .clear {
 clear:both;
 }
 
 .small {
 font-size:8pt;
-}
-
-/***** Form Styles *****/
-form input[type='text'] {
-background-color:#FFF;
-border:3px solid #9698A3;
-font-size:11pt;
-padding:4px;
-}
-
-form input[type='text']:focus {
-background-color:#EEEA89;
-}
-
-form input[type='file'] {
-background-color:#FFF;
-border:3px solid #9698A3;
-font-size:11pt;
-padding:4px;
-}
-
-form input[type='submit'] {
-background-color:#9698A3;
-border:3px solid #FFF;
-color:#000;
-font-size:10pt;
-padding:3px;
-}
-
-form input[type='submit']:hover {
-background-color:#101620;
-color:#FFF;
-}
-
-form .row + .row {
-margin-top:8px;
-}
-
-form .row .heading {
-font-size:12pt;
 }
 
 #content_right .block.validation_error {
