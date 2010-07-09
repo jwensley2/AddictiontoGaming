@@ -13,6 +13,9 @@
 					<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
 						<li>&raquo; <a href="/admin/donations/donors">Donor List</a></li>
 					<?php endif; ?>
+					<?php if (permission($this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS'))): ?>
+						<li>&raquo; <a href="/admin/servers">Server List</a></li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>

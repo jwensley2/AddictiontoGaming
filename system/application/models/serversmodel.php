@@ -14,6 +14,20 @@ class Serversmodel extends Model
 		$this->load->library(array('servers/source_status', 'servers/ventrilo_status'));
 	}
 	
+	function quick_list_servers()
+	{
+		$this->db->order_by('game, ip, port');
+		$query = $this->db->get('servers');
+		
+		return $query->result();
+	}
+	
+	function delete_server($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('servers');
+	}
+	
 	function list_servers($order = null)
 	{
 		if(!$order){
@@ -32,7 +46,7 @@ class Serversmodel extends Model
 			
 			$data = array();
 			
-			if(in_array($server->game, array('tf2', 'l4d', 'l4d2'))){
+			if(in_array($server->game, array('tf2', 'l4d', 'l4d2', 'css'))){
 				$this->get_source_server_status($server);
 			}elseif($server->game == 'vent'){
 				$this->get_ventrilo_server_status($server);
@@ -70,7 +84,7 @@ class Serversmodel extends Model
 		$query = $this->db->get_where('players', array('server_id' => $server_id));
 		$server_info->player_list = $query->result();
 		
-		if(in_array($server_info->game, array('tf2', 'l4d', 'l4d2'))){
+		if(in_array($server_info->game, array('tf2', 'l4d', 'l4d2', 'css'))){
 			$this->get_source_server_status($server_info);
 		}elseif($server_info->game == 'vent'){
 			$this->get_ventrilo_server_status($server_info);

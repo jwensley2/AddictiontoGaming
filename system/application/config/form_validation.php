@@ -36,6 +36,19 @@ $config = array(
 			'rules' => 'trim|max_length[10]|valid_date|xss_clean',
 		),
 	),
+	
+	'server' => array(
+		array(
+			'field' => 'ip',
+			'label' => 'IP',
+			'rules' => 'trim|required|valid_ip',
+		),
+		array(
+			'field' => 'port',
+			'label' => 'Port',
+			'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]',
+		),
+	),
 );
 
 ?>

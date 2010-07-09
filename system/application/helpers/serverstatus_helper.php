@@ -17,7 +17,7 @@ function status_to_word($status){
 	}elseif($status == 0){
 		return 'Offline';
 	}else{
-		return 'Status Uknown';
+		return 'Status Unknown';
 	}
 }
 ?>

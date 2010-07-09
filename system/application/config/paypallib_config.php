@@ -1,7 +1,7 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
-// Ppal (Paypal IPN Class)
+// Paypal (Paypal IPN Class)
 // ------------------------------------------------------------------------
 
 // If (and where) to log ipn to file

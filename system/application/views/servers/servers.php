@@ -1,7 +1,6 @@
 <div id="content">
 	<?php $this->load->view('templates/sidebar') ?>
 
-
 	<div id="content_right">
 		<div id="page_title" class="block cufon">Server List</div>
 		

@@ -63,6 +63,19 @@ $db['phpbb']['cachedir'] = "";
 $db['phpbb']['char_set'] = "utf8";
 $db['phpbb']['dbcollat'] = "utf8_general_ci";
 
+$db['sourcemod']['hostname'] = "localhost";
+$db['sourcemod']['username'] = "";
+$db['sourcemod']['password'] = "";
+$db['sourcemod']['database'] = "";
+$db['sourcemod']['dbdriver'] = "mysql";
+$db['sourcemod']['dbprefix'] = "";
+$db['sourcemod']['pconnect'] = TRUE;
+$db['sourcemod']['db_debug'] = TRUE;
+$db['sourcemod']['cache_on'] = FALSE;
+$db['sourcemod']['cachedir'] = "";
+$db['sourcemod']['char_set'] = "utf8";
+$db['sourcemod']['dbcollat'] = "utf8_general_ci";
+
 
 /* End of file database.php */
 /* Location: ./system/application/config/database.php */

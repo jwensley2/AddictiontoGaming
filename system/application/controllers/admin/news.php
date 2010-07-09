@@ -18,7 +18,7 @@ class News extends MY_Controller
 		$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js'; 
 	}
 	
-	function edit($news_id)
+	function edit($news_id = null)
 	{
 		$news_permissions = $this->settingsmodel->get_setting_array('NEWS_PERMISSIONS');
 		if(permission($news_permissions) && $news_id){
@@ -32,7 +32,7 @@ class News extends MY_Controller
 		}
 	}
 	
-	function edit_process($news_id)
+	function edit_process($news_id = null)
 	{	
 		$news_permissions = $this->settingsmodel->get_setting_array('NEWS_PERMISSIONS');
 		if(permission($news_permissions) && $news_id){
@@ -48,10 +48,10 @@ class News extends MY_Controller
 		}
 	}
 	
-	function delete($news_id)
+	function delete($news_id = null)
 	{
 		$news_permissions = $this->settingsmodel->get_setting_array('NEWS_PERMISSIONS');
-		if(permission($news_permissions)){
+		if(permission($news_permissions) && $news_id){
 			$this->newsmodel->delete_news_item($news_id);
 			redirect('/');
 		}else{

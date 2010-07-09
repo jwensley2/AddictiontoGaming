@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller to run the home page and anything related to it
+ *
+ * @package default
+ * @author Joseph Wensley
+ */
+
 class Home extends MY_Controller
 {
 	
@@ -17,6 +24,12 @@ class Home extends MY_Controller
 		//$this->output->enable_profiler(TRUE);
 	}
 	
+	/**
+	 * Display the home page
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function index()
 	{	
 		//$this->settingsmodel->set_setting_array('NEWS_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
