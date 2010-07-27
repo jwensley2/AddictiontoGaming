@@ -71,7 +71,7 @@ class Source_status
 		$command = "\xFF\xFF\xFF\xFF\x55".$challenge;
 		fwrite($socket, $command);
 	
-		$response = fread($socket, 1248);
+		$response = fread($socket, PACKET_SIZE);
 		$response = substr($response, 6);
 		
 		fclose($socket);

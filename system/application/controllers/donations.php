@@ -13,7 +13,7 @@ class Donations extends MY_Controller {
 		parent::MY_Controller();
 		
 		//Load libraries, helpers and models
-		$this->load->library(array('Donations_lib', 'Paypal_Lib'));
+		$this->load->library(array('Donations_lib', 'Paypal_Lib', 'servers/source_rcon'));
 		$this->load->model('serversmodel');
 		$this->load->helper('string');
 		
@@ -86,6 +86,14 @@ class Donations extends MY_Controller {
 				$this->load->model('sourcebansmodel');
 				$this->sourcebansmodel->add_donor($ingame_name, $steam_id, $email);
 			}
+			
+			// Rehash all TF2 servers
+			$servers = $this->serversmodel->quick_list_servers('tf2');
+			foreach($servers as $server){
+				$this->source_rcon->connect($server->ip, $server->port, $server->rcon_password);
+				$this->source->rcon->send_command('sm_rehash');
+			}
+			
 		}
 	}
 	

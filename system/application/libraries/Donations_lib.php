@@ -100,6 +100,16 @@ class Donations_lib {
 		}
 	}
 	
+	/**
+	 * Add a donation to the database and adjust the donators expire time
+	 *
+	 * @param string $email 
+	 * @param string $txn_id 
+	 * @param string $amount 
+	 * @param string $fee 
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function add_donation($email, $txn_id, $amount, $fee)
 	{
 		$CI =& get_instance();
@@ -115,40 +125,18 @@ class Donations_lib {
 		$CI->db->set('donator_email', $email);
 		$CI->db->insert('donations');
 		
-/*
-		$donationtimes = array(
-			5 => 1,
-			10 => 2,
-			15 => 3,
-			20 => 6,
-			25 => 7,
-			30 => 8,
-			35 => 9,
-			40 => 12,
-			45 => 13,
-			50 => 14,
-		);
-*/
-		
 		$CI->db->select('UNIX_TIMESTAMP(expire_date) AS expire_date');
 		$query = $CI->db->get_where('donators', array('email' => $email));
 		$row = $query->row();
 		$expire_date = $row->expire_date;
 		
-/*
-		foreach($donationtimes as $amnt => $months){
-			if($amount >= $amnt){
-				$expire_in_months = $months;
-			}
-		}
-*/
-		
-		$months = floor($amnt / 5);
+		$months = floor($amount / 5);
 		
 		if($expire_date < time() OR !$expire_date){
-			$expire_date = mktime(0, 0, 0, date('n', time()) + $expire_in_months, date('j', time()), date('Y', time()));
+			$expire_date = mktime(0, 0, 0, date('n', time()) + $months, date('j', time()), date('Y', time()));
 		}else{
-			$expire_date = mktime(0, 0, 0, date('n', $expire_date) + $expire_in_months, date('j', $expire_date), date('Y', $expire_date));
+			echo "here";
+			$expire_date = mktime(0, 0, 0, date('n', $expire_date) + $months, date('j', $expire_date), date('Y', $expire_date));
 		}
 		
 		$CI->db->set('expire_date', 'FROM_UNIXTIME('.$expire_date.')', FALSE);
@@ -175,6 +163,12 @@ class Donations_lib {
 		return $query->result();
 	}
 
+	/**
+	 * Generate the donation progress bar and save it to a file
+	 *
+	 * @return void
+	 * @author Joseph Wensley
+	 */
 	function generate_progress_bar()
 	{	
 		$CI =& get_instance();

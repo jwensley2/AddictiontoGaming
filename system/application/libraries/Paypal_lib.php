@@ -244,7 +244,7 @@ class Paypal_Lib {
 		ksort($this->fields);
 		echo '<h2>ppal->dump() Output:</h2>' . "\n";
 		echo '<code style="font: 12px Monaco, \'Courier New\', Verdana, Sans-serif;  background: #f9f9f9; border: 1px solid #D0D0D0; color: #002166; display: block; margin: 14px 0; padding: 12px 10px;">' . "\n";
-		foreach ($this->fields as $key => $value) echo '<strong>'. $key .'</strong>:	'. urldecode($value) .'<br/>';
+		foreach ($this->fields as $key => $value) echo '<strong>'. $key .'</strong>:'. urldecode($value) .'<br/>';
 		echo "</code>\n";
 	}
 

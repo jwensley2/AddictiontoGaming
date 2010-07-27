@@ -69,7 +69,6 @@ class Sourcebansmodel extends Model
 			
 			send_email($to, $subject, $message);
 			
-			
 		}else{
 			$row = $query->row();
 			// If the user doesn't have a group add them to the Donor group

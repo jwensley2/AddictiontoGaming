@@ -20,10 +20,15 @@ class Serversmodel extends Model
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function quick_list_servers()
+	function quick_list_servers($game = null)
 	{
 		$this->db->order_by('game, ip, port');
-		$query = $this->db->get('servers');
+		
+		if($game){
+			$query = $this->db->get_where('servers', array('game' => $game));
+		}else{
+			$query = $this->db->get('servers');	
+		}
 		
 		return $query->result();
 	}
