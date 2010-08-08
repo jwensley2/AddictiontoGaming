@@ -13,10 +13,13 @@ class Potw extends MY_Controller
 		$this->load->model(array('serversmodel', 'potwmodel'));
 		
 		//Set header data
-		$this->header_data['stylesheets'][]	= 'admin/potw.css';
 		$this->header_data['title']			= 'Administration '.SEP.' Player of the Week';
-		$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
-		$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js';
+		$this->asset_lib->add_asset('admin/potw', 'css', 'script');
+		$this->asset_lib->add_asset('../ckeditor/ckeditor', 'js', 'script');
+		$this->asset_lib->add_asset('../ckeditor/adapters', 'js', 'script');
+		//$this->header_data['stylesheets'][]	= 'admin/potw.css';
+		//$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
+		//$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js';
 	}
 	
 	/**

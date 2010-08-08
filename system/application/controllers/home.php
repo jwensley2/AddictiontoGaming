@@ -19,7 +19,9 @@ class Home extends MY_Controller
 		$this->load->helper(array());
 		$this->load->model(array('serversmodel', 'newsmodel'));
 		//Set header data
-		$this->header_data['stylesheets'][] = 'home.css';
+
+		$this->asset_lib->add_asset('home', 'css', 'script');
+		//$this->header_data['stylesheets'][] = 'home.css';
 		
 		//$this->output->enable_profiler(TRUE);
 	}

@@ -10,7 +10,8 @@ class Servers extends My_Controller
 		$this->load->config('servers_config');
 		
 		$this->header_data['title'] = 'Administration '.SEP.' Servers';
-		$this->header_data['stylesheets'][] = 'admin/servers.css';
+		$this->asset_lib->add_asset('admin/servers', 'css', 'script');
+		//$this->header_data['stylesheets'][] = 'admin/servers.css';
 	}
 	
 	/**

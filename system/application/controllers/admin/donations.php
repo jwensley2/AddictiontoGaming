@@ -10,7 +10,10 @@ class Donations extends My_Controller
 		$this->load->model('serversmodel');
 		
 		$this->header_data['title'] = 'Administration '.SEP.' Donors';
-		$this->header_data['stylesheets'][] = 'admin/donations.css';
+		
+		// Add assets
+		$this->asset_lib->add_asset('admin/donations', 'css', 'script');
+		//$this->header_data['stylesheets'][] = 'admin/donations.css';
 	}
 	
 	function index(){

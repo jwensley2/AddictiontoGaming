@@ -8,7 +8,8 @@ class Servers extends My_Controller
 		
 		$this->load->model('serversmodel');
 		
-		$this->header_data['stylesheets'][] = 'servers.css';
+		$this->asset_lib->add_asset('servers', 'css', 'script');
+		//$this->header_data['stylesheets'][] = 'servers.css';
 	}
 	
 	function index()

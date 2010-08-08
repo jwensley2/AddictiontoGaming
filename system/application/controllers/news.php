@@ -12,7 +12,8 @@ class News extends My_Controller
 	function archive($month = null, $year = null)
 	{
 		$this->header_data['title'] = 'News and Announcements Archive';
-		$this->header_data['stylesheets'] = array('news_archive.css');
+		$this->asset_lib->add_asset('news_archive', 'css', 'script');
+		//$this->header_data['stylesheets'] = array('news_archive.css');
 		
 		if($month && $year){
 			$data['news'] = $this->newsmodel->get_posts_by_month($month, $year);

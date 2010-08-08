@@ -12,10 +12,15 @@ class News extends MY_Controller
 		$this->load->helper(array('permission'));
 		$this->load->model(array('serversmodel', 'newsmodel'));
 		//Set header data
-		$this->header_data['stylesheets'][]	= 'admin/news.css';
 		$this->header_data['title']			= 'News Administration';
-		$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
-		$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js'; 
+				
+		// Add assets
+		$this->asset_lib->add_asset('admin/news', 'css', 'script');
+		$this->asset_lib->add_asset('../ckeditor/ckeditor', 'js', 'script');
+		$this->asset_lib->add_asset('../ckeditor/adapters/jquery', 'js', 'script');
+		//$this->header_data['stylesheets'][]	= 'admin/news.css';
+		//$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
+		//$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js';
 	}
 	
 	function edit($news_id = null)

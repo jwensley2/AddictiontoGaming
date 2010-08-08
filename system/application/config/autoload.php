@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('Phpbb_lib', 'session');
+$autoload['libraries'] = array('Phpbb_lib', 'session', 'asset_lib');
 
 
 /*

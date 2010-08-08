@@ -11,9 +11,12 @@ class Panel extends MY_Controller
 		$this->load->library(array('form_validation'));
 		$this->load->helper(array('permission'));
 		$this->load->model(array('serversmodel', 'newsmodel'));
-		//Set header data
-		$this->header_data['stylesheets'][]	= 'admin/news.css';
-		$this->header_data['title']			= 'Administration Panel';
+		// Set header data
+		$this->header_data['title'] = 'Administration Panel';
+		
+		// Add Assets
+		$this->asset_lib->add_asset('admin/news', 'css', 'script');
+		//$this->header_data['stylesheets'][]	= 'admin/news.css';
 	}
 	
 	function index()

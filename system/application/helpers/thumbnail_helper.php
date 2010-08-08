@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 function ci_create_thumbnail($original, $output_path, $dst_w = 50, $dst_h = 50){
 	$original = realpath($original);

@@ -9,34 +9,26 @@
 		<?php endif ?>
 		
 		<!-- Stylesheets -->
-		<link rel="stylesheet" href="/assets/css/reset.css" type="text/css" media="screen" charset="utf-8" />
-		<link rel="stylesheet" href="/assets/css/master.css" type="text/css" media="screen" charset="utf-8" />
-		<link rel="stylesheet" href="/assets/colorbox/colorbox.css" type="text/css" media="screen" charset="utf-8" />
-		<link rel="stylesheet" href="/assets/css/server_popups.css" type="text/css" media="screen" charset="utf-8" />
-		<link rel="stylesheet" href="/assets/css/custom-theme/jquery-ui.css" type="text/css" media="screen" charset="utf-8" />
-		<?php if (isset($stylesheets)): ?>
-			<?php foreach ($stylesheets as $stylesheet): ?>
-				<link rel="stylesheet" href="/assets/css/<?php echo $stylesheet ?>" type="text/css" media="screen" charset="utf-8" />
-			<?php endforeach ?>
-		<?php endif ?>
+		<?php
+			$this->asset_lib->add_asset('reset', 'css');
+			$this->asset_lib->add_asset('reset', 'css');
+			$this->asset_lib->add_asset('reset', 'css');
+			$this->asset_lib->add_asset('master', 'css');
+			$this->asset_lib->add_asset('../colorbox/colorbox', 'css');
+			$this->asset_lib->add_asset('server_popups', 'css');
+			$this->asset_lib->add_asset('custom-theme/jquery-ui', 'css');
+			echo $this->asset_lib->output_tags('css', array('base', 'script'));
+		?>
 		
-		<!-- Scripts -->
-		<script src="/assets/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/assets/js/jquery-ui-1.8.custom.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/assets/colorbox/jquery.colorbox-min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/assets/js/cufon.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/assets/js/MyriadPro.font.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/assets/js/server_popups.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script type="text/javascript" charset="utf-8">
-			Cufon.replace('.cufon');
-		</script>
-		
-		<?php if (isset($scripts)): ?>
-			<?php foreach ($scripts as $script): ?>
-				<script src="/assets/js/<?php echo $script ?>" type="text/javascript" charset="utf-8"></script>
-			<?php endforeach ?>
-		<?php endif ?>
+		<?php
+			$this->asset_lib->add_asset('jquery', 'js', 'header');
+			$this->asset_lib->add_asset('jquery-ui-1.8.custom.min', 'js', 'header');
+			$this->asset_lib->add_asset('../colorbox/jquery.colorbox-min', 'js', 'header');
+			$this->asset_lib->add_asset('cufon', 'js', 'footer');
+			$this->asset_lib->add_asset('MyriadPro.font', 'js', 'footer');
+			$this->asset_lib->add_asset('server_popups', 'js', 'footer');
+			echo $this->asset_lib->output_tags('js', 'header');
+		?>
 	</head>
 	
 	<body>

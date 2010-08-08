@@ -18,7 +18,8 @@ class Donations extends MY_Controller {
 		$this->load->helper('string');
 		
 		//Set header data
-		$this->header_data['stylesheets'][] = 'donations.css';
+		$this->asset_lib->add_asset('donations', 'css', 'script');
+		//$this->header_data['stylesheets'][] = 'donations.css';
 	}
 	
 	/**

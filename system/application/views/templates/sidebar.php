@@ -82,23 +82,29 @@
 	
 	<?php
 		$CI =& get_instance();
-		$CI->load->library('Twitter_lib');
-		$CI->load->helper('security');
+		$CI->load->library('twitter');
+		$CI->load->helper(array('security', 'twitter'));
 		
-		$twitter_user = $this->settingsmodel->get_setting('TWITTER_USERNAME');
-		$twitter_pass = $this->settingsmodel->get_setting('TWITTER_PASSWORD');
-		$CI->twitter_lib->auth($twitter_user, $twitter_pass);
-		$timeline = $CI->twitter_lib->user_timeline(3);
+		$consumer_key			= "sGdfORr90Srx91zjh7YW5Q";
+		$consumer_secret		= "db96ZWW23n9HmXFCwZ6qV6xTHmHQiKnW16rmnr07A";
+		$access_token 			= "46725316-ZyDCaapK1bAt6lbEBtgl73O7Nuthi5zxdMJszHGEg";
+		$access_token_secret	= "V898HSUlljouus9qxrsfg3cou61WE1iDtJUyMuN54"; 
+		
+		//$auth = $CI->twitter->oauth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
+		
+		//$timeline = $CI->twitter->call('statuses/user_timeline', array('count' => 3, 'include_rts' => 1));
 	?>
 	<div id="twitter_module" class="block">
 		<div class="heading cufon"><a href="http://twitter.com/<?php echo $twitter_user ?>">Twitter Feed</a></div>
 		<div class="content">
-			<?php foreach ($timeline as $tweet): ?>
-				<div class="tweet">
-					<div class="msg"><?php echo auto_link(xss_clean($tweet->text), 'both', TRUE) ?></div>
-					<div class="date"><?php echo $CI->twitter_lib->relative_time($tweet->created_at) ?></div>
-				</div>
-			<?php endforeach ?>
+			<?php if ($timeline): ?>
+				<?php foreach ($timeline as $tweet): ?>
+					<div class="tweet">
+						<div class="msg"><?php echo auto_link(xss_clean($tweet->text), 'both', TRUE) ?></div>
+						<div class="date"><?php echo relative_time($tweet->created_at) ?></div>
+					</div>
+				<?php endforeach ?>
+			<?php endif ?>
 		</div>
 	</div>
 </div>
