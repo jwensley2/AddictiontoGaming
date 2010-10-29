@@ -1,49 +1,146 @@
 <?php
 
+
+
 class Twitter_lib
 {
 	protected $cache_path = './system/cache/twitter/';
-	protected $cache_time = 5; // Cache time in minutes
+	protected $cache_time = 1; // Cache time in minutes
 	
-	private $authenticated = false;
+	private $api_key			= 'sGdfORr90Srx91zjh7YW5Q';
+	private $consumer_key		= 'sGdfORr90Srx91zjh7YW5Q';
+	private $consumer_secret	= 'db96ZWW23n9HmXFCwZ6qV6xTHmHQiKnW16rmnr07A';
+	
+	private $oauth_token		= '46725316-ZyDCaapK1bAt6lbEBtgl73O7Nuthi5zxdMJszHGEg';
+	private $oauth_token_secret	= 'V898HSUlljouus9qxrsfg3cou61WE1iDtJUyMuN54';
+	
+	private $authenticated = FALSE;
 	private $username;
 	private $password;
 	
-	function auth($username, $password = null)
+	function Twitter_lib()
 	{
-		$this->username = $username;
-		$this->password = $password;
+		require_once('./system/application/libraries/twitteroauth/twitteroauth.php');
 	}
 	
-	private function check_auth()
+	function auth()
 	{
-		if($password){
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_URL, 'http://api.twitter.com/1/statuses/user_timeline/'.$this->username.'.json');
-			curl_setopt($curl, CURLOPT_HTTPAUTH, $this->username.':'.$this->password);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			if(curl_exec($curl)){
-				$this->authenticated = true;
+		$this->twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->oauth_token, $this->oauth_token_secret);
+		$content = $this->twitter->get('account/verify_credentials');
+		
+		if(isset($content->name)){
+			$this->authenticated = TRUE;
+		}
+	}
+	
+	function user_timeline($count)
+	{
+		if($this->authenticated == FALSE){
+			return FALSE;
+		}
+	
+		$cache_filename = 'user_timeline.cache';
+		
+		$params = array(
+			'count' => $count,
+		);
+		
+		if($this->check_cache($cache_filename) == FALSE){
+			$timeline = $this->twitter->get('statuses/user_timeline', $params);
+			
+			if(is_array($timeline)){
+				$this->write_cache($cache_filename, $timeline);
+			}else{
+				$timeline = $this->read_cache($cache_filename);
 			}
-		}
-	}
-	
-	function user_timeline($count = 10)
-	{
-		$cache_file = $this->cache_path.$this->username.'_timeline.cache';
-		
-		if($this->check_cache($cache_file)){
-			$timeline = $this->read_cache($cache_file);
+		}else{
+			$timeline = $this->read_cache($cache_filename);
 		}
 		
-		if(!$timeline || count($timeline) > $count){
-			$url = 'http://api.twitter.com/1/statuses/user_timeline/'.$this->username.'.json?count='.$count;
-			$timeline = $this->curl($url);
-			$this->write_cache($cache_file, $timeline);
-		}
 		return $timeline;
 	}
 	
+	function update($status)
+	{
+		if($this->authenticated == FALSE){
+			return FALSE;
+		}
+		
+		$params = array(
+			'status' => $status,
+		);
+		
+		return $this->twitter->post('statuses/update', $params);
+	}
+	
+	/**
+	 * Caching Functions
+	 */
+	
+	/**
+	 * Check to see if the cache is good
+	 * Returns TRUE if the cache is good
+	 *
+	 * @param string $file 
+	 * @return bool
+	 * @author Joseph Wensley
+	 */
+	private function check_cache($filename)
+	{
+		$file = $this->cache_path.$filename;
+		
+		if(file_exists($file)){
+			$modified = filemtime($file);
+			if($modified > (time() - ($this->cache_time * 60))){
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	private function read_cache($filename)
+	{
+		$file = $this->cache_path.$filename;
+		
+		$fp = fopen($file, 'r');
+		$data = fread($fp, filesize($file));
+		$data = unserialize($data);
+		fclose($fp);
+		
+		return $data;
+	}
+	
+	private function write_cache($filename, $data)
+	{
+		$file = $this->cache_path.$filename;
+		
+		if(!is_dir($this->cache_path)){
+			mkdir($this->cache_path);
+		}
+		
+		if(file_exists($file)){
+			$fp = fopen($file, 'w');
+		}else{
+			$fp = fopen($file, 'x');
+		}
+		
+		$data = serialize($data);
+		fwrite($fp, $data);
+		
+		fclose($fp);
+	}
+	
+	/**
+	 * Twitter Utility Functions
+	 */
+	
+	/**
+	 * Change a timestamp to a relative time
+	 *
+	 * @param string $time 
+	 * @return void
+	 * @author Joseph Wensley
+	 */	
 	function relative_time($time)
 	{
 		$now = time();
@@ -71,56 +168,6 @@ class Twitter_lib
 				break;
 		}
 		return $relative;
-	}
-	
-	private function check_cache($file)
-	{
-		if(file_exists($file)){
-			$modified = filemtime($file);
-			if($modified > (time() - ($this->cache_time * 60))){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private function read_cache($file)
-	{
-		$fp = fopen($file, 'r');
-		$data = fread($fp, filesize($file));
-		$data = unserialize($data);
-		return $data;
-	}
-	
-	private function write_cache($file, $data)
-	{
-		if(!is_dir($this->cache_path)){
-			mkdir($this->cache_path);
-		}
-		if(file_exists($file)){
-			$fp = fopen($file, 'w');
-		}else{
-			$fp = fopen($file, 'x');
-		}
-		
-		$data = serialize($data);
-		fwrite($fp, $data);
-	}
-	
-	private function curl($url)
-	{
-		$this->check_auth();
-		
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		if($this->authenticated){
-			curl_setopt($curl, CURLOPT_HTTPAUTH, $this->username.':'.$this->password);
-		}
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		
-		$data = curl_exec($curl);
-		$data = json_decode($data);
-		return $data;
 	}
 }
 

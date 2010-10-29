@@ -63,6 +63,9 @@
 						<td colspan="2" align="center"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" /></td>
 					</tr>
 				</table>
+				<p style="color:red">
+					** In order to for you to automatically recieve donor status you must enter your real steam id
+				</p>
 			</form>
 		</div>
 		

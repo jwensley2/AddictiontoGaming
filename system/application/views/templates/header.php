@@ -32,7 +32,7 @@
 	</head>
 	
 	<body>
-		<div id="server_popup_holder">a</div>
+		<div id="server_popup_holder"></div>
 		<div id="wrapper">
 			<div id="header"></div>
 			

@@ -51,12 +51,12 @@
 		$player = $CI->potwmodel->get_current_member();
 	?>
 	<?php if ($player): ?>
-		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function(){
-				$('#potw_module .photo a').colorbox();
-			})
-		</script>
 		<div id="potw_module" class="block">
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function(){
+					$('#potw_module .photo a').colorbox();
+				})
+			</script>
 			<div class="heading cufon">Player of the Week</div>
 			<div class="content">
 				<div class="photo">
@@ -82,29 +82,29 @@
 	
 	<?php
 		$CI =& get_instance();
-		$CI->load->library('twitter');
-		$CI->load->helper(array('security', 'twitter'));
+		$CI->load->library('Twitter_lib');
+		$CI->load->helper(array('security', 'form'));
 		
-		$consumer_key			= "sGdfORr90Srx91zjh7YW5Q";
-		$consumer_secret		= "db96ZWW23n9HmXFCwZ6qV6xTHmHQiKnW16rmnr07A";
-		$access_token 			= "46725316-ZyDCaapK1bAt6lbEBtgl73O7Nuthi5zxdMJszHGEg";
-		$access_token_secret	= "V898HSUlljouus9qxrsfg3cou61WE1iDtJUyMuN54"; 
-		
-		//$auth = $CI->twitter->oauth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
-		
-		//$timeline = $CI->twitter->call('statuses/user_timeline', array('count' => 3, 'include_rts' => 1));
+		$CI->twitter_lib->auth();
+		$timeline = $CI->twitter_lib->user_timeline(3);
 	?>
 	<div id="twitter_module" class="block">
 		<div class="heading cufon"><a href="http://twitter.com/<?php echo $twitter_user ?>">Twitter Feed</a></div>
 		<div class="content">
-			<?php if ($timeline): ?>
+			<?php if (is_array($timeline)): ?>
 				<?php foreach ($timeline as $tweet): ?>
 					<div class="tweet">
 						<div class="msg"><?php echo auto_link(xss_clean($tweet->text), 'both', TRUE) ?></div>
-						<div class="date"><?php echo relative_time($tweet->created_at) ?></div>
+						<div class="date"><?php echo $CI->twitter_lib->relative_time($tweet->created_at) ?></div>
 					</div>
 				<?php endforeach ?>
 			<?php endif ?>
 		</div>
+		<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
+			<?php echo form_open('/admin/twitter/update'); ?>
+				<textarea name="status"></textarea>
+				<input type="submit" value="Tweet It!" />
+			</form>
+		<?php endif ?>
 	</div>
 </div>

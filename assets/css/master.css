@@ -340,6 +340,17 @@ width:262px;
 text-align:right;
 }
 
+#twitter_module form textarea{
+height:50px;
+margin-top:10px;
+padding:5px;
+width:262px;
+}
+
+#twitter_module form input[type=submit]{
+margin-top:5px;
+}
+
 /****************************************
 * Footer
 ****************************************/
