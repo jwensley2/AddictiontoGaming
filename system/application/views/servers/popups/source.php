@@ -2,7 +2,7 @@
 	<div class="close">[Close]</div>
 	<div class="status <?php echo status_to_class($status) ?>"><?php echo status_to_word($status) ?></div>
 	<div class="hostname"><?php echo $hostname ?></div>
-	<div class="ip"><?php echo $ip ?>:<?php echo $port ?></div>
+	<div class="ip"><a href="steam://connect/<?php echo "$port:$ip" ?>"><?php echo $ip ?>:<?php echo $port ?></a></div>
 	<div class="mapname">Map: <?php echo $mapname ?></div>
 	<div>Players: <?php echo $players ?> / <?php echo $max_players ?></div>
 	<?php if ($player_list): ?>
