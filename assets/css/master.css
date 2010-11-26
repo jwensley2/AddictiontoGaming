@@ -326,28 +326,34 @@ margin-top:8px;
 }
 
 #twitter_module .tweet .msg {
-word-wrap: break-word;
-text-align: left;
 background-color:#9698a3;
 border:1px solid #FFF;
 color:#101620;
 overflow:hidden;
 padding:5px;
+text-align:left;
 width:262px;
+word-wrap:break-word;
 }
 
 #twitter_module .tweet .date {
 text-align:right;
 }
 
-#twitter_module form textarea{
+#twitter_module form textarea {
 height:50px;
 margin-top:10px;
 padding:5px;
 width:262px;
 }
 
-#twitter_module form input[type=submit]{
+#twitter_module form input[type=submit] {
+margin-top:5px;
+}
+
+#twitter_module .used {
+float:right;
+font-size:12pt;
 margin-top:5px;
 }
 

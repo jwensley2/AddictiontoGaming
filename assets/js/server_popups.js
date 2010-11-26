@@ -1,13 +1,31 @@
 $(document).ready(function() {
 	var toggled = false;
 	var current_server;
+	var popup_cache = Array(); // Storage array for cached popups
+	var cache_time = 30; // Time to cache popups in seconds
 	
 	function popup_show(_this){
 		server_id = _this.find('.server_id').text();
-		$.get('/system/cache/popups/'+server_id+'.html', function(html){
+		
+		var timestamp = Math.round(new Date().getTime() / 1000);
+		
+		// Check if there is a cached version of the popup and if it is still valid
+		if(popup_cache[server_id] == null || popup_cache[server_id]['time'] < timestamp - cache_time){
+			// Get a fresh version of the popup
+			$.get('/system/cache/popups/'+server_id+'.html', function(html){
+				console.log('Getting popup');
+				popup_cache[server_id] = Array();
+				popup_cache[server_id]['html'] = html;
+				popup_cache[server_id]['time'] = timestamp;
+				
+				$('#server_popup_holder').show();
+				$('#server_popup_holder').html(html);
+			});
+		}else{
+			// Show the cached popup
 			$('#server_popup_holder').show();
-			$('#server_popup_holder').html(html);
-		});
+			$('#server_popup_holder').html(popup_cache[server_id]['html']);
+		}
 	}
 
 	function popup_hide(_this){

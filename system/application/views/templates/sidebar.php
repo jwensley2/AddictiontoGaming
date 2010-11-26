@@ -57,7 +57,7 @@
 					$('#potw_module .photo a').colorbox();
 				})
 			</script>
-			<div class="heading cufon">Player of the Week</div>
+			<div class="heading cufon">Player of the Month</div>
 			<div class="content">
 				<div class="photo">
 					<a href="/assets/images/potw_pictures/<?php echo $player->id ?>_full.jpg">
@@ -104,6 +104,7 @@
 			<?php echo form_open('/admin/twitter/update'); ?>
 				<textarea name="status"></textarea>
 				<input type="submit" value="Tweet It!" />
+				<div class="used">0/150</div>
 			</form>
 		<?php endif ?>
 	</div>

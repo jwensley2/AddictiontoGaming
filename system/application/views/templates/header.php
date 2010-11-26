@@ -10,6 +10,8 @@
 		
 		<!-- Stylesheets -->
 		<?php
+			//$this->asset_lib->deug == TRUE;
+		
 			$this->asset_lib->add_asset('reset', 'css');
 			$this->asset_lib->add_asset('reset', 'css');
 			$this->asset_lib->add_asset('reset', 'css');
@@ -18,15 +20,15 @@
 			$this->asset_lib->add_asset('server_popups', 'css');
 			$this->asset_lib->add_asset('custom-theme/jquery-ui', 'css');
 			echo $this->asset_lib->output_tags('css', array('base', 'script'));
-		?>
-		
-		<?php
+			
+			
 			$this->asset_lib->add_asset('jquery', 'js', 'header');
 			$this->asset_lib->add_asset('jquery-ui-1.8.custom.min', 'js', 'header');
 			$this->asset_lib->add_asset('../colorbox/jquery.colorbox-min', 'js', 'header');
 			$this->asset_lib->add_asset('cufon', 'js', 'footer');
 			$this->asset_lib->add_asset('MyriadPro.font', 'js', 'footer');
 			$this->asset_lib->add_asset('server_popups', 'js', 'footer');
+			$this->asset_lib->add_asset('main', 'js', 'footer');
 			echo $this->asset_lib->output_tags('js', 'header');
 		?>
 	</head>

@@ -7,6 +7,7 @@ class Asset_lib
 {
 	var $stylesheets	= array();
 	var $scripts		= array();
+	var $debug 			= FALSE;
 	
 	function Asset_lib()
 	{
@@ -166,14 +167,17 @@ class Asset_lib
 	}
 	
 	function _minify_data($data, $asset_type){
-		if($asset_type === 'css'){
-			$comment_pattern = "/\/\*\*(?:\r|\n|\r\n|.)*?\*\*\//i";
-			$data = preg_replace($comment_pattern, '', $data);
-			$data = preg_replace("/(?:\r|\n|\r\n)*/", '', $data);
-			$data = preg_replace("/(\s)+/", ' ', $data);
-		}elseif($asset_type === 'js'){
-			if(include_once $this->jsmin_path){
-				$data = JSMin::minify($data);
+		if(!$this->debug){
+			echo "Debuggin is off";
+			if($asset_type === 'css'){
+				$comment_pattern = "/\/\*\*(?:\r|\n|\r\n|.)*?\*\*\//i";
+				$data = preg_replace($comment_pattern, '', $data);
+				$data = preg_replace("/(?:\r|\n|\r\n)*/", '', $data);
+				$data = preg_replace("/(\s)+/", ' ', $data);
+			}elseif($asset_type === 'js'){
+				if(include_once $this->jsmin_path){
+					$data = JSMin::minify($data);
+				}
 			}
 		}
 		return $data;
