@@ -13,7 +13,6 @@ $(document).ready(function() {
 		if(popup_cache[server_id] == null || popup_cache[server_id]['time'] < timestamp - cache_time){
 			// Get a fresh version of the popup
 			$.get('/system/cache/popups/'+server_id+'.html', function(html){
-				console.log('Getting popup');
 				popup_cache[server_id] = Array();
 				popup_cache[server_id]['html'] = html;
 				popup_cache[server_id]['time'] = timestamp;

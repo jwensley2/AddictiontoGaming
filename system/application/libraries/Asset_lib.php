@@ -37,6 +37,8 @@ class Asset_lib
 	 */
 	function read_assets($type, $groups = 'base')
 	{
+		$return = '';
+		
 		// Create refrences to lib properties depending on asset type
 		if($type === 'css'){
 			$main_asset_list =& $this->stylesheets;
@@ -60,8 +62,13 @@ class Asset_lib
 			$assets = $main_asset_list[$groups];
 		}
 		
+		if(count($assets) == 0){ return; }
+		
 		// Set the name and path for each asset while checking to see if it actually exists
-		foreach($assets as $key => $asset){
+		foreach($assets as $key => $asset_info){
+			$asset = $asset_info['asset'];
+			$minify = $asset_info['minify'];
+			
 			$asset = preg_replace("/\.$type$/", '', $asset);
 			$path = FCPATH."{$asset_folder}/{$asset}.{$type}";
 			
@@ -77,6 +84,21 @@ class Asset_lib
 				// Remove the non-existent asset from the array
 				unset($assets[$key]);
 			}
+			
+			if($asset_info['cache'] == FALSE){
+				if($type === 'css'){
+					$url = base_url()."{$this->css_path}/{$asset}.{$type}";
+					$return .= sprintf('<link rel="stylesheet" href="%s" type="text/css" media="screen" charset="utf-8">', $url);
+				}elseif($type === 'js'){
+					$url = base_url()."{$this->js_path}/{$asset}.{$type}";
+					$return .= sprintf('<script src="%s" type="text/javascript" charset="utf-8"></script>', $url);
+				}
+				unset($assets[$key]);
+			}
+		}
+		
+		if(count($assets) == 0){
+			return $return;
 		}
 		
 		// Remove duplicates
@@ -95,28 +117,34 @@ class Asset_lib
 				if(!empty($data)){ $data .= "\n\n"; }
 				$data .= "/********** {$asset['name']}**********/\n";
 				$file_data = file_get_contents($asset['path']);
-				$data .= $this->_minify_data($file_data, $type);
+				$data .= $this->_minify_data($file_data, $type, $minify);
 			}
 			$this->_write_cache($cache_path, $data);
 		}
 		
 		// Return the html tags
 		if($type === 'css'){
-			return sprintf('<link rel="stylesheet" href="%s" type="text/css" media="screen" charset="utf-8">', $cache_url);
+			return sprintf('<link rel="stylesheet" href="%s" type="text/css" media="screen" charset="utf-8">', $cache_url).$return;
 		}elseif($type === 'js'){
-			return sprintf('<script src="%s" type="text/javascript" charset="utf-8"></script>', $cache_url);
+			return sprintf('<script src="%s" type="text/javascript" charset="utf-8"></script>', $cache_url).$return;
 		}
 		
 		
 	}
 	
-	function add_asset($name, $type = NULL, $group = 'base')
+	function add_asset($name, $type = NULL, $group = 'base', $cache = TRUE, $minify = TRUE)
 	{
 		// Add an assets to either the stylesheets or scripts arrays
 		if($type === 'css'){
-			$this->stylesheets[$group][] = $name;
+			$i = count($this->stylesheets[$group]) + 1;
+			$this->stylesheets[$group][$i]['asset'] = $name;
+			$this->stylesheets[$group][$i]['minify'] = $minify;
+			$this->stylesheets[$group][$i]['cache'] = $cache;
 		}elseif($type === 'js'){
-			$this->scripts[$group][] = $name;
+			$i = count($this->scripts[$group]) + 1;
+			$this->scripts[$group][$i]['asset'] = $name;
+			$this->scripts[$group][$i]['minify'] = $minify;
+			$this->scripts[$group][$i]['cache'] = $cache;
 		}
 	}
 	
@@ -157,18 +185,13 @@ class Asset_lib
 			mkdir($cache_dir, 0777, TRUE);
 		}
 		
-		$gz = gzopen($cache.'gz', 'w9');
-		gzwrite($gz, $data);
-		gzclose($gz);
-		
 		$f = fopen($cache, 'w');
 		fwrite($f, $data);
 		fclose($f);
 	}
 	
-	function _minify_data($data, $asset_type){
-		if(!$this->debug){
-			echo "Debuggin is off";
+	function _minify_data($data, $asset_type, $minify){
+		if(!$this->debug && $minify == TRUE){
 			if($asset_type === 'css'){
 				$comment_pattern = "/\/\*\*(?:\r|\n|\r\n|.)*?\*\*\//i";
 				$data = preg_replace($comment_pattern, '', $data);

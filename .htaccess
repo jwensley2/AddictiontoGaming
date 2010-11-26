@@ -25,15 +25,10 @@
     ErrorDocument 404 /index.php
 </IfModule>
 
-RewriteEngine on
-RewriteCond %{HTTP:Accept-Encoding} gzip
-RewriteRule (.*)\.css$ $1\.cssgz [L]
-
-AddType "text/css;charset=UTF-8" .cssgz
-AddEncoding gzip .cssgz
-
-RewriteCond %{HTTP:Accept-Encoding} gzip
-RewriteRule (.*)\.js$ $1\.jsgz [L]
-
-AddType "text/javascript;charset=UTF-8" .jsgz
-AddEncoding gzip .jsgz
+# DEFLATE FOR APACHE 2.x SERVERS
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/css text/xmlapplication/x-javascript application/javascript application/xhtml+xml
+	<FilesMatch "\\.(js|css|html|htm|xml)$">
+	SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>

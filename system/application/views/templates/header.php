@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -13,23 +13,22 @@
 			//$this->asset_lib->deug == TRUE;
 		
 			$this->asset_lib->add_asset('reset', 'css');
-			$this->asset_lib->add_asset('reset', 'css');
-			$this->asset_lib->add_asset('reset', 'css');
 			$this->asset_lib->add_asset('master', 'css');
-			$this->asset_lib->add_asset('../colorbox/colorbox', 'css');
+			$this->asset_lib->add_asset('../colorbox/colorbox', 'css', 'base', FALSE);
 			$this->asset_lib->add_asset('server_popups', 'css');
 			$this->asset_lib->add_asset('custom-theme/jquery-ui', 'css');
 			echo $this->asset_lib->output_tags('css', array('base', 'script'));
 			
-			
 			$this->asset_lib->add_asset('jquery', 'js', 'header');
-			$this->asset_lib->add_asset('jquery-ui-1.8.custom.min', 'js', 'header');
+			$this->asset_lib->add_asset('jquery-ui-1.8.custom.min', 'js', 'header2', FALSE);
 			$this->asset_lib->add_asset('../colorbox/jquery.colorbox-min', 'js', 'header');
 			$this->asset_lib->add_asset('cufon', 'js', 'footer');
 			$this->asset_lib->add_asset('MyriadPro.font', 'js', 'footer');
 			$this->asset_lib->add_asset('server_popups', 'js', 'footer');
 			$this->asset_lib->add_asset('main', 'js', 'footer');
+			
 			echo $this->asset_lib->output_tags('js', 'header');
+			echo $this->asset_lib->output_tags('js', 'afterjq');
 		?>
 	</head>
 	
