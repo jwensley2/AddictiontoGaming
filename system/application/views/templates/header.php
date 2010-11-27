@@ -28,8 +28,9 @@
 			$this->asset_lib->add_asset('main', 'js', 'footer');
 			
 			echo $this->asset_lib->output_tags('js', 'header');
-			echo $this->asset_lib->output_tags('js', 'afterjq');
+			echo $this->asset_lib->output_tags('js', 'header2');
 		?>
+
 	</head>
 	
 	<body>

@@ -16,8 +16,8 @@ class News extends MY_Controller
 				
 		// Add assets
 		$this->asset_lib->add_asset('admin/news', 'css', 'script');
-		$this->asset_lib->add_asset('../ckeditor/ckeditor', 'js', 'script');
-		$this->asset_lib->add_asset('../ckeditor/adapters/jquery', 'js', 'script');
+		$this->asset_lib->add_asset('../ckeditor/ckeditor', 'js', 'header2', FALSE);
+		$this->asset_lib->add_asset('../ckeditor/adapters/jquery', 'js', 'header2', FALSE);
 		//$this->header_data['stylesheets'][]	= 'admin/news.css';
 		//$this->header_data['scripts'][]		= '../ckeditor/ckeditor.js'; 
 		//$this->header_data['scripts'][]		= '../ckeditor/adapters/jquery.js';

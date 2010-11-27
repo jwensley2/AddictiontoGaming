@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var cache_time = 30; // Time to cache popups in seconds
 	
 	function popup_show(_this){
-		server_id = _this.find('.server_id').text();
+		var server_id = _this.find('.server_id').text();
 		
 		var timestamp = Math.round(new Date().getTime() / 1000);
 		

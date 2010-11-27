@@ -7,13 +7,15 @@ class Potw extends MY_Controller
 	{
 		parent::MY_Controller();
 		
-		//Load libraries, helpers and models
+		// Load libraries, helpers and models
 		$this->load->library(array('form_validation'));
 		$this->load->helper(array('permission'));
 		$this->load->model(array('serversmodel', 'potwmodel'));
 		
-		//Set header data
+		// Set header data
 		$this->header_data['title']			= 'Administration '.SEP.' Player of the Week';
+		
+		// Add Assets
 		$this->asset_lib->add_asset('admin/potw', 'css', 'script');
 		$this->asset_lib->add_asset('../ckeditor/ckeditor', 'js', 'header2', FALSE);
 		$this->asset_lib->add_asset('../ckeditor/adapters/jquery', 'js', 'header2', FALSE);
