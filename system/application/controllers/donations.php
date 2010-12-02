@@ -48,7 +48,7 @@ class Donations extends MY_Controller {
 	 */
 	function ipn()
 	{
-		$to = 'joseph.wensley@gmail.com';
+		$to = 'jwensley2@gmail.com';
 		
 		if ($this->paypal_lib->validate_ipn()){
 			$body  = 'An instant payment notification was successfully received from ';
@@ -73,14 +73,15 @@ class Donations extends MY_Controller {
 			$last_name = $this->paypal_lib->ipn_data['last_name'];
 			$steam_id = trim($this->paypal_lib->ipn_data['option_selection1']);
 			$ingame_name = trim($this->paypal_lib->ipn_data['option_selection2']);
+			$payer_id = $this->paypal_lib->ipn_data['payer_id'];
 
 			//Donation info
 			$amount = $this->paypal_lib->ipn_data['mc_gross'];
 			$fee = $this->paypal_lib->ipn_data['mc_fee'];
 			$txn_id = $this->paypal_lib->ipn_data['txn_id'];
 			
-			$this->donations_lib->add_donor($email, $first_name, $last_name, $ingame_name, $steam_id);
-			$this->donations_lib->add_donation($email, $txn_id, $amount, $fee);
+			$donor_id = $this->donations_lib->add_donor($payer_id, $email, $first_name, $last_name, $ingame_name, $steam_id);
+			$this->donations_lib->add_donation($donor_id, $txn_id, $amount, $fee);
 			
 			$steam_id_pattern = "/^STEAM_[0-9]:[0-9]:[0-9]+$/";
 			if(preg_match($steam_id_pattern, $steam_id) && isset($ingame_name)){
@@ -93,6 +94,7 @@ class Donations extends MY_Controller {
 			foreach($servers as $server){
 				$this->source_rcon->connect($server->ip, $server->port, $server->rcon_password);
 				$this->source->rcon->send_command('sm_rehash');
+				$this->source->rcon->send_command('say "'.$ingame_name.' just donated $'.$amount.'!"');
 			}
 			
 		}

@@ -59,7 +59,7 @@ class Donations_lib {
 		if(!$end_date){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('donators.*, donations.*');
-		$CI->db->where('donators.email = donations.donator_email');
+		$CI->db->where('donators.id = donations.donor_id');
 		$CI->db->where("donations.date BETWEEN FROM_UNIXTIME('$start_date') AND FROM_UNIXTIME('$end_date')", null, FALSE);
 		$CI->db->order_by('donations.date');
 		$query = $CI->db->get('donations, donators');
@@ -73,31 +73,48 @@ class Donations_lib {
 		
 		$CI->db->select('*, UNIX_TIMESTAMP(expire_date) as expire_date, SUM(amount) AS total');
 		$CI->db->group_by('donators.email');
-		$CI->db->where('donations.donator_email = donators.email');
+		$CI->db->where('donators.id = donations.donor_id');
 		$CI->db->order_by('expire_date', 'desc');
 		$query = $CI->db->get('donations, donators');
 		
 		return $query->result();
 	}
 	
-	function add_donor($email, $first_name, $last_name, $ingame_name, $steam_id)
+	function add_donor($payer_id, $email, $first_name, $last_name, $ingame_name, $steam_id)
 	{
 		$CI =& get_instance();
 		
-		$query = $CI->db->get_where('donators', array('email' => $email));
-		if(!$query->result()){
-			$CI->db->set('email', $email);
-			$CI->db->set('first_name', $first_name);
-			$CI->db->set('last_name', $last_name);
-			$CI->db->set('ingame_name', $ingame_name);
-			$CI->db->set('steam_id', $steam_id);
+		$donor_id = $CI->db->get_where('donators', array('payer_id' => $payer_id))->row('id');
+		if(!$donor_id){
 			
-			if($CI->db->insert('donators')){
-				return array(TRUE, "Donor was added to database");
+			$donor_id_email = $CI->db->get_where('donators', array('email' => $email))->row('id');
+			
+			if($donor_id_email){
+				$CI->db->set('payer_id', $payer_id);
+			
+				$CI->db->where('id', $donor_id_email);
+				$CI->db->update('donators');
+				
+				$CI->db->where('donator_email', $email);
+				$CI->db->set('donor_id', $donor_id_email);
+				$CI->db->update('donations');
+				
+				return $donor_id_email;
 			}else{
-				return array(TRUE, "Donor was already in the database");
+				$CI->db->set('payer_id', $payer_id);
+				$CI->db->set('email', $email);
+				$CI->db->set('first_name', $first_name);
+				$CI->db->set('last_name', $last_name);
+				$CI->db->set('ingame_name', $ingame_name);
+				$CI->db->set('steam_id', $steam_id);
+				
+				$CI->db->insert('donators');
+				
+				return $CI->db->insert_id();
 			}
 		}
+		
+		return $donor_id;
 	}
 	
 	/**
@@ -110,7 +127,7 @@ class Donations_lib {
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function add_donation($email, $txn_id, $amount, $fee)
+	function add_donation($donor_id, $email, $txn_id, $amount, $fee)
 	{
 		$CI =& get_instance();
 		
@@ -123,6 +140,7 @@ class Donations_lib {
 		$CI->db->set('amount', $amount);
 		$CI->db->set('fee', $fee);
 		$CI->db->set('donator_email', $email);
+		$CI->db->set('donor_id', $donor_id);
 		$CI->db->insert('donations');
 		
 		$CI->db->select('UNIX_TIMESTAMP(expire_date) AS expire_date');
@@ -154,8 +172,8 @@ class Donations_lib {
 		$CI =& get_instance();
 		
 		$CI->db->select('ingame_name, SUM(amount) AS total');
-		$CI->db->group_by('donators.email');
-		$CI->db->where('donations.donator_email = donators.email');
+		$CI->db->group_by('donators.id');
+		$CI->db->where('donators.id = donations.donor_id');
 		$CI->db->order_by('total', 'desc');
 		$CI->db->limit($count);
 		$query = $CI->db->get('donations, donators');

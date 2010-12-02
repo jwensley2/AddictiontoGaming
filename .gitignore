@@ -1,0 +1,10 @@
+/forums/
+/system/application/config/database.php
+/system/cache/**/*
+
+# OS generated files #
+######################
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
