@@ -1,10 +1,7 @@
+.DS_Store?
 /forums/
 /system/application/config/database.php
-/system/cache/**/*
-
-# OS generated files #
-######################
-.DS_Store?
-ehthumbs.db
-Icon?
-Thumbs.db
+/system/cache/
+/assets/css/cache/
+/assets/js/cache/
+/assets/images/donation_progress.png
