@@ -81,7 +81,7 @@ class Donations extends MY_Controller {
 			$txn_id = $this->paypal_lib->ipn_data['txn_id'];
 			
 			$donor_id = $this->donations_lib->add_donor($payer_id, $email, $first_name, $last_name, $ingame_name, $steam_id);
-			$this->donations_lib->add_donation($donor_id, $txn_id, $amount, $fee);
+			$this->donations_lib->add_donation($donor_id, $email, $txn_id, $amount, $fee);
 			
 			$steam_id_pattern = "/^STEAM_[0-9]:[0-9]:[0-9]+$/";
 			if(preg_match($steam_id_pattern, $steam_id) && isset($ingame_name)){
