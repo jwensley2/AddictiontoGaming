@@ -37,8 +37,8 @@ class Donations_lib {
 	{
 		$CI =& get_instance();
 		
-		if(!$start_date){ $start_date = $this->get_billing_start_date(); }
-		if(!$end_date){ $end_date =  $this->get_billing_end_date(); }
+		if(!isset($start_date)){ $start_date = $this->get_billing_start_date(); }
+		if(!isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('SUM(amount) AS amount');
 		$CI->db->where("donations.date BETWEEN FROM_UNIXTIME('$start_date') AND FROM_UNIXTIME('$end_date')");
@@ -55,8 +55,8 @@ class Donations_lib {
 	{
 		$CI =& get_instance();
 		
-		if(!$start_date){ $start_date = $this->get_billing_start_date(); }
-		if(!$end_date){ $end_date =  $this->get_billing_end_date(); }
+		if(!isset($start_date)){ $start_date = $this->get_billing_start_date(); }
+		if(!isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('donators.*, donations.*');
 		$CI->db->where('donators.id = donations.donor_id');
