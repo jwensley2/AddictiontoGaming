@@ -34,6 +34,7 @@ class Donations extends MY_Controller {
 		
 		$content_data['donators'] = $this->donations_lib->get_donation_list();
 		$content_data['top_donors'] = $this->donations_lib->list_top_donors(10);
+		$content_data['total_donations'] = $this->donations_lib->get_total_donations(0);
 		
 		$this->load->view('templates/header', $this->header_data);
 		$this->load->view('donations/donations', $content_data);

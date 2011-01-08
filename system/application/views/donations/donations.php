@@ -94,14 +94,26 @@
 		<div class="block">
 			<div class="title cufon">Top 10 Donors</div>
 			<table id="top_donors">
+				<?php $top10_total = 0; ?>
 				<?php foreach ($top_donors as $key => $donator): ?>
 					<tr class="<?php echo alternator('color1', 'color2') ?>">
 						<td class="position"><?php echo $key+1 ?></td>
 						<td class="ingame_name"><?php echo $donator->ingame_name ?></td>
-						<td class="amount"><?php echo $donator->total ?></td>
+						<td class="amount">$<?php echo $donator->total ?></td>
 					</tr>
+					<?php $top10_total += $donator->total; ?>
 				<?php endforeach ?>
+				<tr style="border-top: 1px solid #fff;">
+					<th colspan="2"><strong>Total:</strong></th>
+					<td class="amount"><strong>$<?php echo $top10_total; ?></strong></td>
+				</tr>
 			</table>
+		</div>
+		<div class="block">
+			<div class="title cufon">Total Donations to Date</div>
+			<p>
+				<span style="font-size:20pt">$<?php echo $total_donations ?>!</span>
+			</p>
 		</div>
 	</div>
 	<div class="clear"></div>
