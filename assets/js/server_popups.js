@@ -12,7 +12,7 @@ $(document).ready(function() {
 		// Check if there is a cached version of the popup and if it is still valid
 		if(popup_cache[server_id] == null || popup_cache[server_id]['time'] < timestamp - cache_time){
 			// Get a fresh version of the popup
-			$.get('/system/cache/popups/'+server_id+'.html', function(html){
+			$.get('/assets/server_popups/'+server_id+'.html', function(html){
 				popup_cache[server_id] = Array();
 				popup_cache[server_id]['html'] = html;
 				popup_cache[server_id]['time'] = timestamp;

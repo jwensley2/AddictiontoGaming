@@ -3,9 +3,9 @@
 class Ventrilo_status
 {
 	
-	var $status_prog	= './assets/ventrilo/ventrilo_status';		// Location of the status program without file extension
+	var $status_prog	= './assets/ventrilo/ventrilo_status';	// Location of the status program without file extension
 	
-	function Ventrilo_status()
+	function __construct()
 	{
 		// If using Windows add .exe to the program path and get the realpath
 		if(stripos(php_uname('s'), 'Windows') !== FALSE){

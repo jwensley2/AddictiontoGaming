@@ -99,8 +99,8 @@ class Serversmodel extends CI_Model
 			}else{
 				if($server->full_updated < (time() - $this->full_update_delay)){
 					// Set the data to update in the DB
-					$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-					$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', false);
+					$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+					$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', FALSE);
 					$data['status'] 		= 2;
 					$data['players']		= 0;
 
@@ -111,8 +111,8 @@ class Serversmodel extends CI_Model
 					$this->db->where('id', $server->id);
 					$this->db->update('servers', $data);
 				}
-				$popup = $this->load->view('servers/popups/other', $server, true);
-				write_file('./system/cache/popups/'.$server->id.'.html', $popup);
+				$popup = $this->load->view('servers/popups/other', $server, TRUE);
+				write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 			}
 			
 		}
@@ -143,8 +143,8 @@ class Serversmodel extends CI_Model
 		}else{
 			if($server->full_updated < (time() - $this->full_update_delay)){
 				// Set the data to update in the DB
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', FALSE);
 				$data['status'] 		= 2;
 				$data['players']		= 0;
 				$data['max_players']	= 0;
@@ -177,8 +177,8 @@ class Serversmodel extends CI_Model
 			
 			if($server_info){
 				// Set the data to update in the DB
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', FALSE);
 				$data['status'] 		= 1;
 				$data['hostname']		= $server_info['hostname'];
 				$data['players']		= $server_info['players'];
@@ -194,8 +194,8 @@ class Serversmodel extends CI_Model
 				$server->player_list	= $this->source_status->get_server_players($server->ip, $server->port);
 			}else{
 				$this->db->delete('players', array('server_id' => $server->id));
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', FALSE);
 				$server->status	= 0;
 				$data['status']	= $server->status;
 			}
@@ -211,7 +211,7 @@ class Serversmodel extends CI_Model
 				}
 			}
 			
-		$popup = $this->load->view('servers/popups/source', $server, true);
+		$popup = $this->load->view('servers/popups/source', $server, TRUE);
 		write_file('./system/cache/popups/'.$server->id.'.html', $popup);
 			
 		}elseif($server->updated < (time() - $this->update_delay)){
@@ -219,7 +219,7 @@ class Serversmodel extends CI_Model
 			
 			if($server_info){
 				// Set the data to update in the DB
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
 				$data['status'] 		= 1;
 				$data['hostname']		= $server_info['hostname'];
 				$data['players']		= $server_info['players'];
@@ -233,8 +233,8 @@ class Serversmodel extends CI_Model
 				$server->mapname		= $server_info['mapname'];
 				
 			}else{
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', FALSE);
 				$server->status	= 0;
 				$data['status']	= $server->status;
 			}
@@ -242,8 +242,8 @@ class Serversmodel extends CI_Model
 			$this->db->where('id', $server->id);
 			$this->db->update('servers', $data);
 			
-			$popup = $this->load->view('servers/popups/source', $server, true);
-			write_file('./system/cache/popups/'.$server->id.'.html', $popup);
+			$popup = $this->load->view('servers/popups/source', $server, TRUE);
+			write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 		}
 	}
 	
@@ -263,8 +263,8 @@ class Serversmodel extends CI_Model
 			
 			if($server_info){
 				// Set the data to update in the DB
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.time().')', FALSE);
 				$data['status'] 		= 1;
 				$data['hostname']		= $server_info['hostname'];
 				$data['players']		= $server_info['players'];
@@ -281,8 +281,8 @@ class Serversmodel extends CI_Model
 				
 			}else{
 				$this->db->delete('players', array('server_id' => $server->id));
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', FALSE);
 				$server->status	= 0;
 				$data['status']	= $server->status;
 			}
@@ -298,15 +298,15 @@ class Serversmodel extends CI_Model
 				}
 			}
 			
-			$popup = $this->load->view('servers/popups/ventrilo', $server, true);
-			write_file('./system/cache/popups/'.$server->id.'.html', $popup);
+			$popup = $this->load->view('servers/popups/ventrilo', $server, TRUE);
+			write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 			
 		}elseif($server->updated < (time() - $this->update_delay)){
 			$server_info = $this->ventrilo_status->get_server_status($server->ip, $server->port);
 			
 			if($server_info){
 				// Set the data to update in the DB
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
 				$data['status'] 		= 1;
 				$data['hostname']		= $server_info['hostname'];
 				$data['players']		= $server_info['players'];
@@ -319,8 +319,8 @@ class Serversmodel extends CI_Model
 				$server->max_players	= $server_info['max_players'];
 				
 			}else{
-				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', false);
-				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', false);
+				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
+				$this->db->set('full_updated', 'FROM_UNIXTIME('.(time() - ($this->update_delay / 2)).')', FALSE);
 				$server->status	= 0;
 				$data['status']	= $server->status;
 			}
@@ -328,8 +328,8 @@ class Serversmodel extends CI_Model
 			$this->db->where('id', $server->id);
 			$this->db->update('servers', $data);
 			
-			$popup = $this->load->view('servers/popups/ventrilo', $server, true);
-			write_file('./system/cache/popups/'.$server->id.'.html', $popup);
+			$popup = $this->load->view('servers/popups/ventrilo', $server, TRUE);
+			write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 		}
 	}
 }
