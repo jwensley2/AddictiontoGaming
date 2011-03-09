@@ -207,6 +207,7 @@ class Serversmodel extends CI_Model
 			if($server->player_list){
 				foreach($server->player_list AS $player){
 					$player->server_id = $server->id;
+					unset($player->time); // Throw away the connected time
 					$this->db->insert('players', $player);	
 				}
 			}

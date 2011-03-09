@@ -1,111 +1,172 @@
 <?php
-DEFINE('PACKET_SIZE', '1248');
+
+/**
+ * Contains functions for retrieving the status of a Source Dedicated Server(SRCDS)
+ *
+ * @author Joseph Wensley
+ */
 
 class Source_status
 {
-	private $timeout = 1;
+	private $timeout		= 1;
+	private $ping_timeout	= 1;
 	
-	function ping_server($host, $port)
+	public $sort_type	= 'name';
+	
+	// http://developer.valvesoftware.com/wiki/Server_queries
+	const PACKET_SIZE					= 1248;
+	const A2S_INFO						= "\xFF\xFF\xFF\xFFTSource Engine Query\0"; // Get the server info
+	const A2S_SERVERQUERY_GETCHALLENGE	= "\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF"; // Get a challenge key
+	const A2S_PLAYER					= "\xFF\xFF\xFF\xFF\x55"; // Get the player list
+	
+	/**
+	 * Ping the server
+	 *
+	 * @param string $host The hostname/ip of the server
+	 * @param string $port The port of the server
+	 * @return bool
+	 * @author Joseph Wensley
+	 */
+	function ping($host, $port = '27015')
 	{
-		//Open a socket to the server and set the timeout
+		// Open a socket to the server and set the timeout
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str);
-		socket_set_timeout($socket, $this->timeout);
+		socket_set_timeout($socket, $this->ping_timeout);
 		
-		//Send the command to get the player list
-		$command = "\xFF\xFF\xFF\xFF\x57";
-		fwrite($socket, $command);
+		// Send the command to get the player list
+		fwrite($socket, self::A2S_INFO);
 	
-		$response = fread($socket, PACKET_SIZE);
-		
-		if(empty($response)){
-			return false;
-		}else{
-			return true;
+		$response = fread($socket, self::PACKET_SIZE); // Read a packet
+
+		if(empty($response))
+		{
+			return FALSE; // No response
+		}
+		else
+		{
+			return TRUE; // We got a response
 		}
 		
 	}
 	
-	function get_server_status($host, $port){
-		//Open a socket to the server and set the timeout
+	/**
+	 * Get the server info
+	 *
+	 * @param string $host The hostname/ip of the server
+	 * @param string $port The port of the server
+	 * @return mixed
+	 * @author Joseph Wensley
+	 */
+	function get_server_status($host, $port = '27015')
+	{
+		// Open a socket to the server and set the timeout
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str);
 		socket_set_timeout($socket, $this->timeout);
 		
-		//Send the command to get the player list
-		$command = "\xFF\xFF\xFF\xFFTSource Engine Query\0";
-		fwrite($socket, $command);
+		// Send the command to get the player list
+		fwrite($socket, self::A2S_INFO);
 	
-		$response = fread($socket, PACKET_SIZE);
+		$response = fread($socket, self::PACKET_SIZE);
 		$response = substr($response, 6);
 
-		if(!empty($response)){
+		if(!empty($response))
+		{
 			$server_info['hostname'] 	= $this->get_string($response);
-			$server_info['mapname'] 		= $this->get_string($response);
-			$this->get_string($response);
-			$this->get_string($response);
-			$this->get_short_unsigned($response);
+			$server_info['mapname'] 	= $this->get_string($response);
+			$server_info['game_dir']	= $this->get_string($response);
+			$server_info['game']		= $this->get_string($response);
+			$server_info['app_id']		= $this->get_short_unsigned($response);
 			$server_info['players'] 	= $this->get_byte($response);
 			$server_info['max_players'] = $this->get_byte($response);
+			$server_info['bots'] 		= $this->get_byte($response);
+			$server_info['dedicated'] 	= $this->get_byte($response);
+			$server_info['os']			= $this->get_byte($response);
+			$server_info['password']	= $this->get_byte($response);
+			$server_info['secure']		= $this->get_byte($response);
+			$server_info['version']		= $this->get_string($response);
 			
 			return $server_info;
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
-	//Get a list of players on the server with their kills and connection time
-	function get_server_players($host, $port)
+	/**
+	 * Get a list of the players on the server
+	 *
+	 * @param string $host The hostname/ip of the server
+	 * @param string $port The port of the server
+	 * @param string $sort How we should sort the players
+	 * @return mixed
+	 * @author Joseph Wensley
+	 */
+	function get_server_players($host, $port = '27015', $sort = FALSE)
 	{	
-		//Open a socket to the server
+		// Open a socket to the server
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str, $this->timeout);
 		socket_set_timeout($socket, $this->timeout);
 		
-		//Send the Challenge command
-		$command = "\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF";
-		fwrite($socket, $command);
+		// Send the Challenge command
+		fwrite($socket, self::A2S_SERVERQUERY_GETCHALLENGE);
 		
-		//Discard the junk from the response and read the challenge number
+		// Discard the junk from the response and read the challenge number
 		fread($socket, 5);
 		$challenge = fread($socket, 4);
 		
-		//Send the command to get the player list
-		$command = "\xFF\xFF\xFF\xFF\x55".$challenge;
+		// Send the command to get the player list
+		$command = self::A2S_PLAYER.$challenge;
 		fwrite($socket, $command);
 	
-		$response = fread($socket, PACKET_SIZE);
+		$response = fread($socket, self::PACKET_SIZE);
 		$response = substr($response, 6);
 		
 		fclose($socket);
 		
 		$players = array();
-		if(ord(substr($response, 0, 1)) == 0){
-			$i = 1;
+		if(ord(substr($response, 0, 1)) === 0)
+		{
 			while($response !== false){
-				$id = $i;
-				$this->get_byte($response);
+				$id = $this->get_byte($response);
 				
-				$players[$id]->name = $this->get_string($response);
-				$players[$id]->kills = $this->get_long($response);
-				$this->get_float($response);
-				
-				$i++;
+				$players[$id]->name		= $this->get_string($response);
+				$players[$id]->kills	= $this->get_long($response);
+				$players[$id]->time		= $this->get_float($response);
 			}
 		}
 		
-		if(!function_exists('sort_by_kills')){
-			function sort_by_kills($a, $b)
-			{
-				if($a->kills == $b->kills){ return 0;}
-				if($a->kills > $b->kills){
-					return -1;
-				}else{
-					return 1;
-				}
-			}
+		if($sort)
+		{
+			usort($players, array('Source_status', 'sort_players'));
 		}
-		
-		usort($players, 'sort_by_kills');
 		
 		return $players;
+	}
+	
+
+	private function sort_players($a, $b)
+	{
+		switch ($this->sort_type)
+		{
+			case 'kills':
+				if($a->kills == $b->kills){ return 0; }
+				if($a->kills > $b->kills)
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+				break;
+			
+			case 'name':
+				return strcmp($b->name, $a->name);
+				break;
+			
+			default:
+				return 0;
+				break;
+		}
 	}
 	
 	private function get_byte(&$string)
@@ -169,4 +230,4 @@ class Source_status
 	}
 }
 
-?>
+// End of file
