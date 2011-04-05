@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://test.addictiontogaming.com';
+$config['base_url']	= 'http://dev.addictiontogaming.com';
 
 /*
 |--------------------------------------------------------------------------

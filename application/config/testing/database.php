@@ -42,8 +42,8 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'atg_site';
-$db['default']['password'] = '***REMOVED***';
+$db['default']['username'] = 'atg_sitetest';
+$db['default']['password'] = 'pSeGV(q(TpIU';
 $db['default']['database'] = 'atg_sitetest';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
@@ -58,9 +58,9 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 $db['phpbb']['hostname'] = "localhost";
-$db['phpbb']['username'] = "atg_phpBB3";
-$db['phpbb']['password'] = "***REMOVED***";
-$db['phpbb']['database'] = "atg_phpBB3";
+$db['phpbb']['username'] = "atg_phpbb3";
+$db['phpbb']['password'] = "X*HwI&X*]0#g";
+$db['phpbb']['database'] = "atg_phpbb3";
 $db['phpbb']['dbdriver'] = "mysql";
 $db['phpbb']['dbprefix'] = "";
 $db['phpbb']['pconnect'] = TRUE;
@@ -74,8 +74,8 @@ $db['phpbb']['autoinit'] = TRUE;
 $db['phpbb']['stricton'] = FALSE;
 
 $db['sourcemod']['hostname'] = "localhost";
-$db['sourcemod']['username'] = "atg_sourcem";
-$db['sourcemod']['password'] = "***REMOVED***";
+$db['sourcemod']['username'] = "atg_sourcemod";
+$db['sourcemod']['password'] = "KcalsfP!563E";
 $db['sourcemod']['database'] = "atg_sourcemod";
 $db['sourcemod']['dbdriver'] = "mysql";
 $db['sourcemod']['dbprefix'] = "";
@@ -91,7 +91,7 @@ $db['sourcemod']['stricton'] = FALSE;
 
 $db['hlstats']['hostname'] = "localhost";
 $db['hlstats']['username'] = "atg_hlxce";
-$db['hlstats']['password'] = "***REMOVED***";
+$db['hlstats']['password'] = "wDaIX!92.[Zo";
 $db['hlstats']['database'] = "atg_hlxce";
 $db['hlstats']['dbdriver'] = "mysql";
 $db['hlstats']['dbprefix'] = "";
