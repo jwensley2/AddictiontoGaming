@@ -527,9 +527,9 @@ if ( ! function_exists('url_title'))
  * @param	string	the method: location or redirect
  * @return	string
  */
-if ( ! function_exists('_redirect'))
+if ( ! function_exists('redirect'))
 {
-	function _redirect($uri = '', $method = 'location', $http_response_code = 302)
+	function ci_redirect($uri = '', $method = 'location', $http_response_code = 302)
 	{
 		if ( ! preg_match('#^https?://#i', $uri))
 		{
