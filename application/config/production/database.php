@@ -91,7 +91,7 @@ $db['sourcemod']['stricton'] = FALSE;
 
 $db['hlstats']['hostname'] = "localhost";
 $db['hlstats']['username'] = "atg_hlxce";
-$db['hlstats']['password'] = "***REMOVED***";
+$db['hlstats']['password'] = "wDaIX!92.[Zo";
 $db['hlstats']['database'] = "atg_hlxce";
 $db['hlstats']['dbdriver'] = "mysql";
 $db['hlstats']['dbprefix'] = "";

@@ -26,6 +26,8 @@ class Home extends MY_Controller
 		//$this->output->enable_profiler(TRUE);
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Display the home page
 	 *
@@ -46,6 +48,13 @@ class Home extends MY_Controller
 		$this->load->view('home', $data);
 		$this->load->view('templates/footer');
 
+	}
+	
+	function test()
+	{
+		$this->load->library('servers/kf_status');
+		
+		$this->kf_status->get_players('95.31.20.232', 7717);
 	}
 }
 

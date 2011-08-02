@@ -8,10 +8,9 @@
 
 class Source_status
 {
-	private $timeout		= 1;
+	// Socket timeouts
+	private $timeout		= 2;
 	private $ping_timeout	= 1;
-	
-	public $sort_type	= 'name';
 	
 	// http://developer.valvesoftware.com/wiki/Server_queries
 	const PACKET_SIZE					= 1248;
@@ -27,11 +26,11 @@ class Source_status
 	 * @return bool
 	 * @author Joseph Wensley
 	 */
-	function ping($host, $port = '27015')
+	public function ping($host, $port = '27015')
 	{
 		// Open a socket to the server and set the timeout
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str);
-		socket_set_timeout($socket, $this->ping_timeout);
+		stream_set_timeout($socket, $this->ping_timeout);
 		
 		// Send the command to get the player list
 		fwrite($socket, self::A2S_INFO);
@@ -57,11 +56,11 @@ class Source_status
 	 * @return mixed
 	 * @author Joseph Wensley
 	 */
-	function get_server_status($host, $port = '27015')
+	public function get_status($host, $port = '27015')
 	{
 		// Open a socket to the server and set the timeout
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str);
-		socket_set_timeout($socket, $this->timeout);
+		stream_set_timeout($socket, $this->timeout);
 		
 		// Send the command to get the player list
 		fwrite($socket, self::A2S_INFO);
@@ -100,11 +99,11 @@ class Source_status
 	 * @return mixed
 	 * @author Joseph Wensley
 	 */
-	function get_server_players($host, $port = '27015', $sort = FALSE)
+	public function get_players($host, $port = '27015', $sort_type = NULL)
 	{	
 		// Open a socket to the server
 		$socket = fsockopen('udp://'.$host, $port, $err_num, $err_str, $this->timeout);
-		socket_set_timeout($socket, $this->timeout);
+		stream_set_timeout($socket, $this->timeout);
 		
 		// Send the Challenge command
 		fwrite($socket, self::A2S_SERVERQUERY_GETCHALLENGE);
@@ -134,16 +133,22 @@ class Source_status
 			}
 		}
 		
-		if($sort)
+		if(isset($sort_type))
 		{
-			usort($players, array('Source_status', 'sort_players'));
+			$players = $this->sort_players($players, $sort_type);
 		}
 		
 		return $players;
 	}
-	
 
-	private function sort_players($a, $b)
+	public function sort_players($players, $sort_type = 'kills')
+	{
+		usort($players, array(__CLASS__, 'sort_players_cmp'));
+		
+		return $players;
+	}
+
+	private function sort_players_cmp($a, $b)
 	{
 		switch ($this->sort_type)
 		{
