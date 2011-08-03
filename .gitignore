@@ -5,5 +5,4 @@
 /assets/images/donation_progress.png
 /assets/server_popups/*
 /application/cache/**/*
-/index.php
 /application/cache/twitter
