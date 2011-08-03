@@ -1,18 +1,20 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
 
 /**
  * Contains functions to add/remove/delete Donors to/from the Sourcebans database
  *
  * @author Joseph Wensley
  */
-class Sourcebansmodel extends CI_Model
-{
+class Sourcebansmodel extends CI_Model {
 	
 	function __construct()
 	{
 		parent::__construct();
 		$this->sm_db = $this->load->database('sourcemod', TRUE);
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Add a donor to the sourcebans admins table
@@ -27,16 +29,20 @@ class Sourcebansmodel extends CI_Model
 	{
 		$email = trim($email);
 		$username = trim($username);
-		if(strlen($username > 64)){ $username = substr($username, 0, 64); }
+		
+		if (strlen($username > 64))
+		{
+			$username = substr($username, 0, 64);
+		}
 	
 		// Check if user is already in the database
 		$query = $this->sm_db->get_where('sb_admins', array('authid' => $steam_id));
 		
 		// If the user doesn't exist add them
-		if($query->num_rows() == 0){
+		if ($query->num_rows() == 0)
+		{
 			$password = $this->hash_password('donor');
-
-
+			
 			// Create an account for the donor
 			$this->sm_db->set('user', $username);
 			$this->sm_db->set('authid', $steam_id);
@@ -69,15 +75,20 @@ class Sourcebansmodel extends CI_Model
 			
 			send_email($to, $subject, $message);
 			
-		}else{
+		}
+		else
+		{
 			$row = $query->row();
 			// If the user doesn't have a group add them to the Donor group
-			if($row->srv_group == '' || $row->srv_group == 'PotW'){
+			if ($row->srv_group == '' OR $row->srv_group == 'PotW')
+			{
 				$this->sm_db->where('authid', $steam_id);
 				$this->sm_db->update('sb_admins', array('srv_group' => 'Donor'));
 			}
 		}
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Remove a donors access but leave them in the admin table
@@ -93,11 +104,14 @@ class Sourcebansmodel extends CI_Model
 		$row = $query->row();
 		
 		// If the user is in the donor group set their group to nothing
-		if($row->srv_group == 'Donor'){
+		if ($row->srv_group == 'Donor')
+		{
 			$this->sm_db->where('authid', $steam_id);
 			$this->sm_db->update('sb_admins', array('srv_group' => ''));
 		}
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Delete a donor from the sourcebans admin table
@@ -113,11 +127,14 @@ class Sourcebansmodel extends CI_Model
 		$row = $query->row();
 		
 		// If the user is in the donor group delete them
-		if($row->srv_group == 'Donor' || $row->srv_group == ''){
+		if ($row->srv_group == 'Donor' || $row->srv_group == '')
+		{
 			$this->sm_db->where('authid', $steam_id);
 			$this->sm_db->delete('sb_admins');
 		}
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Generate password hash
@@ -133,4 +150,6 @@ class Sourcebansmodel extends CI_Model
 	}
 }
 
-?>
+
+/* End of file sourcebansmodel.php */
+/* Location: ./application/model/sourcebansmodel.php */

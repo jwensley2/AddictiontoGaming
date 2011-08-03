@@ -1,7 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Servers extends My_Controller
-{
+
+class Servers extends My_Controller {
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -11,8 +12,9 @@ class Servers extends My_Controller
 		
 		$this->header_data['title'] = 'Administration '.SEP.' Servers';
 		$this->asset_lib->add_asset('admin/servers', 'css', 'script');
-		//$this->header_data['stylesheets'][] = 'admin/servers.css';
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Display the list of servers from the database
@@ -20,21 +22,25 @@ class Servers extends My_Controller
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function index()
+	public function index()
 	{
-		//$this->settingsmodel->set_setting_array('SERVER_LIST_PERMISSIONS', array('Founder'));
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions)){
+		if (permission($server_list_permissions))
+		{
 			$data['servers'] = $this->serversmodel->quick_list_servers();
 
 			$this->load->view('templates/header', $this->header_data);
 			$this->load->view('/admin/servers/servers', $data);
 			$this->load->view('templates/footer');	
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Display the edit server form
@@ -43,23 +49,28 @@ class Servers extends My_Controller
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function edit($server_id = null)
+	public function edit($server_id = null)
 	{
 		$this->load->library('form_validation');
 		
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions) && $server_id){
+		if (permission($server_list_permissions) AND $server_id)
+		{
 			$data['server'] = $this->serversmodel->get_server_info($server_id);
 			$data['gametypes'] = $this->config->item('servers_gametypes');
 			
 			$this->load->view('templates/header', $this->header_data);
 			$this->load->view('/admin/servers/edit', $data);
 			$this->load->view('templates/footer');	
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Process the data from the edit server form
@@ -68,17 +79,21 @@ class Servers extends My_Controller
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function edit_process($server_id = null)
+	public function edit_process($server_id = null)
 	{
 		$this->load->library('form_validation');
 		
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions) && $server_id){
-			if($this->form_validation->run('server')){
+		if (permission($server_list_permissions) AND $server_id)
+		{
+			if ($this->form_validation->run('server'))
+			{
 				$this->serversmodel->edit_server($server_id);
 				redirect('/admin/servers/');
-			}else{
+			}
+			else
+			{
 				$data['gametypes'] = $this->config->item('servers_gametypes');
 				$data['server'] = $this->serversmodel->get_server_info($server_id);
 
@@ -86,62 +101,83 @@ class Servers extends My_Controller
 				$this->load->view('/admin/servers/edit', $data);
 				$this->load->view('templates/footer');
 			}
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
 	
-	function add()
+	// --------------------------------------------------------------------
+	
+	public function add()
 	{
 		$this->load->library('form_validation');
 		
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions)){
+		if (permission($server_list_permissions))
+		{
 			$data['gametypes'] = $this->config->item('servers_gametypes');
 			
 			$this->load->view('templates/header', $this->header_data);
 			$this->load->view('/admin/servers/add', $data);
 			$this->load->view('templates/footer');	
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
 	
-	function add_process()
+	// --------------------------------------------------------------------
+	
+	public function add_process()
 	{
 		$this->load->library('form_validation');
 		
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions)){
-			if($this->form_validation->run('server')){
+		if (permission($server_list_permissions))
+		{
+			if ($this->form_validation->run('server'))
+			{
 				$this->serversmodel->add_server();
 				redirect('/admin/servers/');
-			}else{
+			}
+			else
+			{
 				$data['gametypes'] = $this->config->item('servers_gametypes');
 
 				$this->load->view('templates/header', $this->header_data);
 				$this->load->view('/admin/servers/add', $data);
 				$this->load->view('templates/footer');
 			}
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
 	
-	function delete($server_id = null)
+	// --------------------------------------------------------------------
+	
+	public function delete($server_id = null)
 	{
 		$server_list_permissions = $this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS');
 	
-		if(permission($server_list_permissions) && $server_id){
+		if (permission($server_list_permissions) AND $server_id)
+		{
 			$this->serversmodel->delete_server($server_id);
 			redirect('/admin/servers');
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
 }
 
 
-?>
+/* End of file servers.php */
+/* Location: ./application/controllers/admin/servers.php */

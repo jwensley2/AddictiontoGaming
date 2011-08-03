@@ -1,7 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Serversmodel extends CI_Model
-{
+
+class Serversmodel extends CI_Model {
+	
 	private $update_delay = 15; // Time between status updates in seconds
 	private $full_update_delay = 30; // Time between full updates in seconds
 	
@@ -27,7 +28,7 @@ class Serversmodel extends CI_Model
 	{
 		$this->db->order_by('game, ip, port');
 		
-		if($game){
+		if ($game){
 			$query = $this->db->get_where('servers', array('game' => $game));
 		}else{
 			$query = $this->db->get('servers');	
@@ -87,7 +88,7 @@ class Serversmodel extends CI_Model
 	 */
 	function list_servers($order = null)
 	{
-		if( ! $order)
+		if ( ! $order)
 		{
 			$order = 'game, players DESC';
 		}
@@ -105,21 +106,21 @@ class Serversmodel extends CI_Model
 			
 			$data = array();
 			
-			if(in_array($server->game, array('tf2', 'l4d', 'l4d2', 'css')))
+			if (in_array($server->game, array('tf2', 'l4d', 'l4d2', 'css')))
 			{
 				$this->get_source_server_status($server);
 			}
-			elseif($server->game == 'vent')
+			elseif ($server->game == 'vent')
 			{
 				$this->get_ventrilo_server_status($server);
 			}
-			elseif($server->game == 'kf')
+			elseif ($server->game == 'kf')
 			{
 				$this->get_kf_server_status($server);
 			}
 			else
 			{
-				if($server->full_updated < (time() - $this->full_update_delay))
+				if ($server->full_updated < (time() - $this->full_update_delay))
 				{
 					// Set the data to update in the DB
 					$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -160,21 +161,21 @@ class Serversmodel extends CI_Model
 		$query = $this->db->get_where('players', array('server_id' => $server_id));
 		$server_info->player_list = $query->result();
 		
-		if(in_array($server_info->game, array('tf2', 'l4d', 'l4d2', 'css')))
+		if (in_array($server_info->game, array('tf2', 'l4d', 'l4d2', 'css')))
 		{
 			$this->get_source_server_status($server_info);
 		}
-		elseif($server_info->game == 'vent')
+		elseif ($server_info->game == 'vent')
 		{
 			$this->get_ventrilo_server_status($server_info);
 		}
-		elseif($server->game == 'kf')
+		elseif ($server->game == 'kf')
 		{
 			$this->get_unreal_server_status($server);
 		}
 		else
 		{
-			if($server->full_updated < (time() - $this->full_update_delay))
+			if ($server->full_updated < (time() - $this->full_update_delay))
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -207,11 +208,11 @@ class Serversmodel extends CI_Model
 	 */
 	private function get_source_server_status(&$server)
 	{
-		if($server->full_updated < (time() - $this->full_update_delay))
+		if ($server->full_updated < (time() - $this->full_update_delay))
 		{
 			$server_info = $this->srcds_status->get_status($server->ip, $server->port); 
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -243,7 +244,7 @@ class Serversmodel extends CI_Model
 			$this->db->update('servers', $data);
 			
 			$this->db->delete('players', array('server_id' => $server->id));
-			if($server->player_list)
+			if ($server->player_list)
 			{
 				foreach($server->player_list AS $player)
 				{
@@ -257,11 +258,11 @@ class Serversmodel extends CI_Model
 		write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 			
 		}
-		elseif($server->updated < (time() - $this->update_delay))
+		elseif ($server->updated < (time() - $this->update_delay))
 		{
 			$server_info = $this->srcds_status->get_status($server->ip, $server->port);
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -299,11 +300,11 @@ class Serversmodel extends CI_Model
 	{
 		$server->query_port = $server->port + 10;
 		
-		if($server->full_updated < (time() - $this->full_update_delay))
+		if ($server->full_updated < (time() - $this->full_update_delay))
 		{
 			$server_info = $this->kf_status->get_status($server->ip, $server->query_port);
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -320,7 +321,7 @@ class Serversmodel extends CI_Model
 				$server->players		= $server_info->numplayers;
 				$server->max_players	= $server_info->maxplayers;
 				$server->mapname		= $server_info->maptitle;
-				$server->player_list	= $this->srcds_status->get_players($server->ip, $server->port);
+				$server->player_list	= $this->kf_status->get_players($server->ip, $server->query_port);
 			}
 			else
 			{
@@ -335,25 +336,26 @@ class Serversmodel extends CI_Model
 			$this->db->update('servers', $data);
 			
 			$this->db->delete('players', array('server_id' => $server->id));
-			if($server->player_list)
+			if ($server->player_list)
 			{
 				foreach($server->player_list AS $player)
 				{
 					$player->server_id = $server->id;
-					unset($player->time); // Throw away the connected time
+					
+					unset($player->team);
+					
 					$this->db->insert('players', $player);	
 				}
 			}
 			
-		$popup = $this->load->view('servers/popups/kf', $server, TRUE);
-		write_file('./assets/server_popups/'.$server->id.'.html', $popup);
-			
+			$popup = $this->load->view('servers/popups/kf', $server, TRUE);
+			write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 		}
-		elseif($server->updated < (time() - $this->update_delay))
+		elseif ($server->updated < (time() - $this->update_delay))
 		{
 			$server_info = $this->kf_status->get_status($server->ip, $server->query_port);
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -399,11 +401,11 @@ class Serversmodel extends CI_Model
 	{
 		$server->channels = unserialize($server->channels);
 		
-		if($server->full_updated < (time() - $this->full_update_delay))
+		if ($server->full_updated < (time() - $this->full_update_delay))
 		{
 			$server_info = $this->ventrilo_status->get_full_server_status($server->ip, $server->port);
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -435,7 +437,7 @@ class Serversmodel extends CI_Model
 			$this->db->where('id', $server->id);
 			$this->db->update('servers', $data);
 			
-			if($server->player_list)
+			if ($server->player_list)
 			{
 				$this->db->delete('players', array('server_id' => $server->id));
 				foreach($server->player_list AS $player)
@@ -448,10 +450,10 @@ class Serversmodel extends CI_Model
 			$popup = $this->load->view('servers/popups/ventrilo', $server, TRUE);
 			write_file('./assets/server_popups/'.$server->id.'.html', $popup);
 			
-		}elseif($server->updated < (time() - $this->update_delay)){
+		}elseif ($server->updated < (time() - $this->update_delay)){
 			$server_info = $this->ventrilo_status->get_server_status($server->ip, $server->port);
 			
-			if($server_info)
+			if ($server_info)
 			{
 				// Set the data to update in the DB
 				$this->db->set('updated', 'FROM_UNIXTIME('.time().')', FALSE);
@@ -484,4 +486,6 @@ class Serversmodel extends CI_Model
 	}
 }
 
-?>
+
+/* End of file serversmodel.php */
+/* Location: ./application/model/serversmodel.php */

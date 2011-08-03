@@ -1,7 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Donations extends My_Controller
-{
+
+class Donations extends My_Controller {
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -16,24 +17,33 @@ class Donations extends My_Controller
 		//$this->header_data['stylesheets'][] = 'admin/donations.css';
 	}
 	
-	function index(){
+	// --------------------------------------------------------------------
+	
+	public function index()
+	{
 		$this->donors();
 	}
 	
-	function donors()
+	// --------------------------------------------------------------------
+	
+	public function donors()
 	{
 		$donor_list_permissions = $this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS');
-		if(permission($donor_list_permissions)){
+		if (permission($donor_list_permissions))
+		{
 			$data['donors'] = $this->donations_lib->get_donor_list();
-
+			
 			$this->load->view('templates/header', $this->header_data);
 			$this->load->view('/admin/donors/donors', $data);
 			$this->load->view('templates/footer');	
-		}else{
+		}
+		else
+		{
 			redirect($this->last_page);
 		}
 	}
 }
 
 
-?>
+/* End of file donations.php */
+/* Location: ./application/controllers/admin/donations.php */

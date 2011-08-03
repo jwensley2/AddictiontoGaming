@@ -1,13 +1,16 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Newsmodel extends CI_Model
-{
+
+class Newsmodel extends CI_Model {
+	
 	function __construct()
 	{
 		//Call the Model constructor
 		parent::__construct();
 		$this->load->database('default');
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Get the newest posts
@@ -22,8 +25,11 @@ class Newsmodel extends CI_Model
 		$this->db->limit($limit);
 		$this->db->order_by('date', 'desc');
 		$query = $this->db->get('news');
+		
 		return $query->result();
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Get a list of all the months that contain posts
@@ -40,6 +46,8 @@ class Newsmodel extends CI_Model
 		
 		return $query->result();
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Get all posts where the date is in $month of $year
@@ -59,6 +67,8 @@ class Newsmodel extends CI_Model
 		return $query->result();
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Get the news item with the id of $id
 	 *
@@ -72,6 +82,8 @@ class Newsmodel extends CI_Model
 		return $query->row();
 	}
 	
+	// --------------------------------------------------------------------
+	
 	function edit_news_item($id)
 	{			
 		$data['title']			= $this->input->post('title');
@@ -81,6 +93,8 @@ class Newsmodel extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('news', $data);
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Add a news item to the database
@@ -98,6 +112,8 @@ class Newsmodel extends CI_Model
 		$this->db->insert('news', $data);
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Delete the news item that has id = $id
 	 *
@@ -112,4 +128,6 @@ class Newsmodel extends CI_Model
 	}
 }
 
-?>
+
+/* End of file newsmodel.php */
+/* Location: ./application/model/newsmodel.php */

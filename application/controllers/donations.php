@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
 
 /**
  * Donations controller to handle donation related pages
@@ -13,14 +14,15 @@ class Donations extends MY_Controller {
 		parent::__construct();
 		
 		//Load libraries, helpers and models
-		$this->load->library(array('Donations_lib', 'Paypal_Lib', 'servers/source_rcon'));
+		$this->load->library(array('donations_lib', 'paypal_Lib', 'servers/source_rcon'));
 		$this->load->model('serversmodel');
 		$this->load->helper('string');
 		
 		//Set header data
 		$this->asset_lib->add_asset('donations', 'css', 'script');
-		//$this->header_data['stylesheets'][] = 'donations.css';
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Display the donations page which contains a donation form and list of recent donations and the top donors
@@ -28,7 +30,7 @@ class Donations extends MY_Controller {
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function index()
+	public function index()
 	{
 		$this->header_data['title'] = 'Make a Donation';
 		
@@ -41,24 +43,29 @@ class Donations extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Receives and handles PayPal IPN calls using the Paypal_lib
 	 *
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function ipn()
+	public function ipn()
 	{
 		$to = 'jwensley2@gmail.com';
 		
-		if ($this->paypal_lib->validate_ipn()){
+		if ($this->paypal_lib->validate_ipn())
+		{
 			$body  = 'An instant payment notification was successfully received from ';
 			$body .= $this->paypal_lib->ipn_data['payer_email'] . ' on '.date('m/d/Y') . ' at ' . date('g:i A') . "\n\n";
 			$body .= " Details:\n";
 
-			foreach ($this->paypal_lib->ipn_data as $key=>$value)
+			foreach ($this->paypal_lib->ipn_data AS $key=>$value)
+			{
 				$body .= "\n$key: $value";
-	
+			}
+			
 			// load email lib and email results
 			$this->load->library('email');
 			$this->email->to($to);
@@ -85,14 +92,16 @@ class Donations extends MY_Controller {
 			$this->donations_lib->add_donation($donor_id, $email, $txn_id, $amount, $fee);
 			
 			$steam_id_pattern = "/^STEAM_[0-9]:[0-9]:[0-9]+$/";
-			if(preg_match($steam_id_pattern, $steam_id) AND isset($ingame_name) AND $amount >= 5){
+			if (preg_match($steam_id_pattern, $steam_id) AND isset($ingame_name) AND $amount >= 5)
+			{
 				$this->load->model('sourcebansmodel');
 				$this->sourcebansmodel->add_donor($ingame_name, $steam_id, $email);
 			}
 			
 			// Rehash all TF2 servers
 			$servers = $this->serversmodel->quick_list_servers('tf2');
-			foreach($servers as $server){
+			foreach ($servers as $server)
+			{
 				$this->source_rcon->connect($server->ip, $server->port, $server->rcon_password);
 				$this->source->rcon->send_command('sm_rehash');
 				$this->source->rcon->send_command('say "'.$ingame_name.' just donated $'.$amount.'!"');
@@ -101,16 +110,20 @@ class Donations extends MY_Controller {
 		}
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Call this page to manually generate the donation progress image
 	 *
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function generate_image()
+	public function generate_image()
 	{
 		$this->donations_lib->generate_progress_bar();
 	}
 }
 
-?>
+
+/* End of file donations.php */
+/* Location: ./application/controllers/donations.php */

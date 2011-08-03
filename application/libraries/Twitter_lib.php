@@ -1,9 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 
-
-class Twitter_lib
-{
+class Twitter_lib {
+	
 	protected $cache_path = './application/cache/twitter/';
 	protected $cache_time = 1; // Cache time in minutes
 	
@@ -18,24 +17,30 @@ class Twitter_lib
 	private $username;
 	private $password;
 	
-	function Twitter_lib()
+	function __construct()
 	{
 		require_once('./application/libraries/twitteroauth/twitteroauth.php');
 	}
 	
-	function auth()
+	// --------------------------------------------------------------------
+	
+	public function auth()
 	{
 		$this->twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->oauth_token, $this->oauth_token_secret);
 		$content = $this->twitter->get('account/verify_credentials');
 		
-		if(isset($content->name)){
+		if (isset($content->name))
+		{
 			$this->authenticated = TRUE;
 		}
 	}
 	
-	function user_timeline($count)
+	// --------------------------------------------------------------------
+	
+	public function user_timeline($count)
 	{
-		if($this->authenticated == FALSE){
+		if ($this->authenticated == FALSE)
+		{
 			return FALSE;
 		}
 	
@@ -45,24 +50,33 @@ class Twitter_lib
 			'count' => $count,
 		);
 		
-		if($this->check_cache($cache_filename) == FALSE){
+		if ($this->check_cache($cache_filename) == FALSE)
+		{
 			$timeline = $this->twitter->get('statuses/user_timeline', $params);
 			
-			if(is_array($timeline)){
+			if (is_array($timeline))
+			{
 				$this->write_cache($cache_filename, $timeline);
-			}else{
+			}
+			else
+			{
 				$timeline = $this->read_cache($cache_filename);
 			}
-		}else{
+		}
+		else
+		{
 			$timeline = $this->read_cache($cache_filename);
 		}
 		
 		return $timeline;
 	}
 	
-	function update($status)
+	// --------------------------------------------------------------------
+	
+	public function update($status)
 	{
-		if($this->authenticated == FALSE){
+		if ($this->authenticated == FALSE)
+		{
 			return FALSE;
 		}
 		
@@ -73,9 +87,7 @@ class Twitter_lib
 		return $this->twitter->post('statuses/update', $params);
 	}
 	
-	/**
-	 * Caching Functions
-	 */
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Check to see if the cache is good
@@ -89,14 +101,18 @@ class Twitter_lib
 	{
 		$file = $this->cache_path.$filename;
 		
-		if(file_exists($file)){
+		if (file_exists($file))
+		{
 			$modified = filemtime($file);
-			if($modified > (time() - ($this->cache_time * 60))){
+			if ($modified > (time() - ($this->cache_time * 60)))
+			{
 				return TRUE;
 			}
 		}
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------
 	
 	private function read_cache($filename)
 	{
@@ -110,17 +126,23 @@ class Twitter_lib
 		return $data;
 	}
 	
+	// --------------------------------------------------------------------
+	
 	private function write_cache($filename, $data)
 	{
 		$file = $this->cache_path.$filename;
 		
-		if(!is_dir($this->cache_path)){
+		if ( ! is_dir($this->cache_path))
+		{
 			mkdir($this->cache_path);
 		}
 		
-		if(file_exists($file)){
+		if (file_exists($file))
+		{
 			$fp = fopen($file, 'w');
-		}else{
+		}
+		else
+		{
 			$fp = fopen($file, 'x');
 		}
 		
@@ -130,9 +152,7 @@ class Twitter_lib
 		fclose($fp);
 	}
 	
-	/**
-	 * Twitter Utility Functions
-	 */
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Change a timestamp to a relative time
@@ -141,13 +161,14 @@ class Twitter_lib
 	 * @return void
 	 * @author Joseph Wensley
 	 */	
-	function relative_time($time)
+	public function relative_time($time)
 	{
 		$now = time();
 		$time = strtotime($time);
 		
 		$diff = $now - $time;
-		switch ($diff) {
+		switch ($diff)
+		{
 			case ($diff < 60):
 				$relative = "Less than a minute ago";
 				break;
@@ -167,9 +188,11 @@ class Twitter_lib
 				$relative = date('g:i A M jS', $time);
 				break;
 		}
+		
 		return $relative;
 	}
 }
 
 
-?>
+/* End of file Twitter_lib.php */
+/* Location: ./application/libraries/Twitter_lib.php */

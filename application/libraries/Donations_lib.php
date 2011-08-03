@@ -1,11 +1,12 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
 
 class Donations_lib {
 	
 	protected $sprite_path = './assets/images/donation_progress_sprites.png';
 	protected $donation_progress_path = './assets/images/donation_progress.png';
 	
-	function Donations_lib()
+	function __construct()
 	{
 		$CI =& get_instance();
 		$CI->load->model('settingsmodel');
@@ -13,32 +14,44 @@ class Donations_lib {
 		$this->billing_day = $CI->settingsmodel->get_setting('BILLING_DAY');
 	}
 	
+	// --------------------------------------------------------------------
+	
 	function get_billing_start_date()
 	{
 		$billing_day =& $this->billing_day;
-		if(date('j') >= $billing_day){
+		if (date('j') >= $billing_day)
+		{
 			return mktime(0,0,0,date('m'),$billing_day,date('Y'));
-		}else{
+		}
+		else
+		{
 			return mktime(0,0,0,date('m')-1,$billing_day,date('Y'));
 		}
 	}
-
+	
+	// --------------------------------------------------------------------
+	
 	function get_billing_end_date()
 	{
 		$billing_day =& $this->billing_day;
-		if(date('j') < $billing_day){
+		if (date('j') < $billing_day)
+		{
 			return mktime(0,0,0,date('m'),$billing_day,date('Y'));
-		}else{
+		}
+		else
+		{
 			return mktime(0,0,0,date('m')+1,$billing_day,date('Y'));
 		}
 	}
-
+	
+	// --------------------------------------------------------------------
+	
 	function get_total_donations($start_date = null, $end_date = null)
 	{
 		$CI =& get_instance();
 		
-		if(!isset($start_date)){ $start_date = $this->get_billing_start_date(); }
-		if(!isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
+		if ( ! isset($start_date)){ $start_date = $this->get_billing_start_date(); }
+		if ( ! isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('SUM(amount) AS amount');
 		$CI->db->where("donations.date BETWEEN FROM_UNIXTIME('$start_date') AND FROM_UNIXTIME('$end_date')");
@@ -46,17 +59,19 @@ class Donations_lib {
 		
 		$amount = $query->row()->amount;
 		
-		if(!$amount){ $amount = 0; }
+		if ( ! $amount){ $amount = 0; }
 
 		return $amount;
 	}
+	
+	// --------------------------------------------------------------------
 	
 	function get_donation_list($start_date = null, $end_date = null)
 	{
 		$CI =& get_instance();
 		
-		if(!isset($start_date)){ $start_date = $this->get_billing_start_date(); }
-		if(!isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
+		if ( ! isset($start_date)){ $start_date = $this->get_billing_start_date(); }
+		if ( ! isset($end_date)){ $end_date =  $this->get_billing_end_date(); }
 		
 		$CI->db->select('donators.*, donations.*');
 		$CI->db->where('donators.id = donations.donor_id');
@@ -66,6 +81,8 @@ class Donations_lib {
 		
 		return $query->result();
 	}
+	
+	// --------------------------------------------------------------------
 	
 	function get_donor_list()
 	{
@@ -80,16 +97,19 @@ class Donations_lib {
 		return $query->result();
 	}
 	
+	// --------------------------------------------------------------------
+	
 	function add_donor($payer_id, $email, $first_name, $last_name, $ingame_name, $steam_id)
 	{
 		$CI =& get_instance();
 		
 		$donor_id = $CI->db->get_where('donators', array('payer_id' => $payer_id))->row('id');
-		if(!$donor_id){
-			
+		if ( ! $donor_id)
+		{
 			$donor_id_email = $CI->db->get_where('donators', array('email' => $email))->row('id');
 			
-			if($donor_id_email){
+			if ($donor_id_email)
+			{
 				$CI->db->set('payer_id', $payer_id);
 			
 				$CI->db->where('id', $donor_id_email);
@@ -100,7 +120,9 @@ class Donations_lib {
 				$CI->db->update('donations');
 				
 				return $donor_id_email;
-			}else{
+			}
+			else
+			{
 				$CI->db->set('payer_id', $payer_id);
 				$CI->db->set('email', $email);
 				$CI->db->set('first_name', $first_name);
@@ -117,6 +139,8 @@ class Donations_lib {
 		return $donor_id;
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Add a donation to the database and adjust the donators expire time
 	 *
@@ -132,7 +156,8 @@ class Donations_lib {
 		$CI =& get_instance();
 		
 		$query = $CI->db->get_where('donations', array('txn_id' => $txn_id));
-		if($query->result()){
+		if ($query->result())
+		{
 			return array(FALSE, "A donation has already been added with the provided txn_id");
 		}
 		
@@ -150,9 +175,12 @@ class Donations_lib {
 		
 		$months = floor($amount / 5);
 		
-		if($expire_date < time() OR !$expire_date){
+		if ($expire_date < time() OR !$expire_date)
+		{
 			$expire_date = mktime(0, 0, 0, date('n', time()) + $months, date('j', time()), date('Y', time()));
-		}else{
+		}
+		else
+		{
 			echo "here";
 			$expire_date = mktime(0, 0, 0, date('n', $expire_date) + $months, date('j', $expire_date), date('Y', $expire_date));
 		}
@@ -166,7 +194,9 @@ class Donations_lib {
 		
 		return array(TRUE, "Donation added");
 	}
-
+	
+	// --------------------------------------------------------------------
+	
 	function list_top_donors($count = 5)
 	{
 		$CI =& get_instance();
@@ -180,7 +210,9 @@ class Donations_lib {
 		
 		return $query->result();
 	}
-
+	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Generate the donation progress bar and save it to a file
 	 *
@@ -205,10 +237,11 @@ class Donations_lib {
 		
 		// Calculate the percentage of the cost that has been donated
 		$percent = round((100 / $cost) * $total);
-		if($percent > 100){ $percent = 100; }
+		if ($percent > 100){ $percent = 100; }
 	
 		// Set the track sprite to use based on percentage completed
-		switch ($percent) {
+		switch ($percent)
+		{
 			case ($percent >= 100):
 				$track = $point3;
 				break;
@@ -218,7 +251,7 @@ class Donations_lib {
 			default:
 				$track = $point1;
 				break;
-		};
+		}
 		
 		// Calculate the position of the cart on the track
 		$cart_xpos = ($percent / 100) * (END_XPOS * RATIO);
@@ -241,4 +274,6 @@ class Donations_lib {
 	}
 }
 
-?>
+
+/* End of file Donations_lib.php */
+/* Location: ./application/libraries/Donations_lib.php */
