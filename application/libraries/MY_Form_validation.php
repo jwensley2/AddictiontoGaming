@@ -1,9 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class MY_Form_validation extends CI_Form_validation
-{	
+class MY_Form_validation extends CI_Form_validation {
+	
 	/**
 	 * Checks if $str is a valid date and return TRUE or FALSE
 	 * Also sets the message to display if validation fails
@@ -13,7 +12,7 @@ class MY_Form_validation extends CI_Form_validation
 	 * @return bool
 	 * @author Joseph Wensley
 	 */
-	function valid_date($str, $field)
+	public function valid_date($str, $field)
 	{
 		$CI =& get_instance();
 
@@ -23,20 +22,22 @@ class MY_Form_validation extends CI_Form_validation
 		$regex = "/^(0[1-9]|1[012])\/(0[1-9]|[12]\d|3[01])\/(19|20|21)\d\d$/";
 		
 		//Check if the date matches the regex
-		if(!preg_match($regex, $str)){ return FALSE; }
+		if ( ! preg_match($regex, $str)){ return FALSE; }
 		
 		// Get the month, day and year from the date string
 		list($month, $day, $year) = explode('/', $str);
 		
 		$unix_month = mktime(0, 0, 0, $month, 1, $year);
 		$days_in_month = date('t', $unix_month);
-		if($day <= $days_in_month){
+		if ($day <= $days_in_month)
+		{
 			return TRUE;
 		}
 		
 		return FALSE;
 	}
-
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Checks if $str is a valid URL and returns TRUE or FALSE
@@ -46,7 +47,7 @@ class MY_Form_validation extends CI_Form_validation
 	 * @return bool
 	 * @author Joseph Wensley
 	 */
-	function valid_url($str)
+	public function valid_url($str)
 	{
 		$CI =& get_instance();
 		
@@ -54,7 +55,8 @@ class MY_Form_validation extends CI_Form_validation
 		
 		$regex = "/([\d\w-.]+?\.(a[cdefgilmnoqrstuwz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvxyz]|d[ejkmnoz]|e[ceghrst]|f[ijkmnor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdghklmnopqrstuvwxyz]|n[acefgilopruz]|om|p[aefghklmnrstwy]|qa|r[eouw]|s[abcdeghijklmnortuvyz]|t[cdfghjkmnoprtvwz]|u[augkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw]|aero|arpa|biz|com|coop|edu|info|int|gov|mil|museum|name|net|org|pro)(\b|\W(?<!&|=)(?!\.\s|\.{3}).*?))(\s|$)/";
 		
-		if(preg_match($regex, $str)){
+		if (preg_match($regex, $str))
+		{
 			return TRUE;
 		}
 		
@@ -62,4 +64,6 @@ class MY_Form_validation extends CI_Form_validation
 	}
 }
 
-?>
+
+/* End of file MY_Form_validation.php */
+/* Location: ./application/libraries/MY_Form_validation.php */

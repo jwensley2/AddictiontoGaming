@@ -1,13 +1,16 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Potwmodel extends CI_Model
-{
+
+class Potwmodel extends CI_Model {
+	
 	function __construct()
 	{
 		//Call the Model constructor
 		parent::__construct();
 		$this->load->database('default');
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Add a member to the players of the week database
@@ -27,11 +30,15 @@ class Potwmodel extends CI_Model
 		$this->db->set('forum_post_text', $this->input->post('forum_post_text'));
 		$this->db->set('start_date', 'FROM_UNIXTIME('.$unix_date.')', FALSE);
 		
-		if($this->db->insert('players_of_the_week')){
+		if ($this->db->insert('players_of_the_week'))
+		{
 			return $this->db->insert_id();
 		}
+		
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Returns the row from the database containing the current player of the week
@@ -44,6 +51,8 @@ class Potwmodel extends CI_Model
 		$query = $this->db->get_where('players_of_the_week', array('current' => 1));
 		return $query->row();
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Check to see if there is a new player of the week to display and set them to motw if there is.
@@ -63,7 +72,8 @@ class Potwmodel extends CI_Model
 		$query = $this->db->get('players_of_the_week');
 		$new_member = $query->row();
 		
-		if($current->id != $new_member->id){
+		if ($current->id != $new_member->id)
+		{
 			$this->db->where('current', 1);
 			$this->db->update('players_of_the_week', array('current' => 0));
 			
@@ -72,8 +82,11 @@ class Potwmodel extends CI_Model
 			
 			return TRUE;
 		}
+		
 		return FALSE;
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Retrieves a list of upcoming potw from the db
@@ -92,6 +105,8 @@ class Potwmodel extends CI_Model
 		return $query->result();
 	}
 	
+	// --------------------------------------------------------------------
+	
 	/**
 	 * Sets the post_url of a member in the database
 	 *
@@ -107,4 +122,6 @@ class Potwmodel extends CI_Model
 	}
 }
 
-?>
+
+/* End of file potwmodel.php */
+/* Location: ./application/model/potwmodel.php */

@@ -1,7 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Servers extends My_Controller
-{
+
+class Servers extends My_Controller {
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -11,6 +12,8 @@ class Servers extends My_Controller
 		$this->asset_lib->add_asset('servers', 'css', 'script');
 		//$this->header_data['stylesheets'][] = 'servers.css';
 	}
+	
+	// --------------------------------------------------------------------
 	
 	function index()
 	{
@@ -23,4 +26,5 @@ class Servers extends My_Controller
 }
 
 
-?>
+/* End of file servers.php */
+/* Location: ./application/controllers/servers.php */

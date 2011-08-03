@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
 
 /**
  * Controller to run the home page and anything related to it
@@ -6,9 +7,7 @@
  * @package default
  * @author Joseph Wensley
  */
-
-class Home extends MY_Controller
-{
+class Home extends MY_Controller {
 	
 	function __construct()
 	{
@@ -18,13 +17,11 @@ class Home extends MY_Controller
 		$this->load->library(array());
 		$this->load->helper(array());
 		$this->load->model(array('serversmodel', 'newsmodel'));
-		//Set header data
-
-		$this->asset_lib->add_asset('home', 'css', 'script');
-		//$this->header_data['stylesheets'][] = 'home.css';
 		
-		//$this->output->enable_profiler(TRUE);
+		$this->asset_lib->add_asset('home', 'css', 'script');
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * Display the home page
@@ -32,7 +29,7 @@ class Home extends MY_Controller
 	 * @return void
 	 * @author Joseph Wensley
 	 */
-	function index()
+	public function index()
 	{	
 		//$this->settingsmodel->set_setting_array('NEWS_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
 		//$this->settingsmodel->set_setting_array('MOTW_PERMISSIONS', array('Founder', 'Managers', 'Community Team'));
@@ -45,8 +42,9 @@ class Home extends MY_Controller
 		$this->load->view('templates/header', $this->header_data);
 		$this->load->view('home', $data);
 		$this->load->view('templates/footer');
-
 	}
 }
 
-?>
+
+/* End of file home.php */
+/* Location: ./application/controllers/home.php */

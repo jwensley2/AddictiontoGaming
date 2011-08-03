@@ -1,6 +1,5 @@
 			<div id="footer">
-				Design by Joseph Wensley
-				<br />Copyright Addiction to Gaming 2010
+				<br />Copyright Addiction to Gaming <?php echo date('Y') ?>
 			</div>
 		</div>
 		

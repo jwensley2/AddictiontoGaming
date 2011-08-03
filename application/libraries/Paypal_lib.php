@@ -46,7 +46,7 @@
 
 // ------------------------------------------------------------------------
 
-class Paypal_Lib {
+class Paypal_lib {
 
 	var $last_error;			// holds the last error encountered
 	var $ipn_log;				// bool: log IPN results to text file?
