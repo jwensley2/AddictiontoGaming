@@ -30,7 +30,7 @@ class Phpbb_lib
 		define('IN_PHPBB', TRUE);
 		if(ENVIRONMENT == 'testing')
 		{
-			define('FORUM_ROOT_PATH', '../atg/forums/');
+			define('FORUM_ROOT_PATH', '../public_html/forums/');
 		}
 		else
 		{
