@@ -14,7 +14,7 @@ class Donations extends MY_Controller {
 		parent::__construct();
 		
 		//Load libraries, helpers and models
-		$this->load->library(array('donations_lib', 'paypal_Lib', 'servers/source_rcon'));
+		$this->load->library(array('donations_lib', 'paypal_lib', 'servers/source_rcon'));
 		$this->load->model('serversmodel');
 		$this->load->helper('string');
 		
