@@ -91,8 +91,8 @@ class Potw extends MY_Controller {
 						unlink($upload_data['full_path']);
 					}
 					
-					$this->load->helper('cron');
-					run_cron_jobs();
+					$this->load->model('cronmodel');
+					$this->cronmodel->set_player_of_the_week();
 					
 					redirect('/');
 				}
