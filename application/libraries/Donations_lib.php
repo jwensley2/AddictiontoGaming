@@ -201,12 +201,12 @@ class Donations_lib {
 	{
 		$CI =& get_instance();
 		
-		$CI->db->select('ingame_name, SUM(amount) AS total');
-		$CI->db->group_by('donators.id');
-		$CI->db->where('donators.id = donations.donor_id');
-		$CI->db->order_by('total', 'desc');
-		$CI->db->limit($count);
-		$query = $CI->db->get('donations, donators');
+		$query = $CI->db->select('ingame_name, SUM(amount) AS total')
+			->group_by('donators.id')
+			->where('donators.id = donations.donor_id')
+			->order_by('total', 'desc')
+			->limit($count)
+			->get('donations, donators');
 		
 		return $query->result();
 	}

@@ -124,4 +124,4 @@ class Potwmodel extends CI_Model {
 
 
 /* End of file potwmodel.php */
-/* Location: ./application/model/potwmodel.php */
+/* Location: ./application/models/potwmodel.php */
