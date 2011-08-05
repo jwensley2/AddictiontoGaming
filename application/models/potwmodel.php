@@ -22,7 +22,7 @@ class Potwmodel extends CI_Model {
 	{	
 		$start_date = $this->input->post('start_date');
 		list($month, $day, $year) = explode('/', $start_date);
-		$unix_date = mktime(0, 0, 0, $month, $day, $year);
+		$unix_date = mktime(0, 0, 0, (int) $month, (int) $day, (int) $year);
 		
 		$this->db->set('name', $this->input->post('name'));
 		$this->db->set('real_name', $this->input->post('real_name'));
