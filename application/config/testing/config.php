@@ -366,7 +366,7 @@ $config['proxy_ips'] = '';
 | Turns profiling on/off for the entire site
 |
 */
-$config['debug'] = TRUE;
+$config['debug'] = FALSE;
 
 
 /* End of file config.php */
