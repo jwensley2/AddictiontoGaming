@@ -25,7 +25,7 @@ class Potwmodel extends CI_Model {
 		
 		if ($start_date)
 		{
-			list($month, $day, $year) = explode('/', $str);
+			list($month, $day, $year) = explode('/', $start_date);
 			$unix_date = mktime(0, 0, 0, (int) $month, (int) $day, (int) $year);
 		}
 		else
@@ -37,7 +37,7 @@ class Potwmodel extends CI_Model {
 			->set('real_name', $this->input->post('real_name'))
 			->set('steam_id', $this->input->post('steam_id'))
 			->set('forum_post_text', $this->input->post('forum_post_text'))
-			->set('start_date', 'FROM_UNIXTIME('.$unix_date.')', FALSE)
+			->set('start_date', "FROM_UNIXTIME({$unix_date})", FALSE)
 			->insert('players_of_the_week');
 		
 		if ($query)
