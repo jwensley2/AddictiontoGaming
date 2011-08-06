@@ -13,7 +13,7 @@ class Potw extends MY_Controller {
 		$this->load->model(array('serversmodel', 'potwmodel'));
 		
 		// Set header data
-		$this->header_data['title']			= 'Administration '.SEP.' Player of the Week';
+		$this->header_data['title'] = 'Administration '.SEP.' Player of the Week';
 		
 		// Add Assets
 		$this->asset_lib->add_asset('admin/potw', 'css', 'script');
@@ -83,8 +83,6 @@ class Potw extends MY_Controller {
 					
 						ci_create_thumbnail($upload_data['full_path'], $thumb_path, 274, 274);
 						rename($upload_data['full_path'], $full_path);
-					
-					
 					}
 					else
 					{

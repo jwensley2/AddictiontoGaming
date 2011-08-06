@@ -27,9 +27,7 @@ class MY_Form_validation extends CI_Form_validation {
 		// Get the month, day and year from the date string
 		list($month, $day, $year) = explode('/', $str);
 		
-		$unix_month = mktime(0, 0, 0, $month, 1, $year);
-		$days_in_month = date('t', $unix_month);
-		if ($day <= $days_in_month)
+		if (checkdate((int) $month, (int) $day, (int) $year))
 		{
 			return TRUE;
 		}
