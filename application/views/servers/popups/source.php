@@ -15,7 +15,7 @@
 				<?php $color = alternator('color1', 'color2') ?>
 				<tr class="<?php echo $color ?>">
 					<?php if (!empty($player->name)): ?>
-						<td class="name"><?php echo $player->name ?></td>
+						<td class="name"><?php echo htmlspecialchars($player->name) ?></td>
 					<?php else: ?>
 						<td class="name connecting">Connecting</td>
 					<?php endif ?>
