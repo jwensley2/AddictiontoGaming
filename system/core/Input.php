@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -28,13 +28,49 @@
  */
 class CI_Input {
 
+	/**
+	 * IP address of the current user
+	 *
+	 * @var string
+	 */
 	var $ip_address				= FALSE;
+	/**
+	 * user agent (web browser) being used by the current user
+	 *
+	 * @var string
+	 */
 	var $user_agent				= FALSE;
+	/**
+	 * If FALSE, then $_GET will be set to an empty array
+	 *
+	 * @var bool
+	 */
 	var $_allow_get_array		= TRUE;
+	/**
+	 * If TRUE, then newlines are standardized
+	 *
+	 * @var bool
+	 */
 	var $_standardize_newlines	= TRUE;
-	var $_enable_xss			= FALSE; // Set automatically based on config setting
-	var $_enable_csrf			= FALSE; // Set automatically based on config setting
-
+	/**
+	 * Determines whether the XSS filter is always active when GET, POST or COOKIE data is encountered
+	 * Set automatically based on config setting
+	 *
+	 * @var bool
+	 */
+	var $_enable_xss			= FALSE;
+	/**
+	 * Enables a CSRF cookie token to be set.
+	 * Set automatically based on config setting
+	 *
+	 * @var bool
+	 */
+	var $_enable_csrf			= FALSE;
+	/**
+	 * List of all HTTP request headers
+	 *
+	 * @var array
+	 */
 	protected $headers			= array();
 
 
@@ -201,7 +237,7 @@ class CI_Input {
 	* @param	mixed
 	* @param	string	the value of the cookie
 	* @param	string	the number of seconds until expiration
-	* @param	string	the cookie domain. Usually: .yourdomain.com
+	* @param	string	the cookie domain.  Usually:  .yourdomain.com
 	* @param	string	the cookie path
 	* @param	string	the cookie prefix
 	* @param	bool	true makes the cookie secure
@@ -512,8 +548,12 @@ class CI_Input {
 			return $new_array;
 		}
 
-		// We strip slashes if magic quotes is on to keep things consistent
-		if (function_exists('get_magic_quotes_gpc') AND get_magic_quotes_gpc())
+		/* We strip slashes if magic quotes is on to keep things consistent
+
+		   NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
+			 it will probably not exist in future versions at all.
+		*/
+		if ( ! is_php('5.4') && get_magic_quotes_gpc())
 		{
 			$str = stripslashes($str);
 		}
@@ -581,6 +621,8 @@ class CI_Input {
 	 *
 	 * In Apache, you can simply call apache_request_headers(), however for
 	 * people running other webservers the function is undefined.
+	 *
+	 * @param	bool XSS cleaning
 	 *
 	 * @return array
 	 */
@@ -672,11 +714,10 @@ class CI_Input {
 	 */
 	public function is_cli_request()
 	{
-		return (bool) defined('STDIN');
+		return (php_sapi_name() == 'cli') or defined('STDIN');
 	}
 
 }
-// END Input class
 
 /* End of file Input.php */
 /* Location: ./system/core/Input.php */

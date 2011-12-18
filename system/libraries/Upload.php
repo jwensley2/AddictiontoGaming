@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -185,7 +185,7 @@ class CI_Upload {
 				case 8: // UPLOAD_ERR_EXTENSION
 					$this->set_error('upload_stopped_by_extension');
 					break;
-				default :  $this->set_error('upload_no_file_selected');
+				default :   $this->set_error('upload_no_file_selected');
 					break;
 			}
 
@@ -196,7 +196,8 @@ class CI_Upload {
 		// Set the uploaded data as class variables
 		$this->file_temp = $_FILES[$field]['tmp_name'];
 		$this->file_size = $_FILES[$field]['size'];
-		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $_FILES[$field]['type']);
+		$this->_file_mime_type($_FILES[$field]);
+		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->file_type);
 		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
 		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
 		$this->file_ext	 = $this->get_extension($this->file_name);
@@ -290,7 +291,7 @@ class CI_Upload {
 		/*
 		 * Run the file through the XSS hacking filter
 		 * This helps prevent malicious code from being
-		 * embedded within a file. Scripts can easily
+		 * embedded within a file.  Scripts can easily
 		 * be disguised as images or other file types.
 		 */
 		if ($this->xss_clean)
@@ -305,8 +306,8 @@ class CI_Upload {
 		/*
 		 * Move the file to the final destination
 		 * To deal with different server configurations
-		 * we'll attempt to use copy() first. If that fails
-		 * we'll use move_uploaded_file(). One of the two should
+		 * we'll attempt to use copy() first.  If that fails
+		 * we'll use move_uploaded_file().  One of the two should
 		 * reliably work in most environments
 		 */
 		if ( ! @copy($this->file_temp, $this->upload_path.$this->file_name))
@@ -321,7 +322,7 @@ class CI_Upload {
 		/*
 		 * Set the finalized image dimensions
 		 * This sets the image width/height (assuming the
-		 * file was an image). We use this information
+		 * file was an image).  We use this information
 		 * in the "data" function.
 		 */
 		$this->set_image_properties($this->upload_path.$this->file_name);
@@ -518,7 +519,7 @@ class CI_Upload {
 				$this->image_width		= $D['0'];
 				$this->image_height		= $D['1'];
 				$this->image_type		= ( ! isset($types[$D['2']])) ? 'unknown' : $types[$D['2']];
-				$this->image_size_str	= $D['3']; // string containing height and width
+				$this->image_size_str	= $D['3'];  // string containing height and width
 			}
 		}
 	}
@@ -551,7 +552,7 @@ class CI_Upload {
 		// IE will sometimes return odd mime-types during upload, so here we just standardize all
 		// jpegs or pngs to the same file type.
 
-		$png_mimes = array('image/x-png');
+		$png_mimes  = array('image/x-png');
 		$jpeg_mimes = array('image/jpg', 'image/jpe', 'image/jpeg', 'image/pjpeg');
 
 		if (in_array($this->file_type, $png_mimes))
@@ -642,7 +643,7 @@ class CI_Upload {
 	 */
 	public function is_allowed_filesize()
 	{
-		if ($this->max_size != 0 AND $this->file_size > $this->max_size)
+		if ($this->max_size != 0  AND  $this->file_size > $this->max_size)
 		{
 			return FALSE;
 		}
@@ -721,7 +722,7 @@ class CI_Upload {
 			return FALSE;
 		}
 
-		$this->upload_path = preg_replace("/(.+?)\/*$/", "\\1/", $this->upload_path);
+		$this->upload_path = preg_replace("/(.+?)\/*$/", "\\1/",  $this->upload_path);
 		return TRUE;
 	}
 
@@ -834,7 +835,7 @@ class CI_Upload {
 			$current = ini_get('memory_limit') * 1024 * 1024;
 
 			// There was a bug/behavioural change in PHP 5.2, where numbers over one million get output
-			// into scientific notation. number_format() ensures this number is an integer
+			// into scientific notation.  number_format() ensures this number is an integer
 			// http://bugs.php.net/bug.php?id=43053
 
 			$new_memory = number_format(ceil(filesize($file) + $current), 0, '.', '');
@@ -844,8 +845,8 @@ class CI_Upload {
 
 		// If the file being uploaded is an image, then we should have no problem with XSS attacks (in theory), but
 		// IE can be fooled into mime-type detecting a malformed image as an html file, thus executing an XSS attack on anyone
-		// using IE who looks at the image. It does this by inspecting the first 255 bytes of an image. To get around this
-		// CI will itself look at the first 255 bytes of an image to determine its relative safety. This can save a lot of
+		// using IE who looks at the image.  It does this by inspecting the first 255 bytes of an image.  To get around this
+		// CI will itself look at the first 255 bytes of an image to determine its relative safety.  This can save a lot of
 		// processor power and time if it is actually a clean image, as it will be in nearly all instances _except_ an
 		// attempted XSS attack.
 
@@ -933,7 +934,7 @@ class CI_Upload {
 	/**
 	 * List of Mime Types
 	 *
-	 * This is a list of mime types. We use it to validate
+	 * This is a list of mime types.  We use it to validate
 	 * the "allowed types" set by the developer
 	 *
 	 * @param	string
@@ -1002,6 +1003,67 @@ class CI_Upload {
 		$filename .= '.'.$ext;
 
 		return $filename;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * File MIME type
+	 *
+	 * Detects the (actual) MIME type of the uploaded file, if possible.
+	 * The input array is expected to be $_FILES[$field]
+	 *
+	 * @param	array
+	 * @return	void
+	 */
+	protected function _file_mime_type($file)
+	{
+		// Use if the Fileinfo extension, if available (only versions above 5.3 support the FILEINFO_MIME_TYPE flag)
+		if ( (float) substr(phpversion(), 0, 3) >= 5.3 && function_exists('finfo_file'))
+		{
+			$finfo = new finfo(FILEINFO_MIME_TYPE);
+			if ($finfo !== FALSE) // This is possible, if there is no magic MIME database file found on the system
+			{
+				$file_type = $finfo->file($file['tmp_name']);
+
+				/* According to the comments section of the PHP manual page,
+				 * it is possible that this function returns an empty string
+				 * for some files (e.g. if they don't exist in the magic MIME database)
+				 */
+				if (strlen($file_type) > 1)
+				{
+					$this->file_type = $file_type;
+					return;
+				}
+			}
+		}
+
+		// Fall back to the deprecated mime_content_type(), if available
+		if (function_exists('mime_content_type'))
+		{
+			$this->file_type = @mime_content_type($file['tmp_name']);
+			return;
+		}
+
+		/* This is an ugly hack, but UNIX-type systems provide a native way to detect the file type,
+		 * which is still more secure than depending on the value of $_FILES[$field]['type'].
+		 *
+		 * Notes:
+		 *	- a 'W' in the substr() expression bellow, would mean that we're using Windows
+		 *	- many system admins would disable the exec() function due to security concerns, hence the function_exists() check
+		 */
+		if (DIRECTORY_SEPARATOR !== '\\' && function_exists('exec'))
+		{
+			$output = array();
+			@exec('file --brief --mime-type ' . escapeshellarg($file['tmp_path']), $output, $return_code);
+			if ($return_code === 0 && strlen($output[0]) > 0) // A return status code != 0 would mean failed execution
+			{
+				$this->file_type = rtrim($output[0]);
+				return;
+			}
+		}
+
+		$this->file_type = $file['type'];
 	}
 
 	// --------------------------------------------------------------------
