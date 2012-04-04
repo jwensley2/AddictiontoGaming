@@ -28,14 +28,7 @@ class Phpbb_lib
 		global $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template, $table_prefix;
 
 		define('IN_PHPBB', TRUE);
-		if(ENVIRONMENT == 'testing')
-		{
-			define('FORUM_ROOT_PATH', '../public_html/forums/');
-		}
-		else
-		{
-			define('FORUM_ROOT_PATH', './forums/');
-		}
+		define('FORUM_ROOT_PATH', './forums/');
 
 		$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : FORUM_ROOT_PATH;
 		$phpEx = substr(strrchr(__FILE__, '.'), 1);

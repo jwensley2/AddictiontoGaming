@@ -41,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'atg_site';
-$db['default']['password'] = 'phH7ZEM]c9wJ';
-$db['default']['database'] = 'atg_site';
+$db['default']['hostname'] = 'internal-db.s139665.gridserver.com';
+$db['default']['username'] = 'db139665_atg';
+$db['default']['password'] = 'IfoY8oKgCd';
+$db['default']['database'] = 'db139665_atg_site';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -57,10 +57,10 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$db['phpbb']['hostname'] = "localhost";
-$db['phpbb']['username'] = "atg_phpbb3";
-$db['phpbb']['password'] = "X*HwI&X*]0#g";
-$db['phpbb']['database'] = "atg_phpbb3";
+$db['phpbb']['hostname'] = "internal-db.s139665.gridserver.com";
+$db['phpbb']['username'] = "db139665_phpbb";
+$db['phpbb']['password'] = "sGIlzgKuFC";
+$db['phpbb']['database'] = "db139665_atg_phpbb3";
 $db['phpbb']['dbdriver'] = "mysql";
 $db['phpbb']['dbprefix'] = "";
 $db['phpbb']['pconnect'] = TRUE;
@@ -73,10 +73,10 @@ $db['phpbb']['swap_pre'] = '';
 $db['phpbb']['autoinit'] = TRUE;
 $db['phpbb']['stricton'] = FALSE;
 
-$db['sourcemod']['hostname'] = "localhost";
-$db['sourcemod']['username'] = "atg_sourcemod";
-$db['sourcemod']['password'] = "KcalsfP!563E";
-$db['sourcemod']['database'] = "atg_sourcemod";
+$db['sourcemod']['hostname'] = "internal-db.s139665.gridserver.com";
+$db['sourcemod']['username'] = "db139665_atg";
+$db['sourcemod']['password'] = "IfoY8oKgCd";
+$db['sourcemod']['database'] = "db139665_atg_sourcemod";
 $db['sourcemod']['dbdriver'] = "mysql";
 $db['sourcemod']['dbprefix'] = "";
 $db['sourcemod']['pconnect'] = TRUE;
@@ -89,9 +89,10 @@ $db['sourcemod']['swap_pre'] = '';
 $db['sourcemod']['autoinit'] = TRUE;
 $db['sourcemod']['stricton'] = FALSE;
 
+/*
 $db['hlstats']['hostname'] = "localhost";
-$db['hlstats']['username'] = "atg_hlxce";
-$db['hlstats']['password'] = "wDaIX!92.[Zo";
+$db['hlstats']['username'] = "db139665_atg";
+$db['hlstats']['password'] = "IfoY8oKgCd";
 $db['hlstats']['database'] = "atg_hlxce";
 $db['hlstats']['dbdriver'] = "mysql";
 $db['hlstats']['dbprefix'] = "";
@@ -104,6 +105,7 @@ $db['hlstats']['dbcollat'] = "utf8_general_ci";
 $db['hlstats']['swap_pre'] = '';
 $db['hlstats']['autoinit'] = TRUE;
 $db['hlstats']['stricton'] = FALSE;
+*/
 
 
 /* End of file database.php */
