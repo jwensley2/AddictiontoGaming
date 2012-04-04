@@ -20,7 +20,7 @@ class Cron extends MY_Controller {
 		$this->cronmodel->set_player_of_the_week();
 		$this->cronmodel->update_donations_progress();
 		
-		echo 'Cron job completed'.PHP_EOL;
+		exit(0);
 	}
 }
 
