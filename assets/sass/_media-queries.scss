@@ -1,0 +1,79 @@
+//========================================
+// Media Queries
+//========================================
+
+//----- Small Screen + Tablet -----
+@media screen and (max-width: 800px) {
+	.o-wrap { max-width: 95% }
+
+	.navigation {
+		@include column(16);
+		margin-bottom: 20px;
+
+		.sub-nav, .main-nav {
+			margin: 5px 0 0;
+			padding: 5px 0 0;
+
+			li {
+				display: inline-block;
+				margin: 2px 0;
+			}
+		}
+	}
+
+	.content {
+		@include column(11);
+	}
+
+	.sidebar {
+		@include column(5);
+	}
+
+	.page-footer {
+		.col {
+			@include column(6);
+		}
+	}
+}
+
+//----- Mobile -----
+@media screen and (max-width: 480px) {
+	.page-header {
+		h1 {
+			background: none;
+			font-size: 25px;
+			height: auto;
+			line-height: 1.2;
+			text-indent: 0;
+		}
+	}
+
+	.navigation {
+		@include column(16);
+		margin-bottom: 20px;
+
+		.sub-nav, .main-nav {
+			margin: 0;
+			padding: 0;
+
+			li { margin: 5px 0 }
+
+			li, a { display: block }
+		}
+	}
+
+	.content {
+		@include column(16);
+	}
+
+	.sidebar {
+		@include column(16);
+		margin-top: 100px;
+	}
+
+	.page-footer {
+		.col {
+			@include column(8);
+		}
+	}
+}

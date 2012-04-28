@@ -1,0 +1,79 @@
+form {
+	// Reset buttons for Firefox
+	button::-moz-focus-inner,
+	input[type="reset"]::-moz-focus-inner,
+	input[type="button"]::-moz-focus-inner,
+	input[type="submit"]::-moz-focus-inner,
+	input[type="file"] > input[type="button"]::-moz-focus-inner {
+		border: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	input {
+		@include border-radius(0);
+		margin: 0;
+
+		+input { margin-top: 5px }
+	}
+
+	input[type="text"], input[type="password"], input[type="email"] {
+		@include box-sizing(border-box);
+		border: 0;
+		font-size: 14px;
+		padding: 8px;
+		width: 100%;
+
+		&:focus { background: #EEE }
+	}
+
+	input[type="submit"] {
+		@include appearance(none);
+		@include border-radius(0);
+		@include box-sizing(border-box);
+		background: $lightblue;
+		border: 0;
+		border: 1px solid $lightblue;
+		color: $black;
+		display: block;
+		font-size: 16px;
+		padding: 8px;
+		width: 100%;
+
+		&:hover, &:focus {
+			background: $gray;
+			border: 1px solid #FFF;
+			color: #FFF;
+		}
+	}
+
+	select {
+		border: 0;
+		padding: 8px;
+		width: 100%;
+		font-size: 14px;
+
+		option { margin: 5px }
+
+		&:focus { background: #EEE }
+	}
+
+	label {
+		display: block;
+		font-weight: bold;
+		margin: 0 0 3px;
+
+		&.required:before {
+			content: "*";
+			display: inline;
+		}
+	}
+
+	.row {
+		+.row, +input {
+			margin-top: 10px;
+		}
+	}
+
+	.cke_skin_kama { @include box-sizing(border-box) }
+}

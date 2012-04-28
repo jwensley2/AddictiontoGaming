@@ -1,4 +1,6 @@
-<script type="text/javascript" charset="utf-8">
+<!-- Content -->
+
+<script type="text/javascript">
 	$(function()
 	{
 		var config = {
@@ -6,8 +8,7 @@
 			[
 				['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Image', 'Link', 'Unlink'],
 			],
-			uiColor : "#737280",
-			width: 470,
+			width: "100%",
 			resize_maxWidth: 458,
 			resize_minWidth: 458,
 			resize: false,
@@ -16,35 +17,30 @@
 
 		// Initialize the editor.
 		// Callback function can be passed and executed after full instance creation.
-		$('.custom_ckeditor').ckeditor(config);
+		$(".custom-ckeditor").ckeditor(config);
 	});
-	
 </script>
 
-<div id="content">
-	<?php $this->load->view('/admin/templates/sidebar') ?>
+<section id="content" class="content">
+	<header>
+		<h1>Administration - News - Edit News</h1>
+	</header>
 
+	<article>
+		<?php echo validation_errors('<p class="error">', '</p>'); ?>
 
-	<div id="content_right">
-		<div id="page_title" class="block cufon">Admin - News - Edit News</div>
-		
-		<?php echo validation_errors('<div class="block validation_error">', '</div>'); ?>
-		
-		<div class="block">
-			<?php echo form_open('/admin/news/edit_process/'.$news->id, array('id' => 'news_form')) ?>
-				<div class="row">
-					<div class="heading">Title</div>
-					<div class="element"><input type="text" value="<?php echo set_value('title', $news->title) ?>" name="title" /></div>
-				</div>
-				<div class="row">
-					<div class="heading">Content</div>
-					<div class="element"><textarea class="custom_ckeditor" id="content" name="content"><?php echo set_value('content', $news->content) ?></textarea></div>
-				</div>
-				<div class="row">
-					<input type="submit" value="Finish Editing" />
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="clear"></div>
-</div>
+		<?php echo form_open('/admin/news/submit_process/', array('id' => 'news-form')) ?>
+			<div class="row">
+				<label for="f-title">Title</label>
+				<input type="text" value="<?php echo set_value('title', $news->title) ?>" id="f-title" name="title">
+			</div>
+
+			<div class="row">
+				<label for="f-content">Content</label>
+				<textarea class="custom-ckeditor" id="f-content" name="content"><?php echo set_value('content', $news->content) ?></textarea>
+			</div>
+
+			<input type="submit" value="Finish Editing">
+		</form>
+	</article>
+</section>

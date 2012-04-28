@@ -32,7 +32,7 @@ class KF_status {
 	// Socket timeouts
 	private $timeout				= 2;
 	private $ping_timeout			= 1;
-	private $enable_cache			= TRUE;
+	private $enable_cache			= FALSE;
 	private $cache_bad_responses	= TRUE;
 	private $cache_time				= 30;
 	

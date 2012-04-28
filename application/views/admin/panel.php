@@ -1,29 +1,34 @@
-<div id="content">
-	<?php $this->load->view('/admin/templates/sidebar') ?>
+<!-- Content -->
 
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		$("#content").on("click", ".delete-news", function(){
+			title = $(this).parents('article').children('h2:first-child').text();
+			return confirm('Are you sure you want to delete "'+title+'"');
+		})
+	})
+</script>
 
-	<div id="content_right">
-		<div id="page_title" class="block cufon">Administration Panel</div>
-		
-		<div class="block">
-			<div class="title cufon">Community Team Controls</div>
-				<ul>
-					<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
-						<li>&raquo; <a href="/admin/news/submit">Submit News</a></li>
-					<?php endif; ?>
-					<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
-						<li>&raquo; <a href="/admin/potw/submit">Add Player of the Week</a></li>
-					<?php endif; ?>
-				</ul>
-			<div class="title cufon">Manger Controls</div>
-			<ul>
-				<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
-					<li>&raquo; <a href="/admin/donations/donors">Donor List</a></li>
-				<?php endif; ?>
-			</ul>
-				
-			<div class="title cufon">Founder Controls</div>
-		</div>
-	</div>
-	<div class="clear"></div>
-</div>
+<section id="content" class="content news-articles">
+	<header>
+		<h1>Administration Panel</h1>
+	</header>
+
+	<article>
+		<h3>Available Options</h3>
+		<ul>
+			<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
+				<li><a href="/admin/news/submit">Submit News</a></li>
+			<?php endif; ?>
+			<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
+				<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
+			<?php endif; ?>
+			<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
+				<li><a href="/admin/donations/donors">List Donors</a></li>
+			<?php endif; ?>
+			<?php if (permission($this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS'))): ?>
+				<li><a href="/admin/servers">List Servers</a></li>
+			<?php endif; ?>
+		</ul>
+	</article>
+</section>

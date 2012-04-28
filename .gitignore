@@ -6,3 +6,5 @@
 /assets/server_popups/*
 /application/cache/**/*
 /application/cache/twitter
+assets/.sass-cache/
+assets/images/potw_pictures/

@@ -1,0 +1,42 @@
+//========================================
+// News Articles
+//========================================
+.news-articles {
+	.post-info {
+		border-top: 1px dotted #FFF;
+		margin: 10px 0 0;
+		padding: 5px 0 0;
+
+		.left { float: left }
+
+		.right {
+			float: right;
+			text-align: right;
+
+			p {
+				margin: 0;
+
+				+ p { margin-top: 5px }
+			}
+		}
+	}
+
+	article {
+		+article { margin-top: 60px }
+	}
+}
+
+//========================================
+// News Archive
+//========================================
+.news-archive {
+	.date {
+		font-size: 22px;
+
+		+.date { margin-top: 5px }
+
+		&:before {
+			content: "»";
+		}
+	}
+}

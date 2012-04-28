@@ -1,7 +1,0 @@
-.banner {
-display:block;
-}
-
-.banner + .banner {
-margin-top:10px;
-}

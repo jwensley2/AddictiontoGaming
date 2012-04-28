@@ -1,120 +1,75 @@
-<div id="content">
-	<?php $this->load->view('templates/sidebar') ?>
-	
-	<div id="content_right">
-		
-		<script type="text/javascript">
-			<!--
-			$(document).ready(function(){
-				$("#donate_form").submit(function(){
-					error = false;
-					msg = "";
+<!-- Content -->
+<section class="content donations">
+	<header>
+		<h1>Donations</h1>
+	</header>
 
-					if($("input[name='os0']").val().length == 0){
-						msg += "Please enter your Steam ID \n";
-						error = true;
-					}
-
-					if($("input[name='os1']").val().length == 0){
-						msg += "Please enter your Ingame Name \n";
-						error = true;
-					}
-
-					if(error){
-						alert(msg);
-						return false;
-					}
-				})
-			})
-			//-->
-		</script>
-		
-		<div id="page_title" class="block cufon">Donations</div>
-		<div class="block">
-			<div class="title cufon">Make a Donation</div>
-			<p>
-				If you wish to make a donation you can do so using the form below.
-				<br />If you are not a Steam user you may enter STEAM_0:0:0 in the Steam ID field
-			</p>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" accept-charset="utf-8" id="donate_form">
-				<table>
-					<tr>
-						<td style="display:none">
-							<input type="hidden" name="cmd" value=" _donations" />
-							<input type="hidden" name="business" value="addictiontogaming@gmail.com" />
-							<input type="hidden" name="item_name" value="Donation" />
-							<input type="hidden" name="on0" value="SteamID" />
-							<input type="hidden" name="on1" value="Ingame Name" />
-							<input type="hidden" name="return" value="http://addictiontogaming.com/" />
-						</td>
-						
-						<th>Amount:</th>
-						<td><input type="text" name="amount" value="5.00" /></td>
-					</tr>
-					<tr>
-						<th>SteamID:</th>
-						<td><input type="text" name="os0"/> <span class="small">(e.g. STEAM_0:0:3883133)</span></td>
-					</tr>
-					<tr>
-						<th>Ingame Name:</th>
-						<td><input type="text" name="os1"/> <span class="small">(e.g. [ATG] Joe)</span></td>
-						</tr>
-					<tr>
-						<td colspan="2" align="center"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" /></td>
-					</tr>
-				</table>
-				<p style="color:red">
-					** In order to for you to automatically recieve donor status you must enter your real steam id
-				</p>
-			</form>
-		</div>
-		
-		<div class="block">
-			<div class="title cufon">This months donations</div>
-			<table id="donation_list">
-				<tr class="headings">
+	<article>
+		<h2>This months donations</h2>
+		<table class="donation-list">
+			<thead>
+				<tr>
 					<th class="name">Name</th>
-					<th class="ingame_name">In-game Name</th>
-					<th class="steam_id">Steam ID</th>
+					<th class="ingame-name">In-game Name</th>
+					<th class="steam-id">Steam ID</th>
 					<th class="amount">Amount(USD)</th>
 				</tr>
+			</thead>
+
+			<tbody>
+				<?php $month_total = 0 ?>
 				<?php foreach ($donators as $donator): ?>
-					<?php if($donator->steam_id == 'STEAM_0:0:0'){ $donator->steam_id = 'N/A'; } ?>
-					
-					<tr class="<?php echo alternator('color1', 'color2') ?>">
+					<?php $month_total += $donator->amount ?>
+					<tr>
 						<td class="name"><?php echo $donator->first_name ?></td>
-						<td class="ingame_name"><?php echo $donator->ingame_name ?></td>
-						<td class="steam_id"><?php echo $donator->steam_id ?></td>
+						<td class="ingame-name"><?php echo $donator->ingame_name ?></td>
+						<td class="steam-id"><?php echo $donator->steam_id ?></td>
 						<td class="amount">$<?php echo $donator->amount ?></td>
 					</tr>
 				<?php endforeach ?>
-			</table>
-		</div>
-		
-		<div class="block">
-			<div class="title cufon">Top 10 Donors</div>
-			<table id="top_donors">
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="3"><strong>Total:</strong></th>
+					<td class="amount"><strong>$<?php echo $month_total ?></strong></td>
+				</tr>
+			</tfoot>
+		</table>
+	</article>
+
+	<article>
+		<h2>Top 10 Donors</h2>
+		<table class="top-donors">
+			<thead>
+				<tr>
+					<th class="rank">Rank</th>
+					<th class="ingame-name">Name</th>
+					<th class="amount">Total Donated(USD)</th>
+				</tr>
+			</thead>
+
+			<tbody>
 				<?php $top10_total = 0; ?>
 				<?php foreach ($top_donors as $key => $donator): ?>
-					<tr class="<?php echo alternator('color1', 'color2') ?>">
-						<td class="position"><?php echo $key+1 ?></td>
-						<td class="ingame_name"><?php echo $donator->ingame_name ?></td>
+					<?php $top10_total += $donator->total; ?>
+					<tr>
+						<td class="rank"><?php echo $key+1 ?></td>
+						<td class="ingame-name"><?php echo $donator->ingame_name ?></td>
 						<td class="amount">$<?php echo $donator->total ?></td>
 					</tr>
-					<?php $top10_total += $donator->total; ?>
 				<?php endforeach ?>
-				<tr style="border-top: 1px solid #fff;">
+			</tbody>
+			<tfoot>
+				<tr>
 					<th colspan="2"><strong>Total:</strong></th>
 					<td class="amount"><strong>$<?php echo $top10_total; ?></strong></td>
 				</tr>
-			</table>
-		</div>
-		<div class="block">
-			<div class="title cufon">Total Donations to Date</div>
-			<p>
-				<span style="font-size:20pt">$<?php echo $total_donations ?>!</span>
-			</p>
-		</div>
-	</div>
-	<div class="clear"></div>
-</div>
+			</tfoot>
+		</table>
+	</article>
+
+	<article>
+		<h2>Total Donations to Date</h2>
+		<p class="total-donations">$<?php echo $total_donations ?>!</p>
+	</article>
+</section>

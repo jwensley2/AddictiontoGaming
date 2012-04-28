@@ -1,80 +1,91 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<?php if (isset($title)): ?>
-			<title>[ATG] Addiction to Gaming <?php echo SEP ?> <?php echo $title ?></title>
-		<?php else: ?>
-			<title>[ATG] Addiction to Gaming</title>
-		<?php endif ?>
-		
-		<!-- Stylesheets -->
-		<?php
-			//$this->asset_lib->deug == TRUE;
-		
-			$this->asset_lib->add_asset('reset', 'css');
-			$this->asset_lib->add_asset('master', 'css');
-			$this->asset_lib->add_asset('../colorbox/colorbox', 'css', 'base', FALSE);
-			$this->asset_lib->add_asset('server_popups', 'css');
-			$this->asset_lib->add_asset('custom-theme/jquery-ui', 'css');
-			echo $this->asset_lib->output_tags('css', array('base', 'script'));
-			
-			$this->asset_lib->add_asset('jquery', 'js', 'header');
-			$this->asset_lib->add_asset('jquery-ui-1.8.custom.min', 'js', 'header2', FALSE);
-			$this->asset_lib->add_asset('../colorbox/jquery.colorbox-min', 'js', 'header');
-			$this->asset_lib->add_asset('cufon', 'js', 'footer');
-			$this->asset_lib->add_asset('MyriadPro.font', 'js', 'footer');
-			$this->asset_lib->add_asset('server_popups', 'js', 'footer');
-			$this->asset_lib->add_asset('main', 'js', 'footer');
-			
-			echo $this->asset_lib->output_tags('js', 'header');
-			echo $this->asset_lib->output_tags('js', 'header2');
-		?>
+<!--[if lt IE 7]> <html class="ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	</head>
-	
-	<body>
-		<div id="server_popup_holder"></div>
-		<div id="wrapper">
-			<div id="header"></div>
-			
-			<div id="nav">
-				<ul class="cufon">
-					<li><a href="/">Home</a></li>
-					<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
-					<li><a href="/stats">Stats</a></li>
-					<li><a href="/sourcebans">Bans</a></li>
-					<li><a href="/servers">Servers</a></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-			
-			<div id="server_status">
-				<div class="heading cufon">Server Status</div>
-				<?php $servers = $this->serversmodel->list_servers($games) ?>
-				<?php $i = 1; foreach ($servers as $server): ?>
-					<?php if ($i % 4 == 1 && $i !== 1): ?><div class="clear"></div></div><?php endif; ?>
-					<?php if ($i % 4 == 1): ?>
-						<div class="row">
-							<div class="server rowstart">
-								<div class="status <?php echo status_to_class($server->status) ?>"></div>
-								<div class="server_name"><?php echo $server->name ?></div>
-								<?php if ($server->status == 1): ?>
-									<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
-								<?php endif ?>
-								<div class="server_id"><?php echo $server->id ?></div>
-							</div>
-					<?php else: ?>
-						<div class="server">
-							<div class="status <?php echo status_to_class($server->status) ?>"></div>
-							<div class="server_name"><?php echo $server->name ?></div>
-							<?php if ($server->status == 1): ?>
-								<div class="num_players"><?php echo $server->players ?>/<?php echo $server->max_players ?></div>
-							<?php endif ?>
-							<div class="server_id"><?php echo $server->id ?></div>
-						</div>
+	<?php if (isset($title)): ?>
+		<title>[ATG] Addiction to Gaming <?php echo SEP ?> <?php echo $title ?></title>
+	<?php else: ?>
+		<title>[ATG] Addiction to Gaming</title>
+	<?php endif ?>
+
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/master.css">
+	<link rel="stylesheet" type="text/css" href="/assets/jquery-ui/css/smoothness/jquery-ui-1.8.19.custom.css">
+
+	<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="http://use.typekit.com/ove5wkp.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+
+	<?php if ($this->uri->segment(1) == "admin"): ?>
+		<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
+	<?php endif ?>
+</head>
+<body>
+	<div class="die-ie">
+		Please upgrade your browser to view this site properly.<br>
+		We recommend <a href="http://getfirefox.com">Mozilla Firefox</a> or <a href="http://www.google.com/chrome">Google Chrome</a>
+	</div>
+
+	<!-- Header -->
+	<header class="page-header">
+		<div class="o-wrap">
+			<div class="i-wrap">
+				<div class="tabs">
+					<?php if (permission($this->settingsmodel->get_setting_array('ADMIN_PANEL_PERMISSIONS'))): ?>
+						<a class="tab" href="<?php echo site_url('admin') ?>">Administration</a>
 					<?php endif ?>
-				<?php $i++; endforeach ?>
-					<div class="clear"></div>
 				</div>
+
+				<h1>Addiction to Gaming</h1>
 			</div>
+		</div>
+	</header>
+
+	<div class="o-wrap main-wrapper">
+		<!-- Navigation -->
+		<nav class="navigation">
+			<ul class="main-nav">
+				<li><a href="<?php echo site_url('/') ?>">Home</a></li>
+				<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
+				<li><a href="http://addictiontogaming.clanservers.com/">Bans</a></li>
+				<li><a href="<?php echo site_url('servers') ?>">Servers</a></li>
+				<li><a href="<?php echo site_url('donations') ?>">Donations</a></li>
+			</ul>
+
+			<ul class="sub-nav">
+				<?php if ($this->uri->segment(1) == "admin"): ?>
+					<?php if (permission($this->settingsmodel->get_setting_array('ADMIN_PANEL_PERMISSIONS'))): ?>
+						<?php if (permission($this->settingsmodel->get_setting_array('NEWS_PERMISSIONS'))): ?>
+							<li><a href="/admin/news/submit">Submit News</a></li>
+						<?php endif; ?>
+						<?php if (permission($this->settingsmodel->get_setting_array('POTW_PERMISSIONS'))): ?>
+							<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
+						<?php endif; ?>
+						<?php if (permission($this->settingsmodel->get_setting_array('DONOR_LIST_PERMISSIONS'))): ?>
+							<li><a href="/admin/donations/donors">Donor List</a></li>
+						<?php endif; ?>
+						<?php if (permission($this->settingsmodel->get_setting_array('SERVER_LIST_PERMISSIONS'))): ?>
+							<li><a href="/admin/servers">Server List</a></li>
+						<?php endif; ?>
+					<?php endif ?>
+				<?php else: ?>
+					<li><a href="<?php echo site_url('news/archive') ?>">News Archive</a></li>
+				<?php endif ?>
+			</ul>
+		</nav>

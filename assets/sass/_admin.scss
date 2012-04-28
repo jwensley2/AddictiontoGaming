@@ -1,0 +1,30 @@
+//========================================
+// Donor List
+//========================================
+.donor-list {
+
+	tbody {
+		tr:nth-child(4n+2), tr:nth-child(4n+1) { background: rgba(255, 255, 255, 0.25) }
+	}
+
+	td, th { padding: 2px }
+
+	.user2 {
+		border-bottom: 1px solid #FFF;
+	}
+}
+
+//========================================
+// Sever List
+//========================================
+.server-list {
+	tbody {
+		tr:nth-child(4n+2), tr:nth-child(4n+1) { background: rgba(255, 255, 255, 0.25) }
+	}
+
+	td, th { padding: 2px }
+
+	.server2 {
+		border-bottom: 1px solid #FFF;
+	}
+}

@@ -1,0 +1,29 @@
+//========================================
+// Misc
+//========================================
+.cf {
+	@include clearfix();
+}
+
+//========================================
+// DIE IE!!!!!!!!!!!
+//========================================
+.die-ie { display: none }
+.oldie {
+	.die-ie {
+		background-color: $tfred;
+		border-bottom: 2px solid $lightblue;
+		color: #FFF;
+		display: block;
+		font-size: 16px;
+		font-weight: bold;
+		line-height: 20px;
+		padding: 10px 0;
+		text-align: center;
+
+		a {
+			color: #FFF;
+			text-decoration: underline;
+		}
+	}
+}

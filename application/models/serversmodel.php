@@ -210,7 +210,7 @@ class Serversmodel extends CI_Model {
 	{
 		if ($server->full_updated < (time() - $this->full_update_delay))
 		{
-			$server_info = $this->srcds_status->get_status($server->ip, $server->port); 
+			$server_info = $this->srcds_status->get_status($server->ip, $server->port);
 			
 			if ($server_info)
 			{
