@@ -7,7 +7,7 @@
 
 			$goal		= $this->settingsmodel->get_setting('MONTHLY_COST');
 			$total		= $CI->donations_lib->get_total_donations();
-			$percent	= round(($total / $goal) * 100);
+			$percent	= min(round(($total / $goal) * 100), 100);
 		?>
 		<h2>Donation Progress</h2>
 		<div class="progress-bar">

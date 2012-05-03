@@ -18,15 +18,21 @@
 
 			<tbody>
 				<?php $month_total = 0 ?>
-				<?php foreach ($donators as $donator): ?>
-					<?php $month_total += $donator->amount ?>
+				<?php if ($donators): ?>
+					<?php foreach ($donators as $donator): ?>
+						<?php $month_total += $donator->amount ?>
+						<tr>
+							<td class="name"><?php echo $donator->first_name ?></td>
+							<td class="ingame-name"><?php echo $donator->ingame_name ?></td>
+							<td class="steam-id"><?php echo $donator->steam_id ?></td>
+							<td class="amount">$<?php echo $donator->amount ?></td>
+						</tr>
+					<?php endforeach ?>
+				<?php else: ?>
 					<tr>
-						<td class="name"><?php echo $donator->first_name ?></td>
-						<td class="ingame-name"><?php echo $donator->ingame_name ?></td>
-						<td class="steam-id"><?php echo $donator->steam_id ?></td>
-						<td class="amount">$<?php echo $donator->amount ?></td>
+						<td colspan="4">No donations yet this month</td>
 					</tr>
-				<?php endforeach ?>
+				<?php endif ?>
 			</tbody>
 			<tfoot>
 				<tr>
