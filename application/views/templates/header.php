@@ -17,6 +17,7 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+	<!-- Stylesheets -->
 	<link rel="stylesheet" type="text/css" href="/assets/css/master.css">
 	<link rel="stylesheet" type="text/css" href="/assets/jquery-ui/css/smoothness/jquery-ui-1.8.19.custom.css">
 
@@ -24,12 +25,31 @@
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+	<!-- TypeKit Fonts -->
 	<script type="text/javascript" src="http://use.typekit.com/ove5wkp.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-	<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
+	<!-- Scripts -->
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+
+	<?php if (ENVIRONMENT === 'production'): ?>
+		<!-- Google Analytics -->
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-9313553-1']);
+			_gaq.push(['_setDomainName', 'addictiontogaming.com']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	<?php else: ?>
+		<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
+	<?php endif ?>
 
 	<?php if ($this->uri->segment(1) == "admin"): ?>
 		<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
