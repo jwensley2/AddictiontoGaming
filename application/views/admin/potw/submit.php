@@ -47,6 +47,7 @@
 		<h2>Add a new Player</h2>
 
 		<?php echo validation_errors('<p class="error">', '</p>'); ?>
+		<?php if isset($errors) echo $errors; ?>
 
 		<?php echo form_open_multipart('/admin/potw/submit_process/', array('id' => 'motw_form')) ?>
 			<div class="row">
