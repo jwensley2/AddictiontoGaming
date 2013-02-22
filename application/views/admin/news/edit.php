@@ -29,7 +29,7 @@
 	<article>
 		<?php echo validation_errors('<p class="error">', '</p>'); ?>
 
-		<?php echo form_open('/admin/news/edit_process/', array('id' => 'news-form')) ?>
+		<?php echo form_open('/admin/news/edit_process/'.$news->id, array('id' => 'news-form')) ?>
 			<div class="row">
 				<label for="f-title">Title</label>
 				<input type="text" value="<?php echo set_value('title', $news->title) ?>" id="f-title" name="title">
