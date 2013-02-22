@@ -6,7 +6,7 @@
 	<article>
 		<?php echo validation_errors('<p class="error">', '</p>'); ?>
 
-		<?php echo form_open('/admin/servers/edit_process/'.$server->id, array('id' => 'server_edit_form')) ?>
+		<?php echo form_open('/admin/servers/add_process/'.$server->id, array('id' => 'server_edit_form')) ?>
 			<div class="row">
 				<label for="f-name">Name</label>
 				<input type="text" id="f-name" value="<?php echo set_value('name') ?>" name="name">
