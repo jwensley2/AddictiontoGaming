@@ -10,7 +10,8 @@
 					<ul class="links">
 						<li><a href="<?php echo site_url('/') ?>">Home</a></li>
 						<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
-						<li><a href="http://addictiontogaming.clanservers.com/">Bans</a></li>
+						<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
+						<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
 						<li><a href="<?php echo site_url('servers') ?>">Servers</a></li>
 						<li><a href="<?php echo site_url('donations') ?>">Donations</a></li>
 					</ul>
