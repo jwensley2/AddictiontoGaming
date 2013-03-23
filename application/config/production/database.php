@@ -41,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'internal-db.s139665.gridserver.com';
-$db['default']['username'] = 'db139665_atg';
-$db['default']['password'] = 'IfoY8oKgCd';
-$db['default']['database'] = 'db139665_atg_site';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'atg_live';
+$db['default']['password'] = '***REMOVED***';
+$db['default']['database'] = 'atg_live';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -57,10 +57,10 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$db['phpbb']['hostname'] = "internal-db.s139665.gridserver.com";
-$db['phpbb']['username'] = "db139665_phpbb";
-$db['phpbb']['password'] = "sGIlzgKuFC";
-$db['phpbb']['database'] = "db139665_atg_phpbb3";
+$db['phpbb']['hostname'] = "localhost";
+$db['phpbb']['username'] = "atg_phpbb";
+$db['phpbb']['password'] = "***REMOVED***";
+$db['phpbb']['database'] = "atg_phpbb";
 $db['phpbb']['dbdriver'] = "mysql";
 $db['phpbb']['dbprefix'] = "";
 $db['phpbb']['pconnect'] = TRUE;
