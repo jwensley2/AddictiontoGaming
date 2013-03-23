@@ -17,14 +17,22 @@ form {
 		+input { margin-top: 5px }
 	}
 
-	input[type="text"], input[type="password"], input[type="email"] {
+	input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
 		@include box-sizing(border-box);
 		border: 0;
+		color: #000;
 		font-size: 14px;
+		outline: 0;
 		padding: 8px;
 		width: 100%;
 
-		&:focus { background: #EEE }
+		&:focus { background: #CCC }
+
+		&.error {
+			background: lighten(rgb(255, 0, 0), 35%);
+			color: #000;
+			font-weight: normal;
+		}
 	}
 
 	input[type="submit"] {

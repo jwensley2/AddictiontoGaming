@@ -30,8 +30,19 @@
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
 	<!-- Scripts -->
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+	<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#donate-form").h5Validate({
+				"errorAttribute" : "data-error",
+				"errorClass"     : "error",
+				"validClass"     : "valid"
+			});
+		});
+	</script>
 
 	<?php if (ENVIRONMENT === 'production'): ?>
 		<!-- Google Analytics -->

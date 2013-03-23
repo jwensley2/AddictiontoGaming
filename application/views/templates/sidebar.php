@@ -28,8 +28,8 @@
 				<input type="hidden" name="return" value="http://addictiontogaming.com/">
 			</div>
 
-			<input type="text" name="amount" placeholder="Donation Amount ($)" required>
-			<input type="text" name="os0" placeholder="Steam ID">
+			<input type="number" name="amount" placeholder="Donation Amount ($)" min="5" step="5" required>
+			<input type="text" name="os0" placeholder="Steam ID (eg. STEAM_0:0:1234567)" pattern="^STEAM_0:[01]:[0-9]{7,8}">
 			<input type="text" name="os1" placeholder="In Game Name">
 			<input type="submit" value="Donate Now">
 		</form>

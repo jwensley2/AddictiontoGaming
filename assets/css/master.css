@@ -14,12 +14,12 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 
-body {
+html {
   line-height: 1;
 }
 
@@ -67,7 +67,7 @@ body:after {
 }
 
 body {
-  background: url('/assets/images/bg-main.png?1322174796') repeat #333333;
+  background: url('/assets/images/bg-main.png?1343516331') repeat #333333;
   color: #FFF;
   font-family: "museo-sans", Helvetica, Arial, Sans-serif;
   font-size: 16px;
@@ -101,7 +101,7 @@ table {
   width: 100%;
 }
 table thead {
-  border-bottom: 2px solid #FFF;
+  border-bottom: 2px solid white;
 }
 table thead th, table thead td {
   font-weight: bold;
@@ -119,8 +119,8 @@ table th {
 .i-wrap {
   display: inline;
   float: left;
-  width: 98.438%;
-  margin: 0 0.781%;
+  width: 98.4375%;
+  margin: 0 0.78125%;
 }
 
 .main-wrapper {
@@ -163,17 +163,24 @@ form input {
 form input + input {
   margin-top: 5px;
 }
-form input[type="text"], form input[type="password"], form input[type="email"] {
+form input[type="text"], form input[type="password"], form input[type="email"], form input[type="number"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: 0;
+  color: #000;
   font-size: 14px;
+  outline: 0;
   padding: 8px;
   width: 100%;
 }
-form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus {
-  background: #EEE;
+form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form input[type="number"]:focus {
+  background: #cccccc;
+}
+form input[type="text"].error, form input[type="password"].error, form input[type="email"].error, form input[type="number"].error {
+  background: #ffb3b3;
+  color: #000;
+  font-weight: normal;
 }
 form input[type="submit"] {
   -webkit-appearance: none;
@@ -198,7 +205,7 @@ form input[type="submit"] {
 }
 form input[type="submit"]:hover, form input[type="submit"]:focus {
   background: #4c4f59;
-  border: 1px solid #FFF;
+  border: 1px solid white;
   color: #FFF;
 }
 form select {
@@ -211,7 +218,7 @@ form select option {
   margin: 5px;
 }
 form select:focus {
-  background: #EEE;
+  background: #eeeeee;
 }
 form label {
   display: block;
@@ -232,13 +239,13 @@ form .cke_skin_kama {
 }
 
 .page-header {
-  background: url('/assets/images/bg-header.png?1335646423') repeat-x;
+  background: url('/assets/images/bg-header.png?1343516331') repeat-x;
   border-bottom: 2px solid #c9dff2;
   clear: both;
   overflow: hidden;
 }
 .page-header h1 {
-  background: url('/assets/images/banner.jpg?1316821854') no-repeat scroll left 0 white;
+  background: url('/assets/images/banner.jpg?1343516331') no-repeat scroll left 0 white;
   font-size: 50px;
   height: 192px;
   line-height: 250px;
@@ -277,8 +284,8 @@ form .cke_skin_kama {
 .navigation {
   display: inline;
   float: left;
-  width: 17.188%;
-  margin: 0 0.781%;
+  width: 17.1875%;
+  margin: 0 0.78125%;
   font-family: "nimbus-sans", Helvetica, Arial, Sans-serif;
 }
 .navigation a {
@@ -325,8 +332,8 @@ form .cke_skin_kama {
 .content {
   display: inline;
   float: left;
-  width: 54.688%;
-  margin: 0 0.781%;
+  width: 54.6875%;
+  margin: 0 0.78125%;
 }
 .content article {
   overflow: hidden;
@@ -336,8 +343,8 @@ form .cke_skin_kama {
 }
 .content h1 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid #FFF;
-  border-top: 2px solid #FFF;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
   color: #FFF;
   font-size: 25px;
   font-weight: bold;
@@ -348,8 +355,8 @@ form .cke_skin_kama {
 }
 .content h2 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid #FFF;
-  border-top: 2px solid #FFF;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -384,7 +391,7 @@ form .cke_skin_kama {
   margin-bottom: 0;
 }
 .content blockquote {
-  border-left: 2px solid #FFF;
+  border-left: 2px solid white;
   padding: 5px 20px;
   font-size: 15px;
   font-style: italic;
@@ -399,23 +406,23 @@ form .cke_skin_kama {
 .sidebar {
   display: inline;
   float: left;
-  width: 23.438%;
-  margin: 0 0.781%;
+  width: 23.4375%;
+  margin: 0 0.78125%;
 }
 .sidebar .block + .block {
   margin-top: 50px;
 }
 .sidebar h2 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid #FFF;
-  border-top: 2px solid #FFF;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
   font-size: 20px;
   margin: 0 0 15px;
   padding: 5px;
 }
 .sidebar .progress-bar {
   background: #b66d5d;
-  border: 2px solid #FFF;
+  border: 2px solid white;
   color: #FFF;
   height: 30px;
   position: relative;
@@ -466,7 +473,7 @@ form .cke_skin_kama {
   padding: 20px 0 10px;
 }
 .page-footer h3 {
-  border-bottom: 1px solid #FFF;
+  border-bottom: 1px solid white;
   font-size: 16px;
   margin: 0 0 10px;
   padding: 0 0 5px;
@@ -481,11 +488,11 @@ form .cke_skin_kama {
 .page-footer .col {
   display: inline;
   float: left;
-  width: 23.438%;
-  margin: 0 0.781%;
+  width: 23.4375%;
+  margin: 0 0.78125%;
 }
 .page-footer .copyright {
-  border-top: 1px solid #FFF;
+  border-top: 1px solid white;
   clear: both;
   font-size: 12px;
   margin: 10px 0 0;
@@ -500,7 +507,7 @@ form .cke_skin_kama {
   padding: 2px;
 }
 .donor-list .user2 {
-  border-bottom: 1px solid #FFF;
+  border-bottom: 1px solid white;
 }
 
 .server-list tbody tr:nth-child(4n+2), .server-list tbody tr:nth-child(4n+1) {
@@ -510,11 +517,11 @@ form .cke_skin_kama {
   padding: 2px;
 }
 .server-list .server2 {
-  border-bottom: 1px solid #FFF;
+  border-bottom: 1px solid white;
 }
 
 .news-articles .post-info {
-  border-top: 1px dotted #FFF;
+  border-top: 1px dotted white;
   margin: 10px 0 0;
   padding: 5px 0 0;
 }
@@ -552,13 +559,13 @@ form .cke_skin_kama {
   background: rgba(255, 255, 255, 0.25);
 }
 .donations table thead {
-  border-bottom: 2px solid #FFF;
+  border-bottom: 2px solid white;
 }
 .donations table thead tr {
   background: none !important;
 }
 .donations table tfoot {
-  border-top: 2px solid #FFF;
+  border-top: 2px solid white;
 }
 .donations table tfoot tr {
   background: none !important;
@@ -599,9 +606,9 @@ form .cke_skin_kama {
     display: block;
   }
   .donations table thead th {
-    border-left: 1px solid #FFF;
-    border-right: 1px solid #FFF;
-    border-top: 1px solid #FFF;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
     display: block;
   }
   .donations table tbody {
@@ -612,16 +619,16 @@ form .cke_skin_kama {
     width: auto;
   }
   .donations table tbody tr {
-    border-right: 1px solid #FFF;
+    border-right: 1px solid white;
     display: inline-block;
     vertical-align: top;
   }
   .donations table tbody td {
-    border-top: 1px solid #FFF;
+    border-top: 1px solid white;
     display: block;
   }
   .donations table tfoot {
-    border-top: 1px solid #FFF;
+    border-top: 1px solid white;
     clear: both;
     display: block;
     width: auto;
@@ -648,8 +655,8 @@ form .cke_skin_kama {
   .navigation {
     display: inline;
     float: left;
-    width: 98.438%;
-    margin: 0 0.781%;
+    width: 98.4375%;
+    margin: 0 0.78125%;
     margin-bottom: 20px;
   }
   .navigation .sub-nav, .navigation .main-nav {
@@ -664,22 +671,22 @@ form .cke_skin_kama {
   .content {
     display: inline;
     float: left;
-    width: 67.188%;
-    margin: 0 0.781%;
+    width: 67.1875%;
+    margin: 0 0.78125%;
   }
 
   .sidebar {
     display: inline;
     float: left;
-    width: 29.688%;
-    margin: 0 0.781%;
+    width: 29.6875%;
+    margin: 0 0.78125%;
   }
 
   .page-footer .col {
     display: inline;
     float: left;
-    width: 35.938%;
-    margin: 0 0.781%;
+    width: 35.9375%;
+    margin: 0 0.78125%;
   }
 }
 @media screen and (max-width: 480px) {
@@ -694,8 +701,8 @@ form .cke_skin_kama {
   .navigation {
     display: inline;
     float: left;
-    width: 98.438%;
-    margin: 0 0.781%;
+    width: 98.4375%;
+    margin: 0 0.78125%;
     margin-bottom: 20px;
   }
   .navigation .sub-nav, .navigation .main-nav {
@@ -712,23 +719,23 @@ form .cke_skin_kama {
   .content {
     display: inline;
     float: left;
-    width: 98.438%;
-    margin: 0 0.781%;
+    width: 98.4375%;
+    margin: 0 0.78125%;
   }
 
   .sidebar {
     display: inline;
     float: left;
-    width: 98.438%;
-    margin: 0 0.781%;
+    width: 98.4375%;
+    margin: 0 0.78125%;
     margin-top: 100px;
   }
 
   .page-footer .col {
     display: inline;
     float: left;
-    width: 48.438%;
-    margin: 0 0.781%;
+    width: 48.4375%;
+    margin: 0 0.78125%;
   }
 }
 .cf {
