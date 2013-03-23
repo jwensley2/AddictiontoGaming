@@ -58,9 +58,9 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 $db['phpbb']['hostname'] = "localhost";
-$db['phpbb']['username'] = "atg_phpBB3";
+$db['phpbb']['username'] = "atg_phpbb3";
 $db['phpbb']['password'] = "***REMOVED***";
-$db['phpbb']['database'] = "atg_phpBB3";
+$db['phpbb']['database'] = "atg_phpbb3";
 $db['phpbb']['dbdriver'] = "mysql";
 $db['phpbb']['dbprefix'] = "";
 $db['phpbb']['pconnect'] = TRUE;

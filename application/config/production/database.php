@@ -73,10 +73,10 @@ $db['phpbb']['swap_pre'] = '';
 $db['phpbb']['autoinit'] = TRUE;
 $db['phpbb']['stricton'] = FALSE;
 
-$db['sourcemod']['hostname'] = "205.186.175.219";
-$db['sourcemod']['username'] = "c808151_sb";
-$db['sourcemod']['password'] = "X;=yw22pI^R5";
-$db['sourcemod']['database'] = "c808151_sourcebans";
+$db['sourcemod']['hostname'] = "localhost";
+$db['sourcemod']['username'] = "atg_bans";
+$db['sourcemod']['password'] = "JSgStfa56tRyuQNQ";
+$db['sourcemod']['database'] = "atg_bans";
 $db['sourcemod']['dbdriver'] = "mysql";
 $db['sourcemod']['dbprefix'] = "";
 $db['sourcemod']['pconnect'] = TRUE;
