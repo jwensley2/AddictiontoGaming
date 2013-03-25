@@ -4,6 +4,7 @@
 /assets/js/cache/
 /assets/images/donation_progress.png
 /assets/server_popups/*
+/application/logs/*
 /application/cache/**/*
 /application/cache/twitter
 assets/.sass-cache/
