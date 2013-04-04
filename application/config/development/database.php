@@ -74,9 +74,9 @@ $db['phpbb']['autoinit'] = TRUE;
 $db['phpbb']['stricton'] = FALSE;
 
 $db['sourcemod']['hostname'] = "localhost";
-$db['sourcemod']['username'] = "atg_sourcem";
+$db['sourcemod']['username'] = "atg_bans";
 $db['sourcemod']['password'] = "***REMOVED***";
-$db['sourcemod']['database'] = "atg_sourcemod";
+$db['sourcemod']['database'] = "atg_bans";
 $db['sourcemod']['dbdriver'] = "mysql";
 $db['sourcemod']['dbprefix'] = "";
 $db['sourcemod']['pconnect'] = TRUE;
@@ -90,9 +90,9 @@ $db['sourcemod']['autoinit'] = TRUE;
 $db['sourcemod']['stricton'] = FALSE;
 
 $db['hlstats']['hostname'] = "localhost";
-$db['hlstats']['username'] = "atg_hlxce";
+$db['hlstats']['username'] = "atg_stats";
 $db['hlstats']['password'] = "***REMOVED***";
-$db['hlstats']['database'] = "atg_hlxce";
+$db['hlstats']['database'] = "atg_stats";
 $db['hlstats']['dbdriver'] = "mysql";
 $db['hlstats']['dbprefix'] = "";
 $db['hlstats']['pconnect'] = TRUE;
