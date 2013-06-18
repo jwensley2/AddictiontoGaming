@@ -1,11 +1,5 @@
-.DS_Store?
-/forums/
-/assets/css/cache/
-/assets/js/cache/
-/assets/images/donation_progress.png
-/assets/server_popups/*
-/application/logs/*
-/application/cache/**/*
-/application/cache/twitter
-assets/.sass-cache/
-assets/images/potw_pictures/
+/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock
+.DS_Store
