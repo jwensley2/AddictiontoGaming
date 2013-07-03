@@ -22,7 +22,8 @@
 
 				<footer class="post-info">
 					<div class="left">
-						<a href="{{ URL::route('admin.news.edit', $article->id) }}">Edit</a> | <a class="delete-news" href="{{ URL::route('admin.news.destroy', $article->id) }}">Delete</a>
+						<a href="{{ action('NewsController@getEdit', $article->id) }}">Edit</a> |
+						<a class="delete-news" href="{{ action('NewsController@postDelete', $article->id) }}">Delete</a>
 					</div>
 					<div class="right">
 						<p class="edit-date">

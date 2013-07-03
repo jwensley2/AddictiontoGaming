@@ -19,8 +19,15 @@ Route::get('donations', array(
 );
 Route::any('donations/ipn', 'DonationsController@ipn');
 
-// News
-Route::resource('admin/news', 'NewsController');
+// Admin
+Route::group(array(
+	'prefix' => 'admin',
+	'before' => 'auth.admin'
+), function() {
+	Route::controller('news', 'NewsController');
+	Route::get('/', array('uses' => 'AdminController@index', 'as' => 'admin'));
+});
+
 
 // Home
 Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));

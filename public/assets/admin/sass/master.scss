@@ -1,0 +1,9 @@
+@import "compass";
+
+body {
+	padding-top: 50px;
+}
+
+@media screen and (max-width: 940px) {
+	body { padding-top: 0 }
+}
