@@ -3,9 +3,10 @@
 @section('content')
 	<div class="row">
 		<div class="span12">
-			<h3 class="pull-left">News Posts</h3>
-
-			<p class="pull-right text-right"><a class="btn btn-primary" href="{{ action('NewsController@getCreate') }}">Post News</a></p>
+			<header class="clearfix">
+				<h3 class="pull-left">News Posts</h3>
+				<p class="pull-right text-right"><a class="btn btn-primary" href="{{ action('NewsController@getCreate') }}">Post News</a></p>
+			</header>
 
 			<table id="news-list" class="table table-hover">
 				<thead>
