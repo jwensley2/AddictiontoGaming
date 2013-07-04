@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="span6">
 			<h3>Latest Donations</h3>
-			<table class="table">
+			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
 						<th>Name</th>
