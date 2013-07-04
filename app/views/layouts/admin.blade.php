@@ -28,8 +28,8 @@
 
 	<!-- Scripts -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/main.js"></script>
 
 	@if(App::environment() === 'production')
 		<!-- Google Analytics -->
@@ -59,6 +59,29 @@
 	</script>
 </head>
 <body>
+	<div style="display: none">
+		<!-- Delete Alert Template -->
+		<div id="delete-alert-template" class="alert alert-block alert-error fade in">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+
+			<h4 class="alert-heading">Are you sure you want to delete that?</h4>
+			<p>You are about to delete "<strong class="title"></strong>", are you absolutely sure you want to delete it?</p>
+			<p>
+				<button class="btn btn-danger" data-action="delete">Delete It</button> <button class="btn" data-action="keep">Keep It</button>
+			</p>
+		</div>
+
+		<!-- Error Alert Template -->
+		<div id="error-alert-template" class="alert alert-block alert-error fade in">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+		</div>
+
+		<!-- Success Alert Template -->
+		<div id="error-alert-template" class="alert alert-block alert-success fade in">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+		</div>
+	</div>
+
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">

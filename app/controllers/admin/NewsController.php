@@ -19,14 +19,26 @@ class NewsController extends BaseController {
 
 	public function getCreate()
 	{
-		# code...
+		return View::make('admin.news.create');
 	}
 
 	// ------------------------------------------------------------------------
 
 	public function postCreate()
 	{
-		# code...
+		$article = new News();
+
+		$article->title   = Input::get('title');
+		$article->content = Input::get('content');
+
+		if ($article->save())
+		{
+			return Redirect::action('NewsController@getEdit', $article->id)->with('message', 'News post has been created');
+		}
+		else
+		{
+			return Redirect::action('NewsController@getCreate')->with('errors', $article->errors()->all());
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -50,7 +62,7 @@ class NewsController extends BaseController {
 
 		if ($article->save())
 		{
-			return Redirect::action('NewsController@getEdit', $id)->with('message', 'Article Saved');
+			return Redirect::action('NewsController@getEdit', $id)->with('message', 'News post has been updated');
 		}
 		else
 		{
@@ -62,7 +74,17 @@ class NewsController extends BaseController {
 
 	public function postDelete($id)
 	{
-		# code...
+		$response['success'] = true;
+
+		$article = News::find($id);
+
+		if ( ! $article->delete())
+		{
+			$response['success'] = false;
+			$response['message'] = "\"{$article->title}\" could not be deleted.";
+		}
+
+		return Response::json($response);
 	}
 
 }
