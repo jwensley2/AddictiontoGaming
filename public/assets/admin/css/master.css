@@ -2,7 +2,7 @@ body {
   padding-top: 50px;
 }
 
-@media screen and (max-width: 940px) {
+@media screen and (max-width: 980px) {
   body {
     padding-top: 0;
   }
