@@ -26,11 +26,6 @@
 	<script type="text/javascript" src="http://use.typekit.com/ove5wkp.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-	<!-- Scripts -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/admin/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/assets/admin/js/main.js"></script>
-
 	@if(App::environment() === 'production')
 		<!-- Google Analytics -->
 		<script type="text/javascript">
@@ -46,17 +41,6 @@
 			})();
 		</script>
 	@endif
-
-	<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".editor").each(function() {
-				CKEDITOR.replace($(this)[0], {
-					customConfig: '/assets/ckeditor/config-admin.js'
-				});
-			});
-		});
-	</script>
 </head>
 <body data-csrf-token="{{ csrf_token() }}">
 	<div style="display: none">
@@ -135,5 +119,22 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/main.js"></script>
+
+	<!-- Load and setup CKEditor -->
+	<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".editor").each(function() {
+				CKEDITOR.replace($(this)[0], {
+					customConfig: '/assets/ckeditor/config-admin.js'
+				});
+			});
+		});
+	</script>
 </body>
 </html>

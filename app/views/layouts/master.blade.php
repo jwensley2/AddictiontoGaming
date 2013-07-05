@@ -19,7 +19,6 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" type="text/css" href="/assets/css/master.css">
-	<link rel="stylesheet" type="text/css" href="/assets/jquery-ui/css/smoothness/jquery-ui-1.8.19.custom.css">
 
 	<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,21 +27,6 @@
 	<!-- TypeKit Fonts -->
 	<script type="text/javascript" src="http://use.typekit.com/ove5wkp.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-	<!-- Scripts -->
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
-	<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$("#donate-form").h5Validate({
-				"errorAttribute" : "data-error",
-				"errorClass"     : "error",
-				"validClass"     : "valid"
-			});
-		});
-	</script>
 
 	@if(App::environment() === 'production')
 		<!-- Google Analytics -->
@@ -61,11 +45,6 @@
 	@else
 		<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
 	@endif
-
-	<?php if (Request::segment(1) == "admin"): ?>
-		<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
-	<?php endif ?>
 </head>
 <body>
 	<div class="die-ie">
@@ -170,5 +149,19 @@
 			</div>
 		</div>
 	</footer>
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#donate-form").h5Validate({
+				"errorAttribute" : "data-error",
+				"errorClass"     : "error",
+				"validClass"     : "valid"
+			});
+		});
+	</script>
 </body>
 </html>
