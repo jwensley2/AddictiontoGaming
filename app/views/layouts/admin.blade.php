@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>[ATG] Addiction to Gaming</title>
+	<title>@yield('title') - [ATG] Addiction to Gaming</title>
 
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -92,11 +92,10 @@
 				</a>
 
 				<a class="brand" href="{{ action('AdminController@index') }}">ATG Admin Panel</a>
-
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li class="active"><a href="{{ route('home') }}">Home</a></li>
-						<li class="dropdown">
+						<li><a href="{{ route('home') }}">Home</a></li>
+						<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 								News<b class="caret"></b>
 							</a>
@@ -106,9 +105,15 @@
 								<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
 							</ul>
 						</li>
-						<li><a href="#">Donations</a></li>
-						<li><a href="#">Donors</a></li>
-						<li><a href="#">Settings</a></li>
+						<li class="@if(Request::is('admin/donations/*'))active@endif">
+							<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
+						</li>
+						<li class="@if(Request::is('admin/donors/*'))active@endif">
+							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+						</li>
+						<li class="@if(Request::is('admin/settings/*'))active@endif">
+							<a href="#">Settings</a>
+						</li>
 					</ul>
 
 					<ul class="nav pull-right">
@@ -123,7 +128,7 @@
 		<div class="row">
 			<div class="span12">
 				<h1 class="page-header">
-					ATG Admin Panel
+					@yield('title')
 				</h1>
 
 				@yield('content')

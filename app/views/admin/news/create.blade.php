@@ -1,10 +1,12 @@
 @extends('layouts.admin')
 
+@section('title')
+News - New Post
+@stop
+
 @section('content')
 	<div class="row">
 		<div class="span12">
-			<h3>Post News</h3>
-
 			@if (Session::has('message'))
 				<div class="alert alert-success">{{ Session::get('message') }}</div>
 			@endif
