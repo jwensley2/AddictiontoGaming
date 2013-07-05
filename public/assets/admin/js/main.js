@@ -3,6 +3,12 @@ $(document).ready(function() {
 	var $alertErrorTmpl   = $("#error-alert-template");
 	var $alertSuccessTmpl = $("#success-alert-template");
 
+	// Pass the CSRF Token with all ajax requests
+	$.ajaxSetup({
+		data: { _token: getCSRFToken() }
+	});
+
+	// Setup the buttons to delete news posts
 	$(".news-item .delete").on("click", function() {
 		var $btn    = $(this),
 			$alert  = $alertDeleteTmpl.clone().attr("id", null),
@@ -29,7 +35,7 @@ $(document).ready(function() {
 
 		// Bind the delete button
 		$delete.on("click", function() {
-			var url = $row.data("delete");
+			var url   = $row.data("delete");
 
 			$alert.alert("close");
 
@@ -46,3 +52,8 @@ $(document).ready(function() {
 		});
 	});
 });
+
+// Get the CSRF Token
+function getCSRFToken () {
+	return $("body").data("csrf-token");
+}

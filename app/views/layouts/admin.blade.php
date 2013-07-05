@@ -58,7 +58,7 @@
 		});
 	</script>
 </head>
-<body>
+<body data-csrf-token="{{ csrf_token() }}">
 	<div style="display: none">
 		<!-- Delete Alert Template -->
 		<div id="delete-alert-template" class="alert alert-block alert-error fade in">
