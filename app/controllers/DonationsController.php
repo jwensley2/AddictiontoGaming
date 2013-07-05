@@ -21,12 +21,13 @@ class DonationsController extends BaseController {
 		$donations       = Donation::with('donor')->where('created_at', '>=', $month_start)->get();
 
 		// Get the top 10 donors
-		$top_donors = DB::table('donors')->select(DB::raw('ingame_name, SUM(gross) AS total'))
-		->join('donations', 'donors.id', '=', 'donations.donor_id')
-		->groupBy('donors.id')
-		->orderBy('total', 'desc')
-		->take(10)
-		->get();
+		$top_donors = DB::table('donors')
+			->select(DB::raw('ingame_name, SUM(gross) AS total'))
+			->join('donations', 'donors.id', '=', 'donations.donor_id')
+			->groupBy('donors.id')
+			->orderBy('total', 'desc')
+			->take(10)
+			->get();
 
 		return View::make('donations.index')
 			->with('donations', $donations)

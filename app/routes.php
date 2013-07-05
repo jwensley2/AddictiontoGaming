@@ -25,6 +25,7 @@ Route::group(array(
 	'before' => 'auth.admin'
 ), function() {
 	Route::controller('news', 'NewsController');
+	Route::controller('donors', 'DonorsController');
 	Route::controller('donations', 'AdminDonationsController');
 	Route::get('/', array('uses' => 'AdminController@index', 'as' => 'admin'));
 });
