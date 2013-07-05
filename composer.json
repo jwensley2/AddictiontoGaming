@@ -6,7 +6,8 @@
 		"laravel/framework": "4.0.*",
 		"paypal/sdk-core-php": "dev-stable-php5.3",
 		"way/generators": "dev-master",
-		"laravelbook/ardent": "dev-master"
+		"laravelbook/ardent": "dev-master",
+		"loic-sharma/profiler": "1.*"
 	},
 	"autoload": {
 		"classmap": [
