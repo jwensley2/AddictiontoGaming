@@ -7,7 +7,8 @@
 		"paypal/sdk-core-php": "dev-stable-php5.3",
 		"way/generators": "dev-master",
 		"laravelbook/ardent": "dev-master",
-		"loic-sharma/profiler": "1.*"
+		"loic-sharma/profiler": "1.*",
+		"mews/purifier": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

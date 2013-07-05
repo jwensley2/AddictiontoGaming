@@ -34,7 +34,7 @@ class NewsController extends BaseController {
 		$article = new News();
 
 		$article->title   = Input::get('title');
-		$article->content = Input::get('content');
+		$article->content = Purifier::clean(Input::get('content'));
 
 		if ($article->save())
 		{
@@ -63,7 +63,7 @@ class NewsController extends BaseController {
 		$article = News::find($id);
 
 		$article->title   = Input::get('title');
-		$article->content = Input::get('content');
+		$article->content = Purifier::clean(Input::get('content'));
 
 		if ($article->save())
 		{

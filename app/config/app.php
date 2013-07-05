@@ -115,6 +115,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Profiler\ProfilerServiceProvider',
+		'Mews\Purifier\PurifierServiceProvider',
 
 	),
 
@@ -181,6 +182,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Profiler'        => 'Profiler\Facades\Profiler',
+		'Purifier'        => 'Mews\Purifier\Facades\Purifier',
 
 	),
 
