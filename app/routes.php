@@ -27,9 +27,15 @@ Route::group(array(
 	Route::controller('news', 'NewsController');
 	Route::controller('donors', 'DonorsController');
 	Route::controller('donations', 'AdminDonationsController');
-	Route::get('/', array('uses' => 'AdminController@index', 'as' => 'admin'));
-});
 
+	Route::get('/', array('uses' => 'AdminController@index', 'as' => 'admin'));
+
+	Route::get('logout', array('as' => 'logout', function() {
+		Auth::logout();
+
+		return Redirect::route('home');
+	}));
+});
 
 // Home
 Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
