@@ -5,11 +5,6 @@ class Donor extends Eloquent {
 
 	public static $rules = array();
 
-	protected $attributes = array(
-		'name' => '',
-		'total_donated' => '0.00'
-	);
-
 	/**
 	 * Return the date fields to be mutated
 	 * http://laravel.com/docs/eloquent#date-mutators
@@ -35,6 +30,8 @@ class Donor extends Eloquent {
 	 */
 	public function getNameAttribute()
 	{
+		$this->attributes['name'] = '';
+
 		return "{$this->first_name} {$this->last_name}";
 	}
 
@@ -44,6 +41,8 @@ class Donor extends Eloquent {
 	 */
 	public function getTotalDonatedAttribute()
 	{
+		$this->attributes['total_donated'] = '';
+
 		$total = 0;
 
 		foreach ($this->donations AS $donation)
