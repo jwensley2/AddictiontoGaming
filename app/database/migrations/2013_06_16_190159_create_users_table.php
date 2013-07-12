@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration {
 			$t->string('email');
 			$t->string('username');
 			$t->string('password', 60);
+			$t->boolean('active');
 			$t->timestamps();
 
 			// Keys
