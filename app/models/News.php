@@ -9,4 +9,14 @@ class News extends Ardent {
 		'title'   => 'required|between:5,255',
 		'content' => 'required',
 	);
+
+	public function user()
+	{
+		return $this->belongsTo('user');
+	}
+
+	public function editor()
+	{
+		return $this->belongsTo('user', 'edit_user_id');
+	}
 }
