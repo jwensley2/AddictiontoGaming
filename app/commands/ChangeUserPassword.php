@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CreateUser extends Command {
+class ChangeUserPassword extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'user:create';
+	protected $name = 'user:change_password';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create a new user.';
+	protected $description = 'Change a users password.';
 
 	/**
 	 * Create a new command instance.
@@ -37,13 +37,14 @@ class CreateUser extends Command {
 	 */
 	public function fire()
 	{
-		$user = new User();
+		$username = $this->argument('username');
 
-		$user->username = $this->argument('username');
-		$user->email    = $this->argument('email');
-		$user->password = $this->argument('password');
+		$user = User::whereUsername($username)->first();
 
-		if ( ! $user->save($user::$create_rules))
+		$user->password              = $this->secret('Enter the new password:');
+		$user->password_confirmation = $this->secret('Confirm the password:');
+
+		if ( ! $user->save())
 		{
 			foreach ($user->errors()->all() AS $error)
 			{
@@ -60,9 +61,7 @@ class CreateUser extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('username', InputArgument::REQUIRED, 'Username for the user.'),
-			array('email', InputArgument::REQUIRED, 'The email address for the user.'),
-			array('password', InputArgument::REQUIRED, 'The password for the user'),
+			array('username', InputArgument::REQUIRED, 'The username of the user to whose password you want to change.'),
 		);
 	}
 
@@ -73,9 +72,7 @@ class CreateUser extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			// array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return array();
 	}
 
 }

@@ -5,6 +5,9 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Ardent implements UserInterface, RemindableInterface {
+	public static $passwordAttributes = array('password');
+	public $autoHashPasswordAttributes = true;
+	public $autoPurgeRedundantAttributes = true;
 
 	/**
 	 * The database table used by the model.
@@ -24,28 +27,21 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	 * Validation Rules
 	 */
 	public static $rules = array(
-		'username' => 'required|alpha_dash|between:3,50|unique:users,username',
-		'email'    => 'required|email|unique:users,email',
-		'password' => 'required|min:6'
+		'username'         => 'required|alpha_dash|between:3,50',
+		'email'            => 'required|email',
+		'password'         => 'required|min:6|confirmed',
+	);
+
+	/**
+	 * Validation rules when creating a new user
+	 */
+	public static $create_rules = array(
+		'username'         => 'required|alpha_dash|between:3,50|unique:users,username',
+		'email'            => 'required|email|unique:users,email',
+		'password'         => 'required|min:6|confirmed',
 	);
 
 	// ------------------------------------------------------------------------
-
-	/**
-	 * Run before saving the data
-	 * @param  boolean $forced Is it a forced save?
-	 * @return bool
-	 */
-	public function beforeSave($forced = false)
-	{
-		// if there's a new password, hash it
-		if ($this->isDirty('password'))
-		{
-			$this->password = Hash::make($this->password);
-		}
-
-		return true;
-	}
 
 	/**
 	 * Get the unique identifier for the user.

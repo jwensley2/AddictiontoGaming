@@ -13,3 +13,4 @@
 
 Artisan::add(new CreateUser);
 Artisan::add(new DeleteUser);
+Artisan::add(new ChangeUserPassword);
