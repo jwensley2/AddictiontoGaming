@@ -41,6 +41,13 @@ class ChangeUserPassword extends Command {
 
 		$user = User::whereUsername($username)->first();
 
+		// Make sure the user exists
+		if ( ! $user)
+		{
+			$this->error("Could not finder user '{$username}'");
+			exit;
+		}
+
 		$user->password              = $this->secret('Enter the new password:');
 		$user->password_confirmation = $this->secret('Confirm the password:');
 
