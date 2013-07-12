@@ -12,11 +12,11 @@ class News extends Ardent {
 
 	public function user()
 	{
-		return $this->belongsTo('user');
+		return $this->belongsTo('User');
 	}
 
 	public function editor()
 	{
-		return $this->belongsTo('user', 'edit_user_id');
+		return $this->belongsTo('User', 'edit_user_id');
 	}
 }
