@@ -96,7 +96,7 @@
 							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
 						</li>
 						<li class="@if(Request::is('admin/settings/*'))active@endif">
-							<a href="#">Settings</a>
+							<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
 						</li>
 					</ul>
 
