@@ -44,6 +44,15 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Return the group relationship
+	 * @return Relationship
+	 */
+	public function group()
+	{
+		return $this->belongsTo('Group');
+	}
+
+	/**
 	 * Get the unique identifier for the user.
 	 *
 	 * @return mixed
