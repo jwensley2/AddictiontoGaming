@@ -26,14 +26,16 @@
 						<a class="delete-news" href="{{ action('NewsController@postDelete', $article->id) }}">Delete</a>
 					</div>
 					<div class="right">
-						<p class="edit-date">
-							Updated by
-							<a class="edit-user" style="color:red" href="">Username</a>
-							on {{ $article->updated_at->toDateString() }}
-						</p>
+						@if ($article->editor)
+							<p class="edit-date">
+								Updated by
+								<span style="color:#{{ $article->editor->group->colour }}">{{ $article->editor->username }}</span>
+								on {{ $article->updated_at->toDateString() }}
+							</p>
+						@endif
 						<p>
 							Posted by
-							<a class="user" style="color:blue" href="">Username</a>
+							<span style="color:#{{ $article->user->group->colour }}">{{ $article->user->username }}</span>
 							on {{ $article->created_at->toDateString() }}
 						</p>
 					</div>
