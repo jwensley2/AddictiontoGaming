@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder {
 		// Get the users from phpBB
 		$phpbb_users = DB::connection('phpbb')
 			->table('phpbb_users')
-			->select('user_id', 'username', 'user_email')
+			->select('user_id', 'username', 'user_email', 'group_id')
 			->whereIn('group_id', array(7, 14, 19))
 			->get();
 
@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder {
 		{
 			$users[] = array(
 				'id'         => $user->user_id,
+				'group_id'   => $user->group_id,
 				'username'   => $user->username,
 				'email'      => $user->user_email,
 				'active'     => false,

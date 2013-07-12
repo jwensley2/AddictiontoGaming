@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration {
 		Schema::create('users', function($t)
 		{
 			$t->increments('id');
+			$t->integer('group_id');
 			$t->string('email');
 			$t->string('username');
 			$t->string('password', 60);
@@ -23,6 +24,7 @@ class CreateUsersTable extends Migration {
 			// Keys
 			$t->unique('email');
 			$t->unique('username');
+			$t->index('group_id');
 		});
 	}
 
