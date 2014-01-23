@@ -13,8 +13,6 @@
 
 $app = new Illuminate\Foundation\Application;
 
-$app->redirectIfTrailingSlash();
-
 /*
 |--------------------------------------------------------------------------
 | Detect The Application Environment
@@ -26,12 +24,9 @@ $app->redirectIfTrailingSlash();
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('atg.dev'),
-	'develop' => array('dev.addictiontogaming.com')
-
-));
+$env = $app->detectEnvironment(function() {
+	return $_SERVER['LARAVEL_ENV'];
+});
 
 /*
 |--------------------------------------------------------------------------
