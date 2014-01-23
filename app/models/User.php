@@ -52,6 +52,39 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('Group');
 	}
 
+	public function permissions()
+	{
+		return $this->belongsToMany('Permission', 'user_permissions')->withPivot('access');
+	}
+
+	public function hasPermission($name)
+	{
+		$user_access  = 0;
+		$group_access = 0;
+
+		// Check if the user has permission
+		foreach ($this->permissions AS $permission)
+		{
+			if ($permission->name == $name)
+			{
+				$user_access = $permission->pivot->access;
+				break;
+			}
+		}
+
+		// Check if the user's group has permission
+		foreach ($this->group->permissions AS $permission)
+		{
+			if ($permission->name == $name)
+			{
+				$group_access = $permission->pivot->access;
+				break;
+			}
+		}
+
+		return (($user_access + $group_access) > 0);
+	}
+
 	/**
 	 * Get the unique identifier for the user.
 	 *

@@ -14,6 +14,7 @@ class CreateGroupPermissionsTable extends Migration {
 		Schema::create('group_permissions', function($t) {
 			$t->integer('group_id');
 			$t->integer('permission_id');
+			$t->smallInteger('access');
 		});
 	}
 

@@ -17,6 +17,8 @@ class PermissionsTableSeeder extends Seeder {
 			'news_delete',
 			'news_edit',
 			'news_post',
+			'news_view',
+			'panel_view',
 			'users_delete',
 			'users_edit',
 			'users_view',

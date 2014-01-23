@@ -14,6 +14,7 @@ class CreateUserPermissionsTable extends Migration {
 		Schema::create('user_permissions', function($t) {
 			$t->integer('user_id');
 			$t->integer('permission_id');
+			$t->smallInteger('access');
 		});
 	}
 

@@ -79,19 +79,25 @@
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li><a href="{{ route('home') }}">Home</a></li>
-						<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-								News<b class="caret"></b>
-							</a>
+						@if(Auth::user()->hasPermission('news_view'))
+							<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+									News<b class="caret"></b>
+								</a>
 
-							<ul class="dropdown-menu">
-								<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
-								<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
-							</ul>
-						</li>
-						<li class="@if(Request::is('admin/donations/*'))active@endif">
-							<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
-						</li>
+								<ul class="dropdown-menu">
+									<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
+									<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
+								</ul>
+							</li>
+						@endif
+
+						@if(Auth::user()->hasPermission('donations_view'))
+							<li class="@if(Request::is('admin/donations/*'))active@endif">
+								<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
+							</li>
+						@endif
+
 						<li class="@if(Request::is('admin/donors/*'))active@endif">
 							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
 						</li>
