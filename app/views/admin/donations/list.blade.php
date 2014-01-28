@@ -6,8 +6,8 @@ Donations
 
 @section('content')
 	<div class="row">
-		<div class="span12">
-			<table class="table table-hover">
+		<div class="col-md-12">
+			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
 						<th>Real Name</th>

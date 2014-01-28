@@ -6,7 +6,7 @@ News - New Post
 
 @section('content')
 	<div class="row">
-		<div class="span12">
+		<div class="col-md-12">
 			@if (Session::has('message'))
 				<div class="alert alert-success">{{ Session::get('message') }}</div>
 			@endif
@@ -18,15 +18,19 @@ News - New Post
 			@endif
 
 			{{ Form::open(array('action' => array('NewsController@postCreate'))) }}
-				<label>Title</label>
-				<input class="span6" type="text" name="title" value="{{ Input::old('title') }}">
+				<div class="form-group">
+					<label>Title</label>
+					<input class="form-control" type="text" name="title" value="{{ Input::old('title') }}">
+				</div>
 
-				<label>Content</label>
-				<textarea class="editor" name="content">{{ Input::old('content') }}</textarea>
+				<div class="form-group">
+					<label>Content</label>
+					<textarea class="form-control editor" name="content">{{ Input::old('content') }}</textarea>
+				</div>
 
 				<div class="form-actions">
 					<button class="btn btn-primary" type="submit">Save</button>
-					<a href="{{ route('admin') }}" class="btn">Cancel</a>
+					<a href="{{ route('admin') }}" class="btn btn-default">Cancel</a>
 				</div>
 			{{ Form::close() }}
 		</div>

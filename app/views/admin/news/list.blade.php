@@ -11,7 +11,7 @@ News
 				<a class="btn btn-primary" href="{{ action('NewsController@getCreate') }}">Post News</a>
 			</p>
 
-			<table id="news-list" class="table table-hover">
+			<table id="news-list" class="table table-hover table-bordered">
 				<thead>
 					<tr>
 						<th>Title</th>

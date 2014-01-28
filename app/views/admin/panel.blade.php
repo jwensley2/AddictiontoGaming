@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="span6">
+		<div class="col-md-6">
 			<h3>Latest Donations</h3>
 			<table class="table table-hover table-bordered">
 				<thead>
@@ -25,17 +25,26 @@
 			</table>
 		</div>
 
-		<div class="span6">
+		<div class="col-md-6">
 			<h3>Latest News</h3>
-			<ul class="nav nav-tabs nav-stacked">
-				@foreach ($news as $article)
-					<li>
-						<a href="{{ action('NewsController@getEdit', $article->id) }}">
-							{{ $article->created_at->toDateString() }} - {{ $article->title }}
-						</a>
-					</li>
-				@endforeach
-			</ul>
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach ($news as $article)
+						<tr>
+							<td><a href="{{ action('NewsController@getEdit', $article->id) }}">{{ $article->title }}</a></td>
+							<td>{{ $article->created_at->toDateString() }}</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
 		</div>
 	</div>
 @stop

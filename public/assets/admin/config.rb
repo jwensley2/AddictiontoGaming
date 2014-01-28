@@ -1,4 +1,5 @@
 # Require any additional compass plugins here.
+require 'bootstrap-sass'
 
 # Set this to the root of your project when deployed:
 http_path = "/assets/"
@@ -6,6 +7,7 @@ css_dir = "css"
 sass_dir = "sass"
 images_dir = "img"
 javascripts_dir = "js"
+fonts_dir = "fonts"
 
 output_style = :expanded
 environment = :development

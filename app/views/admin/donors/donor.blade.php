@@ -6,7 +6,7 @@ Donors - View Donor
 
 @section('content')
 	<div class="row">
-		<div class="span12">
+		<div class="col-md-12">
 			<h3>Donor Information:</h3>
 			<dl class="dl-horizontal">
 				<dt>Name:</dt>
@@ -26,7 +26,7 @@ Donors - View Donor
 			</dl>
 
 			<h3>Donations:</h3>
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
 						<th>Amount</th>

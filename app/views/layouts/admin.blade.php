@@ -14,8 +14,6 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="/assets/admin/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/admin/css/bootstrap-responsive.min.css">
 	<link rel="stylesheet" type="text/css" href="/assets/admin/css/master.css">
 
 	<!--[if lt IE 9]>
@@ -45,78 +43,78 @@
 <body data-csrf-token="{{ csrf_token() }}">
 	<div style="display: none">
 		<!-- Delete Alert Template -->
-		<div id="delete-alert-template" class="alert alert-block alert-error fade in">
-			<button data-dismiss="alert" class="close" type="button">×</button>
+		<div id="delete-alert-template" class="alert alert-block alert-danger alert-dismissable fade in">
+			<button data-dismiss="alert" class="close" type="button">&times;</button>
 
 			<h4 class="alert-heading">Are you sure you want to delete that?</h4>
 			<p>You are about to delete "<strong class="title"></strong>", are you absolutely sure you want to delete it?</p>
 			<p>
-				<button class="btn btn-danger" data-action="delete">Delete It</button> <button class="btn" data-action="keep">Keep It</button>
+				<button class="btn btn-danger" data-action="delete">Delete It</button>
+				<button class="btn" data-action="keep">Keep It</button>
 			</p>
 		</div>
 
 		<!-- Error Alert Template -->
-		<div id="error-alert-template" class="alert alert-block alert-error fade in">
+		<div id="error-alert-template" class="alert alert-block alert-danger alert-dismissable fade in">
 			<button data-dismiss="alert" class="close" type="button">×</button>
 		</div>
 
 		<!-- Success Alert Template -->
-		<div id="error-alert-template" class="alert alert-block alert-success fade in">
+		<div id="error-alert-template" class="alert alert-block alert-success alert-dismissable fade in">
 			<button data-dismiss="alert" class="close" type="button">×</button>
 		</div>
 	</div>
 
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-				</a>
+				</button>
+				<a class="navbar-brand" href="{{ action('AdminController@index') }}">ATG Admin Panel</a>
+			</div>
 
-				<a class="brand" href="{{ action('AdminController@index') }}">ATG Admin Panel</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li><a href="{{ route('home') }}">Home</a></li>
-						@if(Auth::user()->hasPermission('news_view'))
-							<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-									News<b class="caret"></b>
-								</a>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="{{ route('home') }}">Home</a></li>
+					@if(Auth::user()->hasPermission('news_view'))
+						<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b class="caret"></b></a>
 
-								<ul class="dropdown-menu">
-									<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
-									<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
-								</ul>
-							</li>
-						@endif
-
-						@if(Auth::user()->hasPermission('donations_view'))
-							<li class="@if(Request::is('admin/donations/*'))active@endif">
-								<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
-							</li>
-						@endif
-
-						<li class="@if(Request::is('admin/donors/*'))active@endif">
-							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
+								<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
+							</ul>
 						</li>
-						<li class="@if(Request::is('admin/settings/*'))active@endif">
-							<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
-						</li>
-					</ul>
+					@endif
 
-					<ul class="nav pull-right">
-						<li><a href="#">Account</a></li>
-						<li><a href="{{ route('logout') }}">Logout</a></li>
-					</ul>
-				</div>
+					@if(Auth::user()->hasPermission('donations_view'))
+						<li class="@if(Request::is('admin/donations/*'))active@endif">
+							<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
+						</li>
+					@endif
+
+					<li class="@if(Request::is('admin/donors/*'))active@endif">
+						<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+					</li>
+					<li class="@if(Request::is('admin/settings/*'))active@endif">
+						<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Account</a></li>
+					<li><a href="{{ route('logout') }}">Logout</a></li>
+				</ul>
 			</div>
 		</div>
-	</div>
+	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="span12">
+			<div class="col-md-12">
 				<h1 class="page-header">
 					@yield('title')
 				</h1>
@@ -128,7 +126,9 @@
 
 	<!-- Scripts -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/admin/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/bootstrap/alert.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/bootstrap/transition.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/bootstrap/dropdown.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/main.js"></script>
 
 	<!-- Load and setup CKEditor -->
