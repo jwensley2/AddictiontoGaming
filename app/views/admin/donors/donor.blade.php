@@ -26,7 +26,7 @@ Donors - View Donor
 			</dl>
 
 			<h3>Donations:</h3>
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>
 						<th>Amount</th>

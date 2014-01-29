@@ -6,18 +6,18 @@ News
 
 @section('content')
 	<div class="row">
-		<div class="span12">
+		<div class="col-md-12">
 			<p class="text-right">
 				<a class="btn btn-primary" href="{{ action('NewsController@getCreate') }}">Post News</a>
 			</p>
 
-			<table id="news-list" class="table table-hover table-bordered">
+			<table id="news-list" class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>
 						<th>Title</th>
 						<th>Post Date</th>
 						<th>Edit Date</th>
-						<th>Action</th>
+						<th data-sorter="false">Action</th>
 					</tr>
 				</thead>
 

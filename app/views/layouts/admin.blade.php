@@ -14,6 +14,7 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="/assets/admin/css/theme.bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/assets/admin/css/master.css">
 
 	<!--[if lt IE 9]>
@@ -129,6 +130,8 @@
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/alert.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/transition.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/dropdown.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.widgets.min.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/main.js"></script>
 
 	<!-- Load and setup CKEditor -->

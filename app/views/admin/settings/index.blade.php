@@ -6,7 +6,7 @@ Settings
 
 @section('content')
 	<div class="row">
-		<div class="span12">
+		<div class="col-md-12">
 			@if (Session::has('message'))
 				<div class="alert alert-success">{{ Session::get('message') }}</div>
 			@endif
@@ -18,16 +18,17 @@ Settings
 			@endif
 
 			{{ Form::open(array('action' => 'SettingsController@postIndex', 'class' => 'form-horizontal')) }}
-				<div class="control-group">
-					<label class="control-label">Monthly Cost</label>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Monthly Cost</label>
 
-					<div class="controls">
-						<input type="text" name="monthly_cost" value="{{{ $settings->monthly_cost }}}">
+					<div class="col-sm-3 input-group">
+						<span class="input-group-addon">$</span>
+						<input class="form-control" type="text" name="monthly_cost" value="{{{ $settings->monthly_cost }}}">
 					</div>
 				</div>
 
-				<div class="control-group">
-					<div class="controls">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
 						<input class="btn btn-primary" type="submit" value="Save Settings">
 						<input class="btn btn-warning" type="reset" value="Reset">
 					</div>

@@ -7,7 +7,7 @@ Donors
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>
 						<th>Real Name</th>

@@ -4,3 +4,5 @@ composer.phar
 .DS_Store
 .sass-cache
 /forums/
+
+/dump.rdb
