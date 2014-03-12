@@ -33,11 +33,14 @@
 								on {{ $article->updated_at->toDateString() }}
 							</p>
 						@endif
-						<p>
-							Posted by
-							<span style="color:#{{ $article->user->group->colour }}">{{ $article->user->username }}</span>
-							on {{ $article->created_at->toDateString() }}
-						</p>
+
+						@if ($article->user)
+							<p>
+								Posted by
+								<span style="color:#{{ $article->user->group->colour }}">{{ $article->user->username }}</span>
+								on {{ $article->created_at->toDateString() }}
+							</p>
+						@endif
 					</div>
 				</footer>
 			</article>
