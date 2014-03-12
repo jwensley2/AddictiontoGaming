@@ -1,8 +1,17 @@
-/bootstrap/compiled.php
+# System Files
+.DS_Store
+Thumbs.db
+
+# Composer
 /vendor
 composer.phar
-.DS_Store
-.sass-cache
-/forums/
 
+# Caches
+.sass-cache
+
+# Compiled Files
+/bootstrap/compiled.php
+
+# Misc
+/forums/
 /dump.rdb
