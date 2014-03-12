@@ -65,6 +65,11 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		// Check if the user has permission
 		foreach ($this->permissions AS $permission)
 		{
+			if ($permission->name === 'founder')
+			{
+				return 1;
+			}
+
 			if ($permission->name == $name)
 			{
 				$user_access = $permission->pivot->access;
@@ -75,6 +80,11 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		// Check if the user's group has permission
 		foreach ($this->group->permissions AS $permission)
 		{
+			if ($permission->name === 'founder')
+			{
+				return 1;
+			}
+
 			if ($permission->name == $name)
 			{
 				$group_access = $permission->pivot->access;
