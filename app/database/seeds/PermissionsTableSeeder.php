@@ -5,9 +5,10 @@ class PermissionsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Uncomment the below to wipe the table clean before populating
-		DB::table('permissions')->delete();
+		DB::table('permissions')->truncate();
 
 		$permissions = array(
+			'founder',
 			'donations_view',
 			'donors_edit',
 			'donors_view',

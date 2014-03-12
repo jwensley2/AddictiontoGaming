@@ -5,7 +5,7 @@ class SettingsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Delete the existing data
-		DB::table('settings')->delete();
+		DB::table('settings')->truncate();
 
 		$settings = array(
 			array(

@@ -5,7 +5,7 @@ class NewsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Delete existing data
-		DB::table('news')->delete();
+		DB::table('news')->truncate();
 
 		$old_news = DB::connection('old')->table('news')->get();
 

@@ -5,24 +5,22 @@ class GroupsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Empty the groups table
-		DB::table('groups')->delete();
+		DB::table('groups')->truncate();
 
-		// Get the groups from phpBB
-		$phpbb_groups = DB::connection('phpbb')
-			->table('phpbb_groups')
-			->select('group_id', 'group_name', 'group_colour')
-			->whereIn('group_id', array(7, 14, 19))
-			->get();
-
-		// Build an array of groups
-		foreach ($phpbb_groups AS $group)
-		{
-			$groups[] = array(
-				'id'     => $group->group_id,
-				'name'   => $group->group_name,
-				'colour' => $group->group_colour,
-			);
-		}
+		$groups = array(
+			array(
+				'name'   => 'Founder',
+				'colour' => '990000',
+			),
+			array(
+				'name'   => 'Managers',
+				'colour' => '00CC33',
+			),
+			array(
+				'name'   => 'Community Team',
+				'colour' => '0099CC',
+			),
+		);
 
 		// Insert the groups
 		DB::table('groups')->insert($groups);

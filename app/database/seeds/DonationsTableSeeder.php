@@ -5,7 +5,7 @@ class DonationsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Delete the existing data
-		DB::table('donations')->delete();
+		DB::table('donations')->truncate();
 
 		$old_donations = DB::connection('old')->table('donations')->get();
 
