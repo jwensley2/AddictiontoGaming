@@ -51,8 +51,10 @@ class NewsController extends BaseController {
 	public function getEdit($id)
 	{
 		$article = News::find($id);
+		$authors = User::all();
 
 		return View::make('admin.news.edit')
+			->with('authors', $authors)
 			->with('article', $article);
 	}
 
@@ -62,8 +64,10 @@ class NewsController extends BaseController {
 	{
 		$article = News::find($id);
 
-		$article->title   = Input::get('title');
-		$article->content = Purifier::clean(Input::get('content'));
+		$article->title        = Input::get('title');
+		$article->user_id      = Input::get('author');
+		$article->edit_user_id = Auth::user()->id;
+		$article->content      = Purifier::clean(Input::get('content'));
 
 		if ($article->save())
 		{

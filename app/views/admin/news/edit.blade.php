@@ -19,6 +19,20 @@ News - Edit Post
 
 			{{ Form::open(array('action' => array('NewsController@postEdit', $article->id))) }}
 				<div class="form-group">
+					<label>Author</label>
+
+					<select class="form-control" name="author">
+						@foreach ($authors as $author)
+							@if(Input::old('user_id') === $author->id OR $article->user_id === $author->id)
+								<option value="{{ $author->id }}" selected>{{ $author->username }}</option>
+							@else
+								<option value="{{ $author->id }}">{{ $author->username }}</option>
+							@endif
+						@endforeach
+					</select>
+				</div>
+
+				<div class="form-group">
 					<label>Title</label>
 					<input class="form-control" type="text" name="title" value="{{ Input::old('title', $article->title) }}">
 				</div>
