@@ -11,15 +11,25 @@
 |
 */
 
-// Donations
-Route::get('donations', array(
-	'as'   => 'donations',
-	'uses' => 'DonationsController@index'
-	)
-);
+
+// IPN
 Route::any('donations/ipn', 'DonationsController@ipn');
 
-// Admin
+// Public Pages
+Route::group(array(
+	'before' => 'auth.admin'
+), function() {
+	// Donations
+	Route::get('donations', array(
+		'as'   => 'donations',
+		'uses' => 'DonationsController@index',
+	));
+
+	// Home
+	Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
+});
+
+// Admin Panel
 Route::group(array(
 	'prefix' => 'admin',
 	'before' => 'auth.admin'
@@ -29,7 +39,10 @@ Route::group(array(
 	Route::controller('donations', 'AdminDonationsController');
 	Route::controller('settings', 'SettingsController');
 
-	Route::get('/', array('uses' => 'AdminController@index', 'as' => 'admin'));
+	Route::get('/', array(
+		'as'   => 'admin',
+		'uses' => 'AdminController@index',
+	));
 
 	Route::get('logout', array('as' => 'logout', function() {
 		Auth::logout();
@@ -37,6 +50,3 @@ Route::group(array(
 		return Redirect::route('home');
 	}));
 });
-
-// Home
-Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
