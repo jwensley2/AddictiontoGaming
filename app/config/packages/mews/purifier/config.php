@@ -20,7 +20,7 @@ return array(
 			'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
 			'AutoFormat.AutoParagraph' => true,
 			'AutoFormat.RemoveEmpty'   => true,
-			'Cache.SerializerPath'     => storage_path(),
+			'Cache.SerializerPath'     => storage_path().'/purifier_cache',
 		),
 	),
 );
