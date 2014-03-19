@@ -275,12 +275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "3589115ab1c057dde28c10a3a08ec90f5af2bd96"
+                "reference": "30d588513faf1d645302bc28f38f8ef2073494ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/3589115ab1c057dde28c10a3a08ec90f5af2bd96",
-                "reference": "3589115ab1c057dde28c10a3a08ec90f5af2bd96",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/30d588513faf1d645302bc28f38f8ef2073494ff",
+                "reference": "30d588513faf1d645302bc28f38f8ef2073494ff",
                 "shasum": ""
             },
             "require": {
@@ -384,7 +384,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-03-11 03:33:57"
+            "time": "2014-03-18 19:15:10"
         },
         {
             "name": "laravelbook/ardent",
@@ -538,12 +538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "dc75a998d83ebb285b94b1a6fd96644b457ed33c"
+                "reference": "db7e2aa311869aaf3c2cc76237b2beff05322629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dc75a998d83ebb285b94b1a6fd96644b457ed33c",
-                "reference": "dc75a998d83ebb285b94b1a6fd96644b457ed33c",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/db7e2aa311869aaf3c2cc76237b2beff05322629",
+                "reference": "db7e2aa311869aaf3c2cc76237b2beff05322629",
                 "shasum": ""
             },
             "require": {
@@ -598,7 +598,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-03-09 20:51:48"
+            "time": "2014-03-14 09:32:58"
         },
         {
             "name": "nesbot/carbon",
@@ -1507,16 +1507,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "97052d99f8eea42975ef21e3dba01cb550913157"
+                "reference": "d23d6f965e707ac1bd5c7a8d3f214e95bb7e9315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/97052d99f8eea42975ef21e3dba01cb550913157",
-                "reference": "97052d99f8eea42975ef21e3dba01cb550913157",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/d23d6f965e707ac1bd5c7a8d3f214e95bb7e9315",
+                "reference": "d23d6f965e707ac1bd5c7a8d3f214e95bb7e9315",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4"
             },
             "type": "library",
             "extra": {
@@ -1550,7 +1553,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-04 07:36:26"
+            "time": "2014-03-13 16:54:12"
         },
         {
             "name": "symfony/http-kernel",
@@ -1632,12 +1635,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "1848a3977972fa40c1e8e1912be88535692e2b0c"
+                "reference": "fa18e426ad43ba9409fbb4b3668cce4dfdb64c83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/1848a3977972fa40c1e8e1912be88535692e2b0c",
-                "reference": "1848a3977972fa40c1e8e1912be88535692e2b0c",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/fa18e426ad43ba9409fbb4b3668cce4dfdb64c83",
+                "reference": "fa18e426ad43ba9409fbb4b3668cce4dfdb64c83",
                 "shasum": ""
             },
             "require": {
@@ -1672,7 +1675,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-12 18:29:58"
+            "time": "2014-03-13 05:40:32"
         },
         {
             "name": "symfony/routing",
@@ -1805,12 +1808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JeffreyWay/Laravel-4-Generators.git",
-                "reference": "f4bdb309f899b7a5e476e61f14979a5a166b2aa6"
+                "reference": "5697d896577c8bd8cbab2a17e4e86f193189cff9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/f4bdb309f899b7a5e476e61f14979a5a166b2aa6",
-                "reference": "f4bdb309f899b7a5e476e61f14979a5a166b2aa6",
+                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/5697d896577c8bd8cbab2a17e4e86f193189cff9",
+                "reference": "5697d896577c8bd8cbab2a17e4e86f193189cff9",
                 "shasum": ""
             },
             "require": {
@@ -1844,7 +1847,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2014-03-10 20:57:40"
+            "time": "2014-03-16 15:40:46"
         }
     ],
     "packages-dev": [
