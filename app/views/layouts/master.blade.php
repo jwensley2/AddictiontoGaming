@@ -57,7 +57,9 @@
 		<div class="o-wrap">
 			<div class="i-wrap">
 				<div class="tabs">
-					<a class="tab" href="/admin">Administration</a>
+					@if (Auth::check())
+						<a class="tab" href="/admin">Administration</a>
+					@endif
 				</div>
 
 				<h1>Addiction to Gaming</h1>
@@ -78,14 +80,16 @@
 			</ul>
 
 			<ul class="sub-nav">
-				@if (Auth::user()->hasPermission('news_post'))
-					<li><a href="{{ action('NewsController@getCreate') }}">Submit News</a></li>
+				@if (Auth::check())
+					@if (Auth::user()->hasPermission('news_post'))
+						<li><a href="{{ action('NewsController@getCreate') }}">Submit News</a></li>
+					@endif
+					<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
+					@if (Auth::user()->hasPermission('donors_view'))
+						<li><a href="{{ action('DonorsController@getIndex') }}">Donor List</a></li>
+					@endif
+					<li><a href="/admin/servers">Server List</a></li>
 				@endif
-				<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
-				@if (Auth::user()->hasPermission('donors_view'))
-					<li><a href="{{ action('DonorsController@getIndex') }}">Donor List</a></li>
-				@endif
-				<li><a href="/admin/servers">Server List</a></li>
 				<li><a href="/news/archive">News Archive</a></li>
 			</ul>
 		</nav>

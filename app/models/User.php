@@ -62,6 +62,8 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		$user_access  = 0;
 		$group_access = 0;
 
+		if ( ! Auth::check()) return 0;
+
 		// Check if the user has permission
 		foreach ($this->permissions AS $permission)
 		{

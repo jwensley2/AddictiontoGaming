@@ -81,34 +81,39 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ route('home') }}">Home</a></li>
-					@if(Auth::user()->hasPermission('news_view'))
-						<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b class="caret"></b></a>
 
-							<ul class="dropdown-menu">
-								<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
-								<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
-							</ul>
+					@if (Auth::check())
+						@if(Auth::user()->hasPermission('news_view'))
+							<li class="dropdown @if(Request::is('admin/news/*'))active@endif">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b class="caret"></b></a>
+
+								<ul class="dropdown-menu">
+									<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
+									<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
+								</ul>
+							</li>
+						@endif
+
+						@if(Auth::user()->hasPermission('donations_view'))
+							<li class="@if(Request::is('admin/donations/*'))active@endif">
+								<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
+							</li>
+						@endif
+
+						<li class="@if(Request::is('admin/donors/*'))active@endif">
+							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+						</li>
+						<li class="@if(Request::is('admin/settings/*'))active@endif">
+							<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
 						</li>
 					@endif
-
-					@if(Auth::user()->hasPermission('donations_view'))
-						<li class="@if(Request::is('admin/donations/*'))active@endif">
-							<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
-						</li>
-					@endif
-
-					<li class="@if(Request::is('admin/donors/*'))active@endif">
-						<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
-					</li>
-					<li class="@if(Request::is('admin/settings/*'))active@endif">
-						<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
-					</li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Account</a></li>
-					<li><a href="{{ route('logout') }}">Logout</a></li>
+					@if (Auth::check())
+						<li><a href="#">Account</a></li>
+						<li><a href="{{ route('logout') }}">Logout</a></li>
+					@endif
 				</ul>
 			</div>
 		</div>
