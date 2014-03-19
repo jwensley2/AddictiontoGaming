@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"paypal/sdk-core-php": "dev-stable-php5.3",
-		"way/generators": "dev-master",
+		"way/generators": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"loic-sharma/profiler": "1.*",
 		"mews/purifier": "dev-master"
