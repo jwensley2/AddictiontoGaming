@@ -104,7 +104,7 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	 */
 	public function getAuthIdentifier()
 	{
-		return $this->username;
+		return $this->id;
 	}
 
 	/**

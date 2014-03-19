@@ -15,29 +15,29 @@
 // IPN
 Route::any('donations/ipn', 'DonationsController@ipn');
 
-// Public Pages
-Route::group(array(
-	'before' => 'auth.admin'
-), function() {
-	// Donations
-	Route::get('donations', array(
-		'as'   => 'donations',
-		'uses' => 'DonationsController@index',
-	));
+// Donations
+Route::get('donations', array(
+	'as'   => 'donations',
+	'uses' => 'DonationsController@index',
+));
 
-	// Home
-	Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
-});
+// Home
+Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
+
+// Login
+Route::get('admin/login', array('uses' => 'AccountController@getLogin', 'as' => 'login'));
+Route::post('admin/login', array('uses' => 'AccountController@postLogin'));
 
 // Admin Panel
 Route::group(array(
 	'prefix' => 'admin',
-	'before' => 'auth.admin'
+	'before' => 'auth'
 ), function() {
 	Route::controller('news', 'NewsController');
 	Route::controller('donors', 'DonorsController');
 	Route::controller('donations', 'AdminDonationsController');
 	Route::controller('settings', 'SettingsController');
+	Route::controller('account', 'AccountController');
 
 	Route::get('/', array(
 		'as'   => 'admin',
