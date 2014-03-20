@@ -1,6 +1,6 @@
 <?php
 
-class NewsController extends BaseController {
+class AdminNewsController extends BaseController {
 
 	public function __construct()
 	{

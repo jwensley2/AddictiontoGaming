@@ -17,7 +17,7 @@ News - New Post
 				@endforeach
 			@endif
 
-			{{ Form::open(array('action' => array('NewsController@postCreate'))) }}
+			{{ Form::open(array('action' => array('AdminNewsController@postCreate'))) }}
 				<div class="form-group">
 					<label>Title</label>
 					<input class="form-control" type="text" name="title" value="{{ Input::old('title') }}">

@@ -41,7 +41,7 @@ Route::group(array('prefix' => 'admin'), function() {
 
 	// Protected Pages
 	Route::group(array('before' => 'auth'), function() {
-		Route::controller('news', 'NewsController');
+		Route::controller('news', 'AdminNewsController');
 		Route::controller('donors', 'DonorsController');
 		Route::controller('donations', 'AdminDonationsController');
 		Route::controller('settings', 'SettingsController');

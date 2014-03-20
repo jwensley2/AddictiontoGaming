@@ -17,7 +17,7 @@ News - Edit Post
 				@endforeach
 			@endif
 
-			{{ Form::open(array('action' => array('NewsController@postEdit', $article->id))) }}
+			{{ Form::open(array('action' => array('AdminNewsController@postEdit', $article->id))) }}
 				<div class="form-group">
 					<label>Author</label>
 

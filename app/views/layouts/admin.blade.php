@@ -88,8 +88,8 @@
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b class="caret"></b></a>
 
 								<ul class="dropdown-menu">
-									<li><a href="{{ action('NewsController@getIndex') }}">List News</a></li>
-									<li><a href="{{ action('NewsController@getCreate') }}">Post News</a></li>
+									<li><a href="{{ action('AdminNewsController@getIndex') }}">List News</a></li>
+									<li><a href="{{ action('AdminNewsController@getCreate') }}">Post News</a></li>
 								</ul>
 							</li>
 						@endif

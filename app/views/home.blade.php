@@ -23,8 +23,8 @@
 				<footer class="post-info">
 					<div class="left">
 						@if (Auth::check() AND Auth::user()->hasPermission('news_edit'))
-							<a href="{{ action('NewsController@getEdit', $article->id) }}">Edit</a> |
-							<a class="delete-news" href="{{ action('NewsController@postDelete', $article->id) }}">Delete</a>
+							<a href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a> |
+							<a class="delete-news" href="{{ action('AdminNewsController@postDelete', $article->id) }}">Delete</a>
 						@endif
 					</div>
 					<div class="right">

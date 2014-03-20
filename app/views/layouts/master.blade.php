@@ -82,7 +82,7 @@
 			<ul class="sub-nav">
 				@if (Auth::check())
 					@if (Auth::user()->hasPermission('news_post'))
-						<li><a href="{{ action('NewsController@getCreate') }}">Submit News</a></li>
+						<li><a href="{{ action('AdminNewsController@getCreate') }}">Submit News</a></li>
 					@endif
 					<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
 					@if (Auth::user()->hasPermission('donors_view'))
