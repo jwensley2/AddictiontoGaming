@@ -24,10 +24,12 @@ Login
 					<input id="f-password" class="form-control" type="password" name="password">
 				</div>
 
-				<div class="form-actions">
+				<div class="form-group">
 					<button class="btn btn-primary" type="submit">Login</button>
 					<a href="{{ route('home') }}" class="btn btn-default">Cancel</a>
 				</div>
+
+				<p>{{ link_to_route('forgotPassword', 'Forgot your password?')}}</p>
 			{{ Form::close() }}
 		</div>
 	</div>

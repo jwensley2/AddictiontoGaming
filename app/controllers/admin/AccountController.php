@@ -3,7 +3,9 @@
 class AccountController extends BaseController {
 
 	/**
-	 * Login Page
+	 * Display login form
+	 *
+	 * @return Response
 	 */
 	public function getLogin()
 	{
@@ -12,9 +14,11 @@ class AccountController extends BaseController {
 
 
 	/**
-	 * Process Login
+	 * Handle login
+	 *
+	 * @return Response
 	 */
-	public function postLogin($test = true)
+	public function postLogin()
 	{
 		$username = Input::get('username');
 		$password = Input::get('password');
@@ -25,8 +29,82 @@ class AccountController extends BaseController {
 		}
 		else
 		{
-			return View::make('admin/account/login')
+			return View::make('admin.account.login')
 				->with('errors', array('Could not log you in.'));
+		}
+	}
+
+
+	/**
+	 * Display forgot password form
+	 *
+	 * @return Response
+	 */
+	public function getForgotPassword()
+	{
+		return View::make('admin.account.forgot_password');
+	}
+
+	/**
+	 * Handle forgot password form
+	 *
+	 * @return Response
+	 */
+	public function postForgotPassword()
+	{
+		$response = Password::remind(Input::only('email'), function($message) {
+			$message->subject('Password Reset');
+		});
+
+		switch ($response)
+		{
+			case Password::INVALID_USER:
+				return Redirect::back()->with('errors', array(Lang::get($response)));
+
+			case Password::REMINDER_SENT:
+				return Redirect::back()->with('status', Lang::get($response));
+		}
+	}
+
+	/**
+	 * Display reset password form
+	 *
+	 * @return Response
+	 */
+	public function getResetPassword($token = null)
+	{
+		if (is_null($token)) App::abort(404);
+
+		return View::make('admin.account.reset_password')->with('token', $token);
+	}
+
+	/**
+	 * Handle Reset Password Form
+	 * @param type $token
+	 * @return type
+	 */
+	public function postResetPassword()
+	{
+		$credentials = Input::only(
+			'email', 'password', 'password_confirmation', 'token'
+		);
+
+		$response = Password::reset($credentials, function($user, $password)
+		{
+			$user->password = $password;
+
+			$user->forceSave();
+		});
+
+		switch ($response)
+		{
+			case Password::INVALID_PASSWORD:
+			case Password::INVALID_TOKEN:
+			case Password::INVALID_USER:
+				return Redirect::back()->with('errors', array(Lang::get($response)));
+
+			case Password::PASSWORD_RESET:
+				return Redirect::route('login');
 		}
 	}
 }
