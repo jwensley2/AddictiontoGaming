@@ -45,6 +45,7 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Return the group relationship
+	 *
 	 * @return Relationship
 	 */
 	public function group()
@@ -57,19 +58,25 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Permission', 'user_permissions')->withPivot('access');
 	}
 
+	/**
+	 * Check if user has a permission
+	 *
+	 * @param type $name The name of the permission
+	 * @return bool
+	 */
 	public function hasPermission($name)
 	{
 		$user_access  = 0;
 		$group_access = 0;
 
-		if ( ! Auth::check()) return 0;
+		if ( ! Auth::check()) return false;
 
 		// Check if the user has permission
 		foreach ($this->permissions AS $permission)
 		{
 			if ($permission->name === 'founder')
 			{
-				return 1;
+				return true;
 			}
 
 			if ($permission->name == $name)
@@ -85,7 +92,7 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 			{
 				if ($permission->name === 'founder')
 				{
-					return 1;
+					return true;
 				}
 
 				if ($permission->name == $name)
