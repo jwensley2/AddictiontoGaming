@@ -75,7 +75,7 @@
 				<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
 				<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
 				<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
-				<li><a href="/servers/">Servers</a></li>
+				{{-- <li><a href="/servers/">Servers</a></li> --}}
 				<li><a href="{{ route('donations') }}">Donations</a></li>
 			</ul>
 
@@ -88,7 +88,7 @@
 					@if (Auth::user()->hasPermission('donors_view'))
 						<li><a href="{{ action('DonorsController@getIndex') }}">Donor List</a></li>
 					@endif
-					<li><a href="/admin/servers">Server List</a></li>
+					{{-- <li><a href="/admin/servers">Server List</a></li> --}}
 				@endif
 				<li><a href="/news/archive">News Archive</a></li>
 			</ul>
@@ -138,8 +138,8 @@
 						<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
 						<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
 						<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
-						<li><a href="/servers/">Servers</a></li>
-						<li><a href="/donations">Donations</a></li>
+						{{--<li><a href="/servers/">Servers</a></li>--}}
+						<li><a href="{{ route('donations') }}">Donations</a></li>
 					</ul>
 				</div>
 				<div class="col">
@@ -152,7 +152,7 @@
 				</div>
 				<div class="cf"></div>
 				<div class="copyright">
-					Copyright Addiction to Gaming <?php echo date('Y') ?>
+					Copyright Addiction to Gaming {{ date('Y') }}
 				</div>
 			</div>
 		</div>
