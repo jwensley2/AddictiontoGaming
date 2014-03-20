@@ -25,7 +25,13 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(function() {
-	return $_SERVER['LARAVEL_ENV'];
+	$file = __DIR__.'/../LARAVEL_ENV';
+
+	if (file_exists($file)) {
+		return file_get_contents($file);
+	} else {
+		return $_SERVER['LARAVEL_ENV'];
+	}
 });
 
 /*
