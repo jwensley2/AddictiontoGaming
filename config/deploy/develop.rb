@@ -71,6 +71,13 @@ namespace :deploy do
 		end
 	end
 
+	desc "Create a LARAVEL_ENV file"
+	task :set_environment do
+		on roles(:web) do
+			execute "cd #{release_path} && touch LARAVEL_ENV && echo -n 'develop' > LARAVEL_ENV"
+		end
+	end
+
 	desc "Symlink shared path"
 	task :link_shared do
 		on roles(:web) do
@@ -126,6 +133,7 @@ namespace :deploy do
 	end
 
 	after :updated, "deploy:symlink"
+	after :updated, "deploy:set_environment"
 	after :updated, "deploy:composer_install"
 	after :updated, "deploy:fix_storage_permissions"
 	after :updated, "deploy:laravel_migrate"
