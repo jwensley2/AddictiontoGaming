@@ -89,7 +89,9 @@
 
 								<ul class="dropdown-menu">
 									<li><a href="{{ action('AdminNewsController@getIndex') }}">List News</a></li>
-									<li><a href="{{ action('AdminNewsController@getCreate') }}">Post News</a></li>
+									@if(Auth::user()->hasPermission('news_post'))
+										<li><a href="{{ action('AdminNewsController@getCreate') }}">Post News</a></li>
+									@endif
 								</ul>
 							</li>
 						@endif
@@ -100,12 +102,17 @@
 							</li>
 						@endif
 
-						<li class="@if(Request::is('admin/donors/*'))active@endif">
-							<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
-						</li>
-						<li class="@if(Request::is('admin/settings/*'))active@endif">
-							<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
-						</li>
+						@if(Auth::user()->hasPermission('donors_view'))
+							<li class="@if(Request::is('admin/donors/*'))active@endif">
+								<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+							</li>
+						@endif
+
+						@if(Auth::user()->hasPermission('settings'))
+							<li class="@if(Request::is('admin/settings/*'))active@endif">
+								<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
+							</li>
+						@endif
 					@endif
 				</ul>
 

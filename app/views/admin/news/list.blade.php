@@ -8,7 +8,9 @@ News
 	<div class="row">
 		<div class="col-md-12">
 			<p class="text-right">
-				<a class="btn btn-primary" href="{{ action('AdminNewsController@getCreate') }}">Post News</a>
+				@if(Auth::user()->hasPermission('news_post'))
+					<a class="btn btn-primary" href="{{ action('AdminNewsController@getCreate') }}">Post News</a>
+				@endif
 			</p>
 
 			<table id="news-list" class="table table-hover table-bordered sortable">
@@ -29,12 +31,23 @@ News
 							data-id="{{ $article->id }}"
 							data-title="{{{ $article->title }}}"
 						>
-							<td><a href="{{ action('AdminNewsController@getEdit', $article->id) }}">{{{ $article->title }}}</a></td>
+							<td>
+								@if(Auth::user()->hasPermission('news_edit'))
+									<a href="{{ action('AdminNewsController@getEdit', $article->id) }}">{{{ $article->title }}}</a>
+								@else
+									{{{ $article->title }}}
+								@endif
+							</td>
 							<td>{{ $article->created_at->toDateString() }}</td>
 							<td>{{ $article->updated_at->toDateString() }}</td>
 							<td>
-								<a class="btn btn-primary" href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a>
-								<button class="btn btn-danger delete">Delete</button>
+								@if(Auth::user()->hasPermission('news_edit'))
+									<a class="btn btn-primary" href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a>
+								@endif
+
+								@if(Auth::user()->hasPermission('news_delete'))
+									<button class="btn btn-danger delete">Delete</button>
+								@endif
 							</td>
 						</tr>
 					@endforeach

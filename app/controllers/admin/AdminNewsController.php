@@ -14,6 +14,8 @@ class AdminNewsController extends BaseController {
 	 */
 	public function getIndex()
 	{
+		if ( ! Auth::user()->hasPermission('news_view')) return Redirect::route('admin');
+
 		$news = News::orderBy('created_at', 'desc')->get();
 
 		return View::make('admin.news.list')
@@ -24,6 +26,8 @@ class AdminNewsController extends BaseController {
 
 	public function getCreate()
 	{
+		if ( ! Auth::user()->hasPermission('news_post')) return Redirect::route('admin');
+
 		return View::make('admin.news.create');
 	}
 
@@ -31,6 +35,8 @@ class AdminNewsController extends BaseController {
 
 	public function postCreate()
 	{
+		if ( ! Auth::user()->hasPermission('news_post')) return Redirect::route('admin');
+
 		$article = new News();
 
 		$article->title   = Input::get('title');
@@ -50,6 +56,8 @@ class AdminNewsController extends BaseController {
 
 	public function getEdit($id)
 	{
+		if ( ! Auth::user()->hasPermission('news_edit')) return Redirect::route('admin');
+
 		$article = News::find($id);
 		$authors = User::all();
 
@@ -62,6 +70,8 @@ class AdminNewsController extends BaseController {
 
 	public function postEdit($id)
 	{
+		if ( ! Auth::user()->hasPermission('news_edit')) return Redirect::route('admin');
+
 		$article = News::find($id);
 
 		$article->title        = Input::get('title');
@@ -84,6 +94,14 @@ class AdminNewsController extends BaseController {
 	public function postDelete($id)
 	{
 		$response['success'] = true;
+
+		if ( ! Auth::user()->hasPermission('news_edit'))
+		{
+			$response['success'] = false;
+			$response['message'] = 'You do not have permission to do that.';
+
+			return Response::json($response);
+		}
 
 		$article = News::find($id);
 
