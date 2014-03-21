@@ -47,5 +47,7 @@
 				</footer>
 			</article>
 		@endforeach
+
+		{{ $news->links() }}
 	</section>
 @stop

@@ -10,9 +10,8 @@ class HomeController extends BaseController {
 	{
 		// Get some news items to show
 		$news = News::with('user', 'editor')
-			->take(5)
 			->orderBy('created_at', 'desc')
-			->get();
+			->paginate(5);
 
 		return View::make('home')->with('news', $news);
 	}

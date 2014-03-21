@@ -1,3 +1,4 @@
+@charset "CP850";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -67,7 +68,7 @@ body:after {
 }
 
 body {
-  background: url('/assets/images/bg-main.png?1343516331') repeat #333333;
+  background: url('/assets/images/bg-main.png?1394598651') repeat #333333;
   color: #FFF;
   font-family: "museo-sans", Helvetica, Arial, Sans-serif;
   font-size: 16px;
@@ -101,7 +102,7 @@ table {
   width: 100%;
 }
 table thead {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #FFF;
 }
 table thead th, table thead td {
   font-weight: bold;
@@ -141,6 +142,30 @@ table th {
 }
 .error:last-of-type {
   margin-bottom: 20px;
+}
+
+.pagination {
+  font-size: 16px;
+}
+.pagination li {
+  background: #c9dff2;
+  border: 1px solid #c9dff2;
+  color: #4c4f59;
+  display: inline-block;
+  line-height: 1;
+  margin: 0 5px 0 0;
+}
+.pagination li a, .pagination li span {
+  color: inherit;
+  display: block;
+  padding: 5px;
+}
+.pagination .active {
+  background: #4c4f59;
+  color: #c9dff2;
+}
+.pagination .disabled {
+  cursor: default;
 }
 
 form button::-moz-focus-inner,
@@ -205,7 +230,7 @@ form input[type="submit"] {
 }
 form input[type="submit"]:hover, form input[type="submit"]:focus {
   background: #4c4f59;
-  border: 1px solid white;
+  border: 1px solid #FFF;
   color: #FFF;
 }
 form select {
@@ -239,13 +264,13 @@ form .cke_skin_kama {
 }
 
 .page-header {
-  background: url('/assets/images/bg-header.png?1343516331') repeat-x;
+  background: url('/assets/images/bg-header.png?1394598651') repeat-x;
   border-bottom: 2px solid #c9dff2;
   clear: both;
   overflow: hidden;
 }
 .page-header h1 {
-  background: url('/assets/images/banner.jpg?1343516331') no-repeat scroll left 0 white;
+  background: url('/assets/images/banner.jpg?1394598651') no-repeat scroll left 0 white;
   font-size: 50px;
   height: 192px;
   line-height: 250px;
@@ -343,8 +368,8 @@ form .cke_skin_kama {
 }
 .content h1 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid white;
-  border-top: 2px solid white;
+  border-bottom: 2px solid #FFF;
+  border-top: 2px solid #FFF;
   color: #FFF;
   font-size: 25px;
   font-weight: bold;
@@ -355,8 +380,8 @@ form .cke_skin_kama {
 }
 .content h2 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid white;
-  border-top: 2px solid white;
+  border-bottom: 2px solid #FFF;
+  border-top: 2px solid #FFF;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -391,7 +416,7 @@ form .cke_skin_kama {
   margin-bottom: 0;
 }
 .content blockquote {
-  border-left: 2px solid white;
+  border-left: 2px solid #FFF;
   padding: 5px 20px;
   font-size: 15px;
   font-style: italic;
@@ -414,15 +439,15 @@ form .cke_skin_kama {
 }
 .sidebar h2 {
   text-shadow: #333333 0 2px 3px;
-  border-bottom: 2px solid white;
-  border-top: 2px solid white;
+  border-bottom: 2px solid #FFF;
+  border-top: 2px solid #FFF;
   font-size: 20px;
   margin: 0 0 15px;
   padding: 5px;
 }
 .sidebar .progress-bar {
   background: #b66d5d;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   color: #FFF;
   height: 30px;
   position: relative;
@@ -473,7 +498,7 @@ form .cke_skin_kama {
   padding: 20px 0 10px;
 }
 .page-footer h3 {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #FFF;
   font-size: 16px;
   margin: 0 0 10px;
   padding: 0 0 5px;
@@ -492,7 +517,7 @@ form .cke_skin_kama {
   margin: 0 0.78125%;
 }
 .page-footer .copyright {
-  border-top: 1px solid white;
+  border-top: 1px solid #FFF;
   clear: both;
   font-size: 12px;
   margin: 10px 0 0;
@@ -507,7 +532,7 @@ form .cke_skin_kama {
   padding: 2px;
 }
 .donor-list .user2 {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #FFF;
 }
 
 .server-list tbody tr:nth-child(4n+2), .server-list tbody tr:nth-child(4n+1) {
@@ -517,11 +542,22 @@ form .cke_skin_kama {
   padding: 2px;
 }
 .server-list .server2 {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #FFF;
 }
 
+.news-articles h2 {
+  text-shadow: none;
+  border: 0;
+  background: #c9dff2;
+  color: #4c4f59;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0 0 15px;
+  padding: 10px 5px;
+}
 .news-articles .post-info {
-  border-top: 1px dotted white;
+  border-top: 1px dotted #FFF;
   margin: 10px 0 0;
   padding: 5px 0 0;
 }
@@ -539,7 +575,7 @@ form .cke_skin_kama {
   margin-top: 5px;
 }
 .news-articles article + article {
-  margin-top: 60px;
+  margin-top: 100px;
 }
 
 .news-archive .date {
@@ -559,13 +595,13 @@ form .cke_skin_kama {
   background: rgba(255, 255, 255, 0.25);
 }
 .donations table thead {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #FFF;
 }
 .donations table thead tr {
   background: none !important;
 }
 .donations table tfoot {
-  border-top: 2px solid white;
+  border-top: 2px solid #FFF;
 }
 .donations table tfoot tr {
   background: none !important;
@@ -606,9 +642,9 @@ form .cke_skin_kama {
     display: block;
   }
   .donations table thead th {
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    border-top: 1px solid white;
+    border-left: 1px solid #FFF;
+    border-right: 1px solid #FFF;
+    border-top: 1px solid #FFF;
     display: block;
   }
   .donations table tbody {
@@ -619,16 +655,16 @@ form .cke_skin_kama {
     width: auto;
   }
   .donations table tbody tr {
-    border-right: 1px solid white;
+    border-right: 1px solid #FFF;
     display: inline-block;
     vertical-align: top;
   }
   .donations table tbody td {
-    border-top: 1px solid white;
+    border-top: 1px solid #FFF;
     display: block;
   }
   .donations table tfoot {
-    border-top: 1px solid white;
+    border-top: 1px solid #FFF;
     clear: both;
     display: block;
     width: auto;

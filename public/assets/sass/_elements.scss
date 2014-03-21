@@ -67,3 +67,32 @@ table {
 
 	&:last-of-type { margin-bottom: 20px }
 }
+
+//========================================
+// Pagination
+//========================================
+.pagination {
+	font-size: 16px;
+
+	li {
+		background: $lightblue;
+		border: 1px solid $lightblue;
+		color: $gray;
+		display: inline-block;
+		line-height: 1;
+		margin: 0 5px 0 0;
+
+		a, span {
+			color: inherit;
+			display: block;
+			padding: 5px;
+		}
+	}
+
+	.active {
+		background: $gray;
+		color: $lightblue;
+	}
+
+	.disabled { cursor: default }
+}

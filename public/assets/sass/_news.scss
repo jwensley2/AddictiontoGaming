@@ -2,6 +2,18 @@
 // News Articles
 //========================================
 .news-articles {
+	h2 {
+		@include text-shadow(none);
+		border: 0;
+		background: $lightblue;
+		color: $gray;
+		font-size: 24px;
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin: 0 0 15px;
+		padding: 10px 5px;
+	}
+
 	.post-info {
 		border-top: 1px dotted #FFF;
 		margin: 10px 0 0;
@@ -22,7 +34,7 @@
 	}
 
 	article {
-		+article { margin-top: 60px }
+		+article { margin-top: 100px }
 	}
 }
 
