@@ -30,17 +30,23 @@ Route::controller('news', 'NewsController');
 // Admin Panel
 Route::group(array('prefix' => 'admin'), function() {
 
-	// Login
-	Route::get('login', array('uses' => 'AccountController@getLogin', 'as' => 'login'));
-	Route::post('login', array('uses' => 'AccountController@postLogin'));
+	Route::group(array('before' => 'guest'), function() {
+		// Register
+		Route::get('register', array('uses' => 'AccountController@getRegister', 'as' => 'register'));
+		Route::post('register', array('uses' => 'AccountController@postRegister'));
 
-	// Forgot Password
-	Route::get('forgot', array('uses' => 'AccountController@getForgotPassword', 'as' => 'forgotPassword'));
-	Route::post('forgot', array('uses' => 'AccountController@postForgotPassword'));
+		// Login
+		Route::get('login', array('uses' => 'AccountController@getLogin', 'as' => 'login'));
+		Route::post('login', array('uses' => 'AccountController@postLogin'));
 
-	// Reset Password
-	Route::get('reset/{one?}', array('uses' => 'AccountController@getResetPassword', 'as' => 'resetPassword'));
-	Route::post('reset', array('uses' => 'AccountController@postResetPassword'));
+		// Forgot Password
+		Route::get('forgot', array('uses' => 'AccountController@getForgotPassword', 'as' => 'forgotPassword'));
+		Route::post('forgot', array('uses' => 'AccountController@postForgotPassword'));
+
+		// Reset Password
+		Route::get('reset/{one?}', array('uses' => 'AccountController@getResetPassword', 'as' => 'resetPassword'));
+		Route::post('reset', array('uses' => 'AccountController@postResetPassword'));
+	});
 
 	// Protected Pages
 	Route::group(array('before' => 'auth'), function() {

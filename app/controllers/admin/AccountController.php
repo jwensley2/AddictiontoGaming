@@ -2,6 +2,29 @@
 
 class AccountController extends BaseController {
 
+	public function getRegister()
+	{
+		return View::make('admin.account.register');
+	}
+
+	public function postRegister()
+	{
+		$user = new User;
+
+		$user->username              = Input::get('username');
+		$user->email                 = Input::get('email');
+		$user->password              = Input::get('password');
+		$user->password_confirmation = Input::get('password_confirmation');
+
+		if ($user->save()) {
+			return Redirect::route('login')
+				->with('status', 'Your account has been created.');
+		} else {
+			return Redirect::route('register')
+				->with('errors', $user->errors()->all());
+		}
+	}
+
 	/**
 	 * Display login form
 	 *
@@ -9,9 +32,9 @@ class AccountController extends BaseController {
 	 */
 	public function getLogin()
 	{
-		return View::make('admin/account/login');
+		return View::make('admin.account.login')
+			->with('status', Session::get('status'));
 	}
-
 
 	/**
 	 * Handle login
@@ -23,7 +46,7 @@ class AccountController extends BaseController {
 		$username = Input::get('username');
 		$password = Input::get('password');
 
-		if (Auth::attempt(array('username' => $username, 'password' => $password), true))
+		if (Auth::attempt(array('username' => $username, 'password' => $password, 'active' => 1), true))
 		{
 			return Redirect::intended('admin');
 		}
@@ -33,7 +56,6 @@ class AccountController extends BaseController {
 				->with('errors', array('Could not log you in.'));
 		}
 	}
-
 
 	/**
 	 * Display forgot password form

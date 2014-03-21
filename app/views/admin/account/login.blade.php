@@ -7,6 +7,10 @@ Login
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
+			@if (isset($status))
+				<div class="alert alert-success">{{ $status }}</div>
+			@endif
+
 			@if ($errors)
 				@foreach ($errors as $error)
 					<div class="alert alert-danger">{{ $error }}</div>
