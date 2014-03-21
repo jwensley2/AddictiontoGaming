@@ -24,6 +24,9 @@ Route::get('donations', array(
 // Home
 Route::get('/', array('uses' => 'HomeController@index', 'as' => 'home'));
 
+// News
+Route::controller('news', 'NewsController');
+
 // Admin Panel
 Route::group(array('prefix' => 'admin'), function() {
 
