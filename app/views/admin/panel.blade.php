@@ -43,7 +43,7 @@ Administration
 				<tbody>
 					@foreach ($news as $article)
 						<tr>
-							<td><a href="{{ action('NewsController@getEdit', $article->id) }}">{{ $article->title }}</a></td>
+							<td><a href="{{ action('AdminNewsController@getEdit', $article->id) }}">{{ $article->title }}</a></td>
 							<td>{{ $article->created_at->toDateString() }}</td>
 						</tr>
 					@endforeach
