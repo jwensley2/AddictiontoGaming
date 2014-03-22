@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class UsersTableSeeder extends Seeder {
 
 	public function run()
@@ -7,16 +9,24 @@ class UsersTableSeeder extends Seeder {
 		// Empty the users table
 		DB::table('users')->truncate();
 
+		$now = Carbon::now();
+
 		$users = array(
 			array(
-				'active'   => true,
-				'email'    => 'addictiontogaming@gmail.com',
-				'username' => 'atg',
+				'active'     => true,
+				'created_at' => $now,
+				'email'      => 'addictiontogaming@gmail.com',
+				'founder'    => true,
+				'updated_at' => $now,
+				'username'   => 'atg',
 			),
 			array(
-				'active'   => true,
-				'email'    => 'jwensley2@gmail.com',
-				'username' => 'joe',
+				'active'     => true,
+				'created_at' => $now,
+				'email'      => 'jwensley2@gmail.com',
+				'founder'    => true,
+				'updated_at' => $now,
+				'username'   => 'joe',
 			),
 		);
 

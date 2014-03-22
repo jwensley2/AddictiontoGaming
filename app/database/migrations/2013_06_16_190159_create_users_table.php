@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration {
 			$t->string('username');
 			$t->string('password', 60);
 			$t->boolean('active');
+			$t->boolean('founder');
 			$t->timestamps();
 
 			// Keys

@@ -61,25 +61,22 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	/**
 	 * Check if user has a permission
 	 *
-	 * @param type $name The name of the permission
+	 * @param type $key The key for the permission
 	 * @return bool
 	 */
-	public function hasPermission($name)
+	public function hasPermission($key, $checkFounder = true)
 	{
 		$user_access  = 0;
 		$group_access = 0;
 
 		if ( ! Auth::check()) return false;
 
+		if ($this->founder == true AND $checkFounder === true) return true;
+
 		// Check if the user has permission
 		foreach ($this->permissions AS $permission)
 		{
-			if ($permission->name === 'founder')
-			{
-				return true;
-			}
-
-			if ($permission->name == $name)
+			if ($permission->key == $key)
 			{
 				$user_access = $permission->pivot->access;
 				break;
@@ -90,12 +87,7 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		if ($this->group) {
 			foreach ($this->group->permissions AS $permission)
 			{
-				if ($permission->name === 'founder')
-				{
-					return true;
-				}
-
-				if ($permission->name == $name)
+				if ($permission->key == $key)
 				{
 					$group_access = $permission->pivot->access;
 					break;
