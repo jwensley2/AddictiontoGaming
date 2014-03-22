@@ -1,9 +1,13 @@
+var $alertDeleteTmpl, $alertErrorTmpl, $alertSuccessTmpl;
+
 $(document).ready(function() {
-	var $alertDeleteTmpl  = $("#delete-alert-template");
-	var $alertErrorTmpl   = $("#error-alert-template");
-	var $alertSuccessTmpl = $("#success-alert-template");
+	// Set alert templates
+	$alertDeleteTmpl  = $("#delete-alert-template");
+	$alertErrorTmpl   = $("#error-alert-template");
+	$alertSuccessTmpl = $("#success-alert-template");
 
 	initTableSorter();
+	initPermissionsEditor();
 
 	// Pass the CSRF Token with all ajax requests
 	$.ajaxSetup({
@@ -57,6 +61,23 @@ $(document).ready(function() {
 
 // ------------------------------------------------------------------------
 
+function initPermissionsEditor () {
+	var $save        = $("#save-permissions");
+	var $permissions = $("input.permission");
+
+	$save.on("click", function() {
+		$.post($save.data('url'), $permissions.serialize(), function(result) {
+			if (result.success) {
+				showSuccessAlert(result.message);
+			} else {
+				showErrorAlert(result.message);
+			}
+		}, "json");
+	})
+}
+
+// ------------------------------------------------------------------------
+
 function initTableSorter () {
 		$.extend($.tablesorter.themes.bootstrap, {
 		// these classes are added to the table. To see other table classes available,
@@ -89,4 +110,34 @@ function initTableSorter () {
 // Get the CSRF Token
 function getCSRFToken () {
 	return $("body").data("csrf-token");
+}
+
+// ------------------------------------------------------------------------
+
+function showSuccessAlert (message, $before) {
+	var $alert = $alertSuccessTmpl.clone();
+
+	$alert.find(".close").before(message);
+
+	if ( ! $before) {
+		$(window).scrollTop(0);
+		$alert.appendTo($("#alert-container"));
+	} else {
+		$alert.insertBefore($before);
+	}
+}
+
+// ------------------------------------------------------------------------
+
+function showErrorAlert (message, $before) {
+	var $alert = $alertErrorTmpl.clone();
+
+	$alert.find(".close").before(message);
+
+	if ( ! $before) {
+		$(window).scrollTop(0);
+		$alert.appendTo($("#alert-container"));
+	} else {
+		$alert.insertBefore($before);
+	}
 }

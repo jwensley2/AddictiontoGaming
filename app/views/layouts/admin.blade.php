@@ -61,7 +61,7 @@
 		</div>
 
 		<!-- Success Alert Template -->
-		<div id="error-alert-template" class="alert alert-block alert-success alert-dismissable fade in">
+		<div id="success-alert-template" class="alert alert-block alert-success alert-dismissable fade in">
 			<button data-dismiss="alert" class="close" type="button">×</button>
 		</div>
 	</div>
@@ -113,6 +113,12 @@
 								<a href="{{ action('SettingsController@getIndex') }}">Settings</a>
 							</li>
 						@endif
+
+						@if(Auth::user()->hasPermission('users_view'))
+							<li class="@if(Request::is('admin/users/*'))active@endif">
+								<a href="{{ action('UserController@getList') }}">Users</a>
+							</li>
+						@endif
 					@endif
 				</ul>
 
@@ -125,6 +131,13 @@
 			</div>
 		</div>
 	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12" id="alert-container"></div>
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">

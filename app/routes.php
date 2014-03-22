@@ -55,6 +55,7 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::controller('donations', 'AdminDonationsController');
 		Route::controller('settings', 'SettingsController');
 		Route::controller('account', 'AccountController');
+		Route::controller('users', 'UserController');
 
 		Route::get('/', array(
 			'as'   => 'admin',
