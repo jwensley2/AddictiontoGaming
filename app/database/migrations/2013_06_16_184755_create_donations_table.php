@@ -16,8 +16,8 @@ class CreateDonationsTable extends Migration {
 			$t->increments('id');
 			$t->integer('donor_id');
 			$t->string('txn_id');
-			$t->float('fee');
-			$t->float('gross');
+			$t->decimal('fee', 6, 2);
+			$t->decimal('gross', 6, 2);
 			$t->string('status');
 			$t->string('type');
 			$t->timestamps();
