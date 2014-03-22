@@ -9,6 +9,8 @@ class UserController extends BaseController {
 	 */
 	public function getList()
 	{
+		if ( ! Auth::user()->hasPermission('users_view')) return Redirect::route('admin');
+
 		$users = DB::table('users')->get();
 
 		return View::make('admin.users.list')
@@ -23,6 +25,8 @@ class UserController extends BaseController {
 	 */
 	public function getUser($userId)
 	{
+		if ( ! Auth::user()->hasPermission('users_edit')) return Redirect::route('admin');
+
 		$permissions = DB::table('permissions')->get();
 
 		try {
@@ -44,6 +48,15 @@ class UserController extends BaseController {
 	 */
 	public function postUpdatePermissions($userId)
 	{
+		if ( ! Auth::user()->hasPermission('users_edit'))
+		{
+			$response['success'] = false;
+			$response['message'] = 'You do not have permission to do that.';
+
+			return Response::json($response);
+		}
+
+		// Set default success
 		$result['success'] = true;
 
 		$permissions = Input::get('permissions');
