@@ -53,6 +53,19 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+
+App::missing(function($exception)
+{
+	if (Request::is('admin/*'))
+	{
+		return Response::view('admin.404',array(), 404);
+	}
+	else
+	{
+		return Response::view('404',array(), 404);
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
