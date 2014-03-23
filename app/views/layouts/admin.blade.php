@@ -66,19 +66,19 @@
 		</div>
 	</div>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ action('AdminController@index') }}">ATG Admin Panel</a>
+				<a class="navbar-brand" href="{{ action('AdminController@index') }}">ATG Admin</a>
 			</div>
 
-			<div class="navbar-collapse collapse">
+			<div id="navbar-collapse" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ route('home') }}">Home</a></li>
 
@@ -96,15 +96,23 @@
 							</li>
 						@endif
 
-						@if(Auth::user()->hasPermission('donations_view'))
-							<li class="@if(Request::is('admin/donations/*'))active@endif">
-								<a href="{{ action('AdminDonationsController@getIndex') }}">Donations</a>
-							</li>
-						@endif
+						@if(Auth::user()->hasPermission('donations_view') OR Auth::user()->hasPermission('donors_view'))
+							<li>
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Donations <b class="caret"></b></a>
 
-						@if(Auth::user()->hasPermission('donors_view'))
-							<li class="@if(Request::is('admin/donors/*'))active@endif">
-								<a href="{{ action('DonorsController@getIndex') }}">Donors</a>
+								<ul class="dropdown-menu">
+									@if(Auth::user()->hasPermission('donations_view'))
+										<li class="@if(Request::is('admin/donations/*'))active@endif">
+											<a href="{{ action('AdminDonationsController@getIndex') }}">List Donations</a>
+										</li>
+									@endif
+
+									@if(Auth::user()->hasPermission('donors_view'))
+										<li class="@if(Request::is('admin/donors/*'))active@endif">
+											<a href="{{ action('DonorsController@getIndex') }}">List Donors</a>
+										</li>
+									@endif
+								</ul>
 							</li>
 						@endif
 
@@ -155,6 +163,7 @@
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/alert.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/transition.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/bootstrap/dropdown.js"></script>
+	<script type="text/javascript" src="/assets/admin/js/bootstrap/collapse.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.min.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.widgets.min.js"></script>
 	<script type="text/javascript" src="/assets/admin/js/main.js"></script>

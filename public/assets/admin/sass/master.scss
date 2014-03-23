@@ -1,11 +1,3 @@
 @import "compass";
 @import "variables";
 @import "bootstrap";
-
-body {
-	padding-top: 50px;
-}
-
-@media screen and (max-width: 980px) {
-	body { padding-top: 0 }
-}
