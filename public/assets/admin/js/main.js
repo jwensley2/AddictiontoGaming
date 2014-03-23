@@ -7,6 +7,7 @@ $(document).ready(function() {
 	$alertSuccessTmpl = $("#success-alert-template");
 
 	initTableSorter();
+	initUserList();
 	initPermissionsEditor();
 
 	// Pass the CSRF Token with all ajax requests
@@ -61,12 +62,41 @@ $(document).ready(function() {
 
 // ------------------------------------------------------------------------
 
+function initUserList () {
+	var $actions    = $("#user-list .user-actions");
+
+	$actions.on("click", ".activate, .de-activate", function(e) {
+		var url          = $(this).data("url");
+		var $thisActions = $(e.delegateTarget);
+		var $activate    = $thisActions.find(".activate");
+		var $deActivate  = $thisActions.find(".de-activate");
+		var $status      = $thisActions.find(".status");
+
+		$.post(url, function(response) {
+			if (response.success) {
+
+				$status.text(response.status);
+				$activate.toggle();
+				$deActivate.toggle();
+
+				showSuccessAlert(response.message);
+			} else {
+				showErrorAlert(response.message);
+			}
+		}, "json");
+	})
+}
+
+// ------------------------------------------------------------------------
+
 function initPermissionsEditor () {
 	var $save        = $("#save-permissions");
 	var $permissions = $("input.permission");
 
 	$save.on("click", function() {
 		$.post($save.data('url'), $permissions.serialize(), function(result) {
+			$(window).scrollTop(0);
+
 			if (result.success) {
 				showSuccessAlert(result.message);
 			} else {
@@ -117,14 +147,7 @@ function getCSRFToken () {
 function showSuccessAlert (message, $before) {
 	var $alert = $alertSuccessTmpl.clone();
 
-	$alert.find(".close").before(message);
-
-	if ( ! $before) {
-		$(window).scrollTop(0);
-		$alert.appendTo($("#alert-container"));
-	} else {
-		$alert.insertBefore($before);
-	}
+	showAlert($alert, message, $before);
 }
 
 // ------------------------------------------------------------------------
@@ -132,12 +155,23 @@ function showSuccessAlert (message, $before) {
 function showErrorAlert (message, $before) {
 	var $alert = $alertErrorTmpl.clone();
 
+	showAlert($alert, message, $before);
+}
+
+// ------------------------------------------------------------------------
+
+function showAlert ($alert, message, $before) {
 	$alert.find(".close").before(message);
 
 	if ( ! $before) {
-		$(window).scrollTop(0);
 		$alert.appendTo($("#alert-container"));
 	} else {
 		$alert.insertBefore($before);
 	}
+
+	setTimeout(function() {
+		$alert.fadeOut(function() {
+			$alert.remove();
+		});
+	}, 5000);
 }

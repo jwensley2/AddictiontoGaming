@@ -11,11 +11,12 @@ class UserController extends BaseController {
 	{
 		if ( ! Auth::user()->hasPermission('users_view')) return Redirect::route('admin');
 
-		$users = DB::table('users')->get();
+		$users = User::all();
 
 		return View::make('admin.users.list')
 			->with('users', $users);
 	}
+
 
 	/**
 	 * Display a single user
@@ -39,6 +40,7 @@ class UserController extends BaseController {
 			->with('permissions', $permissions)
 			->with('user', $user);
 	}
+
 
 	/**
 	 * Update a users permissions
@@ -92,4 +94,50 @@ class UserController extends BaseController {
 		return Response::json($result);
 	}
 
+
+	/**
+	 * Set the activation status of a user
+	 * @param int $userId
+	 * @param int $active
+	 * @return response
+	 */
+	public function postActiveStatus($userId = null, $active = 0)
+	{
+		if ( ! Auth::user()->hasPermission('users_edit'))
+		{
+			$response['success'] = false;
+			$response['message'] = 'You do not have permission to do that.';
+
+			return Response::json($response);
+		}
+
+		// Set default status
+		$result['success'] = true;
+
+		// Find the user
+		try {
+			$user = User::findOrFail($userId);
+		} catch (Exception $e) {
+			$result['success'] = false;
+			$result['message'] = 'Could not find specified user.';
+
+			return Response::json($result);
+		}
+
+		// A non-Founder cannot edit a founder
+		if ( ! Auth::user()->founder AND $user->founder) {
+			$result['success'] = false;
+			$result['message'] = 'A non-Founder cannot edit a founder.';
+
+			return Response::json($result);
+		}
+
+		$user->active = $active;
+		$user->forceSave();
+
+		$result['message'] = 'Status Updated.';
+		$result['status']  = $user->active ? 'Active' : 'Inactive';
+
+		return Response::json($result);
+	}
 }

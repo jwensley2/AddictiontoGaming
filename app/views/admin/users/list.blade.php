@@ -7,12 +7,14 @@ Users
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-hover table-bordered sortable">
+			<table id="user-list" class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>
 						<th>Username</th>
 						<th>Email</th>
-						<th>Active</th>
+						<th>Group</th>
+						<th>Register Date</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 
@@ -21,7 +23,43 @@ Users
 						<tr>
 							<td><a href="{{ action('UserController@getUser', $user->id) }}">{{{ $user->username }}}</a></td>
 							<td>{{{ $user->email }}}</td>
-							<td>{{ $user->active }}</td>
+							<td>
+								@if($user->group()->first())
+									<span style="color: #{{{ $user->group()->first()->colour }}}">{{{ $user->group()->first()->name }}}</span>
+								@else
+									None
+								@endif
+							</td>
+							<td>{{ $user->created_at->toDateString() }}</td>
+							<td>
+								<div class="user-actions btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span class="status">{{ ($user->active) ? 'Active' : 'Inactive' }}</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li>
+											<a
+												class="de-activate"
+												data-url="{{ action('UserController@postActiveStatus', array($user->id, 0)) }}"
+												href="#"
+												style="display: {{ ($user->active) ? 'block' : 'none' }}"
+											>De-Activate</a>
+										</li>
+										<li>
+											<a
+												class="activate"
+												data-url="{{ action('UserController@postActiveStatus', array($user->id, 1)) }}"
+												href="#"
+												style="display: {{ ($user->active) ? 'none' : 'block' }}"
+											>Activate</a>
+										</li>
+										{{--
+										<li class="divider"></li>
+										<li><a href="#">Delete</a></li>
+										--}}
+									</ul>
+								</div>
+							</td>
 						</tr>
 					@endforeach
 				</tbody>
