@@ -35,7 +35,15 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('admin/login');
+	if (Auth::check() AND ! Auth::user()->active)
+	{
+		Auth::logout();
+		return Redirect::route('login')->with('errors', array('Your account is not active.'));
+	}
+	elseif (Auth::guest())
+	{
+		return Redirect::guest('admin/login');
+	}
 });
 
 
@@ -57,7 +65,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('admin');
+	if (Auth::check() AND Auth::user()->active) return Redirect::to('admin');
 });
 
 /*
