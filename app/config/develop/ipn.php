@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'mode' => 'live',
+	'mode' => 'sandbox',
 
 	// Account Credentials
 	'acct1.UserName' => 'addictiontogaming@gmail.com'

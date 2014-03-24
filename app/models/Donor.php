@@ -45,10 +45,9 @@ class Donor extends Eloquent {
 
 		$total = 0;
 
-		foreach ($this->donations AS $donation)
-		{
-			$total += $donation->gross;
-		}
+		$total = $this->donations()
+			->where('status', 'completed')
+			->sum('gross');
 
 		return number_format($total, 2);
 	}

@@ -14,7 +14,7 @@ View::composer('layouts.master', function($view)
 	$month_start->setTime(0, 0, 0);
 
 	// Get the total donations for the month
-	$donations['total'] = Donation::where('created_at', '>=', $month_start)->sum('gross') ?: 0;
+	$donations['total'] = Donation::where('created_at', '>=', $month_start)->where('status', 'completed')->sum('gross') ?: 0;
 
 	// Calculate the percentage of the goal that has been donated this month
 	$donations['percent'] = min(round((100 / $donations['goal']) * $donations['total'], 2), 100);
