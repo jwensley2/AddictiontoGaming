@@ -44,11 +44,11 @@ class AdminNewsController extends BaseController {
 
 		if ($article->save())
 		{
-			return Redirect::action('NewsController@getEdit', $article->id)->with('message', 'News post has been created');
+			return Redirect::action('AdminNewsController@getEdit', $article->id)->with('message', 'News post has been created');
 		}
 		else
 		{
-			return Redirect::action('NewsController@getCreate')->with('errors', $article->errors()->all());
+			return Redirect::action('AdminNewsController@getCreate')->with('errors', $article->errors()->all());
 		}
 	}
 
@@ -81,11 +81,11 @@ class AdminNewsController extends BaseController {
 
 		if ($article->save())
 		{
-			return Redirect::action('NewsController@getEdit', $id)->with('message', 'News post has been updated');
+			return Redirect::action('AdminNewsController@getEdit', $id)->with('message', 'News post has been updated');
 		}
 		else
 		{
-			return Redirect::action('NewsController@getEdit', $id)->with('errors', $article->errors()->all());
+			return Redirect::action('AdminNewsController@getEdit', $id)->with('errors', $article->errors()->all());
 		}
 	}
 
