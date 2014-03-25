@@ -66,6 +66,9 @@ namespace :deploy do
 	desc "Symlink to the new release path"
 	task :symlink do
 		on roles(:web) do
+			execute "ln -nfs /home/atg/addictiontogaming.com/games #{release_path}/games"
+
+			# Symlink the deploy
 			execute "rm -f #{current_path}"
 			execute "ln -nfs #{release_path} #{current_path}"
 		end
@@ -132,9 +135,9 @@ namespace :deploy do
 		end
 	end
 
-	after :updated, "deploy:symlink"
 	after :updated, "deploy:set_environment"
 	after :updated, "deploy:composer_install"
 	after :updated, "deploy:fix_storage_permissions"
 	after :updated, "deploy:laravel_migrate"
+	after :updated, "deploy:symlink"
 end
