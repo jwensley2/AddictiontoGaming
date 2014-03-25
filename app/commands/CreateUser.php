@@ -43,7 +43,7 @@ class CreateUser extends Command {
 		$user->email    = $this->argument('email');
 		$user->password = $this->argument('password');
 
-		if ( ! $user->save($user::$create_rules))
+		if ( ! $user->save())
 		{
 			foreach ($user->errors()->all() AS $error)
 			{

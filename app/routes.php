@@ -57,6 +57,9 @@ Route::group(array('prefix' => 'admin'), function() {
 		Route::controller('account', 'AccountController');
 		Route::controller('users', 'UserController');
 
+		Route::get('account', array('uses' => 'AccountController@getIndex', 'as' => 'profile'));
+
+
 		Route::get('/', array(
 			'as'   => 'admin',
 			'uses' => 'AdminController@index',

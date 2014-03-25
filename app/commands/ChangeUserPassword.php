@@ -51,7 +51,7 @@ class ChangeUserPassword extends Command {
 		$user->password              = $this->secret('Enter the new password:');
 		$user->password_confirmation = $this->secret('Confirm the password:');
 
-		if ( ! $user->save())
+		if ( ! $user->save(User::$changePasswordRules))
 		{
 			foreach ($user->errors()->all() AS $error)
 			{

@@ -5,8 +5,8 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Ardent implements UserInterface, RemindableInterface {
-	public static $passwordAttributes = array('password');
-	public $autoHashPasswordAttributes = true;
+	public static $passwordAttributes    = array('password');
+	public $autoHashPasswordAttributes   = true;
 	public $autoPurgeRedundantAttributes = true;
 
 	/**
@@ -27,18 +27,24 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	 * Validation Rules
 	 */
 	public static $rules = array(
-		'username'         => 'required|alpha_dash|between:3,50',
-		'email'            => 'required|email',
-		'password'         => 'required|min:6|confirmed',
+		'username' => 'required|alpha_dash|between:3,50|unique:users,username',
+		'email'    => 'required|email|unique:users,email',
+		'password' => 'required|min:6|confirmed',
 	);
 
 	/**
-	 * Validation rules when creating a new user
+	 * Rules for changing password
 	 */
-	public static $create_rules = array(
-		'username'         => 'required|alpha_dash|between:3,50|unique:users,username',
-		'email'            => 'required|email|unique:users,email',
-		'password'         => 'required|min:6|confirmed',
+	public static $changePasswordRules = array(
+		'password' => 'required|min:6|confirmed',
+	);
+
+	/**
+	 * Rules for updating profile
+	 */
+	public static $updateProfileRules = array(
+		'username' => 'required|alpha_dash|between:3,50|unique:users,username',
+		'email'    => 'required|email|unique:users,email',
 	);
 
 	// ------------------------------------------------------------------------

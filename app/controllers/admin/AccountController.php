@@ -2,11 +2,77 @@
 
 class AccountController extends BaseController {
 
+	/**
+	 * Display the user's profile
+	 *
+	 * @return Response
+	 */
+	public function getIndex()
+	{
+		$user = Auth::user();
+
+		return View::make('admin.account.profile')
+			->with('user', $user)
+			->with('messages', Session::get('messages'));
+	}
+
+	/**
+	 * Handle profile form
+	 *
+	 * @return Response
+	 */
+	public function postProfile()
+	{
+		$user = Auth::user();
+
+		$user->username = Input::get('username');
+		$user->email    = Input::get('email');
+
+		if ($user->updateUniques(User::$updateProfileRules)) {
+			return Redirect::route('profile')
+				->with('messages', array('Your profile has been updated.'));
+		} else {
+			return Redirect::route('profile')
+				->with('errors', $user->errors()->all());
+		}
+	}
+
+	/**
+	 * Handle password change form
+	 *
+	 * @return Response
+	 */
+	public function postChangePassword()
+	{
+		$user = Auth::user();
+
+		$user->password              = Input::get('password');
+		$user->password_confirmation = Input::get('password_confirmation');
+
+		if ($user->save(User::$changePasswordRules)) {
+			return Redirect::route('profile')
+				->with('messages', array('Password updated.'));
+		} else {
+			return Redirect::route('profile')
+				->with('errors', $user->errors()->all());
+		}
+	}
+
+	/**
+	 * Display the registration page
+	 * @return Response
+	 */
 	public function getRegister()
 	{
 		return View::make('admin.account.register');
 	}
 
+
+	/**
+	 * Handle registration form
+	 *
+	 * @return Respone
+	 */
 	public function postRegister()
 	{
 		$user = new User;
@@ -36,6 +102,7 @@ class AccountController extends BaseController {
 			->with('status', Session::get('status'));
 	}
 
+
 	/**
 	 * Handle login
 	 *
@@ -57,6 +124,7 @@ class AccountController extends BaseController {
 		}
 	}
 
+
 	/**
 	 * Display forgot password form
 	 *
@@ -66,6 +134,7 @@ class AccountController extends BaseController {
 	{
 		return View::make('admin.account.forgot_password');
 	}
+
 
 	/**
 	 * Handle forgot password form
@@ -88,6 +157,7 @@ class AccountController extends BaseController {
 		}
 	}
 
+
 	/**
 	 * Display reset password form
 	 *
@@ -99,6 +169,7 @@ class AccountController extends BaseController {
 
 		return View::make('admin.account.reset_password')->with('token', $token);
 	}
+
 
 	/**
 	 * Handle Reset Password Form

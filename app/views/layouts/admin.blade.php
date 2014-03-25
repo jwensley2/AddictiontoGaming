@@ -132,7 +132,7 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::check())
-						<li><a href="#">Account</a></li>
+						<li><a href="{{ route('profile') }}">Account</a></li>
 						<li><a href="{{ route('logout') }}">Logout</a></li>
 					@endif
 				</ul>
