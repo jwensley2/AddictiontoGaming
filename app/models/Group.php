@@ -21,4 +21,25 @@ class Group extends Ardent {
 	{
 		return $this->belongsToMany('Permission', 'group_permissions')->withPivot('access');
 	}
+
+	/**
+	 * Check if group has a permission
+	 *
+	 * @param type $key The key for the permission
+	 * @return bool
+	 */
+	public function hasPermission($key)
+	{
+
+		$hasPermission = $this->permissions()
+			->where('key', $key)
+			->where('access', 1)
+			->first();
+
+		if ($hasPermission) {
+			return true;
+		}
+
+		return false;
+	}
 }

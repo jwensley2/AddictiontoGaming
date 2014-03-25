@@ -122,9 +122,23 @@
 							</li>
 						@endif
 
-						@if(Auth::user()->hasPermission('users_view'))
-							<li class="@if(Request::is('admin/users/*'))active@endif">
-								<a href="{{ action('UserController@getList') }}">Users</a>
+						@if(Auth::user()->hasPermission('users_view') OR Auth::user()->hasPermission('groups_view'))
+							<li>
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Users <b class="caret"></b></a>
+
+								<ul class="dropdown-menu">
+									@if(Auth::user()->hasPermission('users_view'))
+										<li class="@if(Request::is('admin/users/*'))active@endif">
+											<a href="{{ action('UserController@getList') }}">List Users</a>
+										</li>
+									@endif
+
+									@if(Auth::user()->hasPermission('groups_view'))
+										<li class="@if(Request::is('admin/groups/*'))active@endif">
+											<a href="{{ action('GroupController@getList') }}">List Groups</a>
+										</li>
+									@endif
+								</ul>
 							</li>
 						@endif
 					@endif
