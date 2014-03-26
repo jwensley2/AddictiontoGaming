@@ -77,7 +77,7 @@ namespace :deploy do
 	desc "Create a LARAVEL_ENV file"
 	task :set_environment do
 		on roles(:web) do
-			execute "cd #{release_path} && touch LARAVEL_ENV && echo -n 'develop' > LARAVEL_ENV"
+			execute "cd #{release_path} && touch LARAVEL_ENV && echo -n 'production' > LARAVEL_ENV"
 		end
 	end
 
@@ -91,14 +91,14 @@ namespace :deploy do
 	desc "Run Migrations"
 	task :laravel_migrate do
 		on roles(:web) do
-			execute "php  #{release_path}/artisan migrate --env=develop"
+			execute "php  #{release_path}/artisan migrate --env=production"
 		end
 	end
 
 	desc "Rollback Migrations"
 	task :laravel_rollback do
 		on roles(:web) do
-			execute "php  #{release_path}/artisan migrate:rollback --env=develop"
+			execute "php  #{release_path}/artisan migrate:rollback --env=production"
 		end
 	end
 
