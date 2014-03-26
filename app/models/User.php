@@ -88,6 +88,8 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 
 		if ($this->founder == true AND $checkFounder === true) return true;
 
+		$key = strtoupper($key);
+
 		// Check if the user has permission
 		foreach ($this->permissions AS $permission)
 		{
