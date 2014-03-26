@@ -75,7 +75,6 @@
 				<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
 				<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
 				<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
-				{{-- <li><a href="/servers/">Servers</a></li> --}}
 				<li><a href="{{ route('donations') }}">Donations</a></li>
 			</ul>
 
@@ -84,13 +83,11 @@
 					@if (Auth::user()->hasPermission('news_post'))
 						<li><a href="{{ action('AdminNewsController@getCreate') }}">Submit News</a></li>
 					@endif
-					<li><a href="/admin/potw/submit">Add Player of the Month</a></li>
 					@if (Auth::user()->hasPermission('donors_view'))
 						<li><a href="{{ action('DonorsController@getIndex') }}">Donor List</a></li>
 					@endif
-					{{-- <li><a href="/admin/servers">Server List</a></li> --}}
 				@endif
-				<li><a href="/news/archive">News Archive</a></li>
+				<li><a href="{{ action('NewsController@getArchive') }}">News Archive</a></li>
 			</ul>
 		</nav>
 
@@ -138,7 +135,6 @@
 						<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
 						<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
 						<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
-						{{--<li><a href="/servers/">Servers</a></li>--}}
 						<li><a href="{{ route('donations') }}">Donations</a></li>
 					</ul>
 				</div>
