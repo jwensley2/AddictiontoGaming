@@ -29,6 +29,7 @@ class UserController extends BaseController {
 		if ( ! Auth::user()->hasPermission('users_edit')) return Redirect::route('admin');
 
 		$permissions = DB::table('permissions')->get();
+		$groups      = Group::all();
 
 		try {
 			$user = User::findOrFail($userId);
@@ -38,7 +39,33 @@ class UserController extends BaseController {
 
 		return View::make('admin.users.user')
 			->with('permissions', $permissions)
+			->with('groups', $groups)
 			->with('user', $user);
+	}
+
+
+	public function postUser($userId)
+	{
+		if ( ! Auth::user()->hasPermission('users_edit')) return Redirect::route('admin');
+
+		try {
+			$user = User::findOrFail($userId);
+		} catch (Exception $e) {
+			return App::abort(404);
+		}
+
+		$user->username = Input::get('username');
+		$user->email    = Input::get('email');
+		$user->group_id = Input::get('group');
+		$user->active   = Input::get('active');
+
+		if ($user->updateUniques(User::$updateRules)) {
+			return Redirect::action('UserController@getUser', $user->id)
+				->with('messages', array('User Updated.'));
+		} else {
+			return Redirect::action('UserController@getUser', $user->id)
+				->with('errors', $user->errors()->all());
+		}
 	}
 
 

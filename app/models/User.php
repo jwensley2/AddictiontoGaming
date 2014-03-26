@@ -47,6 +47,15 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		'email'    => 'required|email|unique:users,email',
 	);
 
+	/**
+	 * Rules for updating profile
+	 */
+	public static $updateRules = array(
+		'username' => 'required|alpha_dash|between:3,50|unique:users,username',
+		'email'    => 'required|email|unique:users,email',
+		'group_id' => 'exists:groups,id',
+	);
+
 	// ------------------------------------------------------------------------
 
 	/**
