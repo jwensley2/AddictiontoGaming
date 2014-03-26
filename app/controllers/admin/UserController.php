@@ -38,6 +38,7 @@ class UserController extends BaseController {
 		}
 
 		return View::make('admin.users.user')
+			->with('messages', Session::get('messages'))
 			->with('permissions', $permissions)
 			->with('groups', $groups)
 			->with('user', $user);
