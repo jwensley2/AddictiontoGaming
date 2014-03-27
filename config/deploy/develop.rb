@@ -66,7 +66,7 @@ namespace :deploy do
 	desc "Symlink to the new release path"
 	task :symlink do
 		on roles(:web) do
-			execute "ln -nfs /home/atg/addictiontogaming.com/games #{release_path}/games"
+			execute "ln -nfs /home/atg/addictiontogaming.com/public/games #{release_path}/games"
 
 			# Symlink the deploy
 			execute "rm -f #{current_path}"
