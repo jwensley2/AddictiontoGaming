@@ -24,8 +24,8 @@ Users
 							<td><a href="{{ action('UserController@getUser', $user->id) }}">{{{ $user->username }}}</a></td>
 							<td>{{{ $user->email }}}</td>
 							<td>
-								@if($user->group()->first())
-									<span style="color: #{{{ $user->group()->first()->colour }}}">{{{ $user->group()->first()->name }}}</span>
+								@if($user->group)
+									<a style="color: #{{{ $user->group->colour }}}" href="{{ action('GroupController@getGroup', array($user->group->id)) }}">{{{ $user->group->name }}}</a>
 								@else
 									None
 								@endif

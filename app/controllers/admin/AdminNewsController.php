@@ -16,7 +16,9 @@ class AdminNewsController extends BaseController {
 	{
 		if ( ! Auth::user()->hasPermission('news_view')) return Redirect::route('admin');
 
-		$news = News::orderBy('created_at', 'desc')->get();
+		$news = News::with('author', 'editor')
+			->orderBy('created_at', 'desc')
+			->get();
 
 		return View::make('admin.news.list')
 			->with('news', $news);
@@ -45,7 +47,7 @@ class AdminNewsController extends BaseController {
 
 		if ($article->save())
 		{
-			return Redirect::action('AdminNewsController@getEdit', $article->id)->with('message', 'News post has been created');
+			return Redirect::action('AdminNewsController@getEdit', $article->id)->with('messages', array('News post has been created'));
 		}
 		else
 		{
@@ -63,6 +65,7 @@ class AdminNewsController extends BaseController {
 		$authors = User::all();
 
 		return View::make('admin.news.edit')
+			->with('messages', Session::get('messages'))
 			->with('authors', $authors)
 			->with('article', $article);
 	}
@@ -75,14 +78,14 @@ class AdminNewsController extends BaseController {
 
 		$article = News::find($id);
 
-		$article->title        = Input::get('title');
-		$article->user_id      = Input::get('author');
-		$article->edit_user_id = Auth::user()->id;
-		$article->content      = Purifier::clean(Input::get('content'));
+		$article->title   = Input::get('title');
+		$article->user_id = Input::get('author');
+		$article->content = Purifier::clean(Input::get('content'));
+		$article->editor()->associate(Auth::user());
 
 		if ($article->save())
 		{
-			return Redirect::action('AdminNewsController@getEdit', $id)->with('message', 'News post has been updated');
+			return Redirect::action('AdminNewsController@getEdit', $id)->with('messages', array('News post has been updated'));
 		}
 		else
 		{

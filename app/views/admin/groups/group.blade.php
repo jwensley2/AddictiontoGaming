@@ -8,6 +8,7 @@ Groups - Edit Group
 	<div class="row">
 		<div class="col-md-12">
 			<h3>Group Information:</h3>
+
 			<dl class="dl-horizontal">
 				<dt>Group ID:</dt>
 				<dd>{{ $group->id }}</dd>
@@ -18,8 +19,15 @@ Groups - Edit Group
 				<dt>Colour:</dt>
 				<dd style="color: #{{ $group->colour }}">#{{ $group->colour }}</dd>
 			</dl>
+		</div>
+	</div>
 
+	<hr>
+
+	<div class="row">
+		<div class="col-md-12">
 			<h3>Permissions:</h3>
+
 			<table class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>

@@ -8,6 +8,7 @@ Donors - View Donor
 	<div class="row">
 		<div class="col-md-12">
 			<h3>Donor Information:</h3>
+
 			<dl class="dl-horizontal">
 				<dt>Name:</dt>
 				<dd>{{{ $donor->name }}}</dd>
@@ -24,8 +25,15 @@ Donors - View Donor
 				<dt>Expire Date:</dt>
 				<dd>{{{ $donor->expires_at->toDateString() }}}</dd>
 			</dl>
+		</div>
+	</div>
 
+	<hr>
+
+	<div class="row">
+		<div class="col-md-12">
 			<h3>Donations:</h3>
+
 			<table class="table table-hover table-bordered sortable">
 				<thead>
 					<tr>

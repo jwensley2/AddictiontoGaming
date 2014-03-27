@@ -10,9 +10,9 @@ class News extends Ardent {
 		'content' => 'required',
 	);
 
-	public function user()
+	public function author()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	public function editor()

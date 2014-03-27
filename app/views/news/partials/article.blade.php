@@ -18,10 +18,10 @@
 				</p>
 			@endif
 
-			@if ($article->user)
+			@if ($article->author)
 				<p>
 					Posted by
-					<span style="color:#{{ ($article->user->group) ? $article->user->group->colour : 'FFF' }}">{{ $article->user->username }}</span>
+					<span style="color:#{{ ($article->author->group) ? $article->author->group->colour : 'FFF' }}">{{ $article->author->username }}</span>
 					on {{ $article->created_at->toDateString() }}
 				</p>
 			@endif

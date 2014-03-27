@@ -15,6 +15,8 @@ Profile
 				@include('admin._partials.errors')
 			@endif
 
+			<h3>Edit Profile</h3>
+
 			{{ Form::open(array('action' => array('AccountController@postProfile'))) }}
 				<div class="form-group">
 					<label for="f-username">Username</label>
@@ -34,8 +36,15 @@ Profile
 
 				<p>{{ link_to_route('login', 'Already Registered?') }}</p>
 			{{ Form::close() }}
+		</div>
+	</div>
 
-			<h2>Change Password</h2>
+	<hr>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Change Password</h3>
+
 			{{ Form::open(array('action' => array('AccountController@postChangePassword'))) }}
 				<div class="form-group">
 					<label for="f-password">Password</label>

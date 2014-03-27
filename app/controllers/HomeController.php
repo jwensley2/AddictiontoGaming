@@ -9,7 +9,7 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		// Get some news items to show
-		$news = News::with('user', 'editor')
+		$news = News::with('author', 'editor')
 			->orderBy('created_at', 'desc')
 			->paginate(5);
 

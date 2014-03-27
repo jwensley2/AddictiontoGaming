@@ -6,13 +6,11 @@ class DonorsController extends BaseController {
 	{
 		if ( ! Auth::user()->hasPermission('donors_view')) return Redirect::route('admin');
 
-		$donors = Donor::with('donations')->get();
-
-		$donors->sortBy(function($donor) {
-			return $donor->total_donated;
-		});
-
-		$donors = $donors->reverse();
+		$donors = Donor::select(DB::raw('*, SUM(gross) as total'))
+			->join('donations', 'donors.id', '=', 'donations.donor_id')
+			->groupBy('donations.donor_id')
+			->orderBy('total', 'desc')
+			->paginate(50);
 
 		return View::make('admin.donors.list')
 			->with('donors', $donors);

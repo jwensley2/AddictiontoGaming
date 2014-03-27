@@ -17,8 +17,10 @@ News
 				<thead>
 					<tr>
 						<th>Title</th>
-						<th>Post Date</th>
-						<th>Edit Date</th>
+						<th class="hidden-xs">Author</th>
+						<th class="hidden-xs">Last Editor</th>
+						<th class="hidden-xs">Post Date</th>
+						<th class="hidden-xs">Edit Date</th>
 						<th data-sorter="false">Action</th>
 					</tr>
 				</thead>
@@ -38,11 +40,13 @@ News
 									{{{ $article->title }}}
 								@endif
 							</td>
-							<td>{{ $article->created_at->toDateString() }}</td>
-							<td>{{ $article->updated_at->toDateString() }}</td>
+							<td class="hidden-xs">{{ ($article->author) ? $article->author->username : 'None' }}</td>
+							<td class="hidden-xs">{{ ($article->editor) ? $article->editor->username : 'None' }}</td>
+							<td class="hidden-xs">{{ $article->created_at->toDateString() }}</td>
+							<td class="hidden-xs">{{ $article->updated_at->toDateString() }}</td>
 							<td>
 								@if(Auth::user()->hasPermission('news_edit'))
-									<a class="btn btn-primary" href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a>
+									<a class="btn btn-primary hidden-xs" href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a>
 								@endif
 
 								@if(Auth::user()->hasPermission('news_delete'))

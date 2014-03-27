@@ -28,7 +28,7 @@ class NewsController extends BaseController {
 	public function getMonth($year, $month)
 	{
 		// Get some news items to show
-		$news = News::with('user', 'editor')
+		$news = News::with('author', 'editor')
 			->where(DB::raw('MONTH(created_at)'), $month)
 			->where(DB::raw('YEAR(created_at)'), $year)
 			->orderBy('created_at', 'desc')

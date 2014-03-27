@@ -7,25 +7,31 @@ Donors
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-hover table-bordered sortable">
-				<thead>
-					<tr>
-						<th>Real Name</th>
-						<th>Ingame Name</th>
-						<th>Total Donated</th>
-					</tr>
-				</thead>
+			{{ $donors->links() }}
 
-				<tbody>
-					@foreach($donors as $donor)
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered sortable">
+					<thead>
 						<tr>
-							<td><a href="{{ action('DonorsController@getDonor', $donor->id) }}">{{{ $donor->name }}}</a></td>
-							<td>{{{ $donor->ingame_name }}}</td>
-							<td>${{ $donor->total_donated }}</td>
+							<th>Real Name</th>
+							<th>Ingame Name</th>
+							<th>Total Donated</th>
 						</tr>
-					@endforeach
-				</tbody>
-			</table>
+					</thead>
+
+					<tbody>
+						@foreach($donors as $donor)
+							<tr>
+								<td><a href="{{ action('DonorsController@getDonor', $donor->id) }}">{{{ $donor->name }}}</a></td>
+								<td>{{{ $donor->ingame_name }}}</td>
+								<td>${{ $donor->total }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+
+			{{ $donors->links() }}
 		</div>
 	</div>
 @stop

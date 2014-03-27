@@ -7,14 +7,12 @@ News - New Post
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			@if (Session::has('message'))
-				<div class="alert alert-success">{{ Session::get('message') }}</div>
+			@if (isset($messages))
+				@include('admin._partials.messages')
 			@endif
 
-			@if (Session::has('errors'))
-				@foreach (Session::get('errors') as $error)
-					<div class="alert alert-error">{{ $error }}</div>
-				@endforeach
+			@if (isset($errors))
+				@include('admin._partials.errors')
 			@endif
 
 			{{ Form::open(array('action' => array('AdminNewsController@postCreate'))) }}
