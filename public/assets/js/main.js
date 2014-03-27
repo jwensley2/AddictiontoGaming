@@ -1,51 +1,43 @@
-jQuery(document).ready(function($) {
-	initServerList();
+$(document).ready(function() {
+	// Pass the CSRF Token with all ajax requests
+	$.ajaxSetup({
+		data: { _token: getCSRFToken() }
+	});
+
+	$(".delete-news").on("click", function(e) {
+		e.preventDefault();
+
+		var $article = $(this).parents("article").first();
+		var title    = $(this).data("title");
+		var url      = $(this).attr("href");
+
+		$.Zebra_Dialog('Are you sure you want to delete <span>"'+title+'"</span>?', {
+			"type"  : "question",
+			"title" : "Confirm Deletion",
+			onClose : function(caption) {
+				if (caption === "Yes") deletePost();
+			}
+		});
+
+		function deletePost () {
+			$.post(url, function(response) {
+				if (response.success) {
+					$article.fadeOut(500, function() {
+						$article.remove();
+					});
+				} else {
+					$.Zebra_Dialog(response.message), {
+						"type" : "error"
+					};
+				}
+			});
+		}
+	})
 });
 
-function initServerList () {
-	var serverList	= $("#server-list");
-	var tab			= serverList.find(".tab");
-	var hide		= serverList.find(".hide");
-	var oLeft		= serverList.css("left");
-	
-	var servers	= serverList.find(".server");
-	
-	tab.click(function(e) {
-		e.preventDefault();
-		
-		if (serverList.hasClass("open")) {
-			closeList();
-		} else {
-			openList();
-		}
-	});
-	hide.click(closeList);
-	
-	function openList () {
-		serverList.animate({left: 0});
-		serverList.addClass("open");
-	}
-	
-	function closeList () {
-		serverList.animate({left: oLeft});
-		serverList.removeClass("open");
-	}
-	
-	servers.children("header").click(function(e) {
-		var server = $(this).parent();
-		var dropdown = server.children(".dropdown");
-		
-		if ( ! server.hasClass("open")) {
-			var siblings = server.siblings();
-			
-			server.addClass("open");
-			dropdown.slideDown(500);
-			
-			siblings.removeClass("open");
-			siblings.children(".dropdown").slideUp(500);
-		} else {
-			server.removeClass("open");
-			dropdown.slideUp(500);
-		};
-	});
+// ------------------------------------------------------------------------
+
+// Get the CSRF Token
+function getCSRFToken () {
+	return $("body").data("csrf-token");
 }

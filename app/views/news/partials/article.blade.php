@@ -6,7 +6,7 @@
 		<div class="left">
 			@if (Auth::check() AND Auth::user()->hasPermission('news_edit'))
 				<a href="{{ action('AdminNewsController@getEdit', $article->id) }}">Edit</a> |
-				<a class="delete-news" href="{{ action('AdminNewsController@postDelete', $article->id) }}">Delete</a>
+				<a class="delete-news" href="{{ action('AdminNewsController@postDelete', $article->id) }}" data-title="{{ $article->title }}">Delete</a>
 			@endif
 		</div>
 		<div class="right">

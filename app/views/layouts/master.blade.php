@@ -42,7 +42,7 @@
 		<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
 	@endif
 </head>
-<body>
+<body data-csrf-token="{{ csrf_token() }}">
 	<div class="die-ie">
 		Please upgrade your browser to view this site properly.<br>
 		We recommend <a href="http://getfirefox.com">Mozilla Firefox</a> or <a href="http://www.google.com/chrome">Google Chrome</a>
@@ -151,8 +151,10 @@
 	</footer>
 
 	<!-- Scripts -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/js/zebra_dialog.js"></script>
 	<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
+	<script type="text/javascript" src="/assets/js/main.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function () {

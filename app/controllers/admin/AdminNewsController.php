@@ -99,7 +99,7 @@ class AdminNewsController extends BaseController {
 	{
 		$response['success'] = true;
 
-		if ( ! Auth::user()->hasPermission('news_edit'))
+		if ( ! Auth::user()->hasPermission('news_delete'))
 		{
 			$response['success'] = false;
 			$response['message'] = 'You do not have permission to do that.';
