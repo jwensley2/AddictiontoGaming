@@ -1,4 +1,4 @@
-set :branch, 'laravel'
+set :branch, 'develop'
 
 # Simple Role Syntax
 # ==================
