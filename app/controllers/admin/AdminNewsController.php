@@ -39,6 +39,7 @@ class AdminNewsController extends BaseController {
 
 		$article = new News();
 
+		$article->user_id = Auth::user()->id;
 		$article->title   = Input::get('title');
 		$article->content = Purifier::clean(Input::get('content'));
 
