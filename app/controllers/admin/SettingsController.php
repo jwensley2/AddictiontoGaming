@@ -14,6 +14,7 @@ class SettingsController extends BaseController {
 		$settings = new Settings();
 
 		return View::make('admin.settings.index')
+			->with('messages', Session::get('messages'))
 			->with('settings', $settings);
 	}
 
@@ -38,6 +39,6 @@ class SettingsController extends BaseController {
 
 		$settings->monthly_cost = $data['monthly_cost'];
 
-		return Redirect::action('SettingsController@getIndex')->with('message', 'Settings have been saved');
+		return Redirect::action('SettingsController@getIndex')->with('messages', array('Settings have been saved'));
 	}
 }

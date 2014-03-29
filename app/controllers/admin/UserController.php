@@ -74,7 +74,7 @@ class UserController extends BaseController {
 				->with('messages', array('User Updated.'));
 		} else {
 			return Redirect::action('UserController@getUser', $user->id)
-				->with('errors', $user->errors()->all());
+				->withErrors($user->validationErrors);
 		}
 	}
 

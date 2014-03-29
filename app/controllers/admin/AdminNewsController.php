@@ -51,7 +51,7 @@ class AdminNewsController extends BaseController {
 		}
 		else
 		{
-			return Redirect::action('AdminNewsController@getCreate')->with('errors', $article->errors()->all());
+			return Redirect::action('AdminNewsController@getCreate')->withErrors($article->validationErrors);
 		}
 	}
 
@@ -89,7 +89,7 @@ class AdminNewsController extends BaseController {
 		}
 		else
 		{
-			return Redirect::action('AdminNewsController@getEdit', $id)->with('errors', $article->errors()->all());
+			return Redirect::action('AdminNewsController@getEdit', $id)->withErrors($article->validationErrors);
 		}
 	}
 

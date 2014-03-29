@@ -33,7 +33,7 @@ class AccountController extends BaseController {
 				->with('messages', array('Your profile has been updated.'));
 		} else {
 			return Redirect::route('profile')
-				->with('errors', $user->errors()->all());
+				->withErrors($user->validationErrors);
 		}
 	}
 
@@ -54,7 +54,7 @@ class AccountController extends BaseController {
 				->with('messages', array('Password updated.'));
 		} else {
 			return Redirect::route('profile')
-				->with('errors', $user->errors()->all());
+				->withErrors($user->validationErrors);
 		}
 	}
 
@@ -84,10 +84,10 @@ class AccountController extends BaseController {
 
 		if ($user->save()) {
 			return Redirect::route('login')
-				->with('status', 'Your account has been created.');
+				->with('messages', array('Your account has been created.', 'An administor will need to activate your account before you can log in.'));
 		} else {
 			return Redirect::route('register')
-				->with('errors', $user->errors()->all());
+				->withErrors($user->validationErrors);
 		}
 	}
 
@@ -99,7 +99,7 @@ class AccountController extends BaseController {
 	public function getLogin()
 	{
 		return View::make('admin.account.login')
-			->with('status', Session::get('status'));
+			->with('messages', Session::get('messages'));
 	}
 
 
@@ -120,7 +120,7 @@ class AccountController extends BaseController {
 		else
 		{
 			return View::make('admin.account.login')
-				->with('errors', array('Could not log you in.'));
+				->withErrors(array('Could not log you in.'));
 		}
 	}
 
@@ -132,7 +132,8 @@ class AccountController extends BaseController {
 	 */
 	public function getForgotPassword()
 	{
-		return View::make('admin.account.forgot_password');
+		return View::make('admin.account.forgot_password')
+			->with("messages", Session::get('messages'));
 	}
 
 
@@ -150,10 +151,10 @@ class AccountController extends BaseController {
 		switch ($response)
 		{
 			case Password::INVALID_USER:
-				return Redirect::back()->with('errors', array(Lang::get($response)));
+				return Redirect::back()->withErrors(array(Lang::get($response)));
 
 			case Password::REMINDER_SENT:
-				return Redirect::back()->with('status', Lang::get($response));
+				return Redirect::back()->with('messages', array(Lang::get($response)));
 		}
 	}
 
@@ -194,7 +195,7 @@ class AccountController extends BaseController {
 			case Password::INVALID_PASSWORD:
 			case Password::INVALID_TOKEN:
 			case Password::INVALID_USER:
-				return Redirect::back()->with('errors', array(Lang::get($response)));
+				return Redirect::back()->withErrors(array(Lang::get($response)));
 
 			case Password::PASSWORD_RESET:
 				return Redirect::route('login');

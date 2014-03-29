@@ -7,10 +7,12 @@ Register
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			@if ($errors)
-				@foreach ($errors as $error)
-					<div class="alert alert-danger">{{ $error }}</div>
-				@endforeach
+			@if (isset($messages))
+				@include("admin._partials.messages")
+			@endif
+
+			@if (isset($errors))
+				@include("admin._partials.errors")
 			@endif
 
 			<p>Your account will need to be manually activated by an administrator before it can be used.</p>
