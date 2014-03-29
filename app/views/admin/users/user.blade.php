@@ -76,7 +76,7 @@ Users - Edit User
 						<select name="group" id="group" class="form-control">
 							<option value="">None</option>
 							@foreach ($groups as $group)
-								<option style="color: #{{{ $group->colour }}}" value="{{ $group->id }}" {{ ($user->group and $user->group()->first()->id == $group->id) ? 'selected' : '' }}>
+								<option style="color: #{{{ $group->colour }}}" value="{{ $group->id }}" {{ ($user->group and $user->group->id == $group->id) ? 'selected' : '' }}>
 									{{ $group->name }}
 								</option>
 							@endforeach
@@ -124,7 +124,18 @@ Users - Edit User
 								<td>{{ $permission->name }}</td>
 								<td class="hidden-xs">{{{ $permission->key }}}</td>
 								<td>
-									<input class="permission" type="checkbox" name="permissions[{{ $permission->key }}]" value="1" @if($user->hasPermission($permission->key, false))checked@endif>
+									<label class="radio-inline">
+										Yes
+										<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="1" @if($user_permissions[$permission->key] == 1)checked@endif>
+									</label>
+									<label class="radio-inline">
+										No
+										<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="0" @if($user_permissions[$permission->key] == 0)checked@endif>
+									</label>
+									<label class="radio-inline">
+										Never
+										<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="-1" @if($user_permissions[$permission->key] == -1)checked@endif>
+									</label>
 								</td>
 							</tr>
 						@endforeach

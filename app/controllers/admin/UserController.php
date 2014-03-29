@@ -37,10 +37,19 @@ class UserController extends BaseController {
 			return App::abort(404);
 		}
 
+		foreach ($permissions as $permission) {
+			if ($user->permissions->find($permission->id)) {
+				$user_permissions[$permission->key] = $user->permissions->find($permission->id)->pivot->access;
+			} else {
+				$user_permissions[$permission->key] = 0;
+			}
+		}
+
 		return View::make('admin.users.user')
 			->with('messages', Session::get('messages'))
 			->with('permissions', $permissions)
 			->with('groups', $groups)
+			->with('user_permissions', $user_permissions)
 			->with('user', $user);
 	}
 

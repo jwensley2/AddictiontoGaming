@@ -36,8 +36,17 @@ class GroupController extends BaseController {
 			return App::abort(404);
 		}
 
+		foreach ($permissions as $permission) {
+			if ($group->permissions->find($permission->id)) {
+				$group_permissions[$permission->key] = $group->permissions->find($permission->id)->pivot->access;
+			} else {
+				$group_permissions[$permission->key] = 0;
+			}
+		}
+
 		return View::make('admin.groups.group')
 			->with('permissions', $permissions)
+			->with('group_permissions', $group_permissions)
 			->with('group', $group);
 	}
 

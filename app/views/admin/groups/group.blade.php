@@ -43,7 +43,18 @@ Groups - Edit Group
 							<td>{{ $permission->name }}</td>
 							<td>{{{ $permission->key }}}</td>
 							<td>
-								<input class="permission" type="checkbox" name="permissions[{{ $permission->key }}]" value="1" @if($group->hasPermission($permission->key))checked@endif>
+								<label class="radio-inline">
+									Yes
+									<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="1" @if($group_permissions[$permission->key] == 1)checked@endif>
+								</label>
+								<label class="radio-inline">
+									No
+									<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="0" @if($group_permissions[$permission->key] == 0)checked@endif>
+								</label>
+								<label class="radio-inline">
+									Never
+									<input class="permission" type="radio" name="permissions[{{ $permission->key }}]" value="-1" @if($group_permissions[$permission->key] == -1)checked@endif>
+								</label>
 							</td>
 						</tr>
 					@endforeach
