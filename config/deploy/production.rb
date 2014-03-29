@@ -39,8 +39,8 @@ role :web, %w{atg@addictiontogaming.com}
 # setting per server overrides global ssh_options
 
 set :deploy_to, "/home/atg/addictiontogaming.com"
-
 set :release_path, fetch(:latest_release_directory)
+set :linked_dirs, %w{public/games public/motd}
 
 desc "Check that we can access everything"
 task :check_write_permissions do
@@ -66,8 +66,6 @@ namespace :deploy do
 	desc "Symlink to the new release path"
 	task :symlink do
 		on roles(:web) do
-			execute "ln -nfs /home/atg/addictiontogaming.com/public/games #{release_path}/games"
-
 			# Symlink the deploy
 			execute "rm -f #{current_path}"
 			execute "ln -nfs #{release_path} #{current_path}"
