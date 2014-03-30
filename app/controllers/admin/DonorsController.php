@@ -6,9 +6,9 @@ class DonorsController extends BaseController {
 	{
 		if ( ! Auth::user()->hasPermission('donors_view')) return Redirect::route('admin');
 
-		$donors = Donor::select(DB::raw('*, SUM(gross) as total'))
+		$donors = Donor::select(DB::raw('donors.*, SUM(gross) as total'))
 			->join('donations', 'donors.id', '=', 'donations.donor_id')
-			->groupBy('donations.donor_id')
+			->groupBy('donors.id')
 			->orderBy('total', 'desc')
 			->paginate(50);
 
