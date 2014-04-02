@@ -16,3 +16,4 @@ composer.phar
 /forums/
 /dump.rdb
 LARAVEL_ENV
+public/packages/*
