@@ -6,6 +6,22 @@ Administration
 
 @section('content')
 	<div class="row">
+		<div class="col-md-12">
+			<h3>General Information</h3>
+
+			<dl class="dl-horizontal">
+				<dt>PayPal Balance</dt>
+				<dd>${{ $balance }}</dd>
+
+				<dt>Monthly Donations</dt>
+				<dd>${{ $total }}</dd>
+			</dl>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row">
 		<div class="col-md-6">
 			<h3>Latest Donations</h3>
 			<table class="table table-hover table-bordered sortable">

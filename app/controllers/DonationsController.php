@@ -46,7 +46,7 @@ class DonationsController extends BaseController {
 	{
 		// Setup the IPN object
 		$data   = Input::getContent();
-		$config = Config::get('ipn');
+		$config = Config::get('paypal');
 		$ipn    = new PPIPNMessage($data, $config);
 
 		// Was it a valid message from PayPal?
