@@ -109,7 +109,7 @@ function initPermissionsEditor () {
 // ------------------------------------------------------------------------
 
 function initTableSorter () {
-		$.extend($.tablesorter.themes.bootstrap, {
+	$.extend($.tablesorter.themes.bootstrap, {
 		// these classes are added to the table. To see other table classes available,
 		// look here: http://twitter.github.com/bootstrap/base-css.html#tables
 		table      : 'table table-bordered',

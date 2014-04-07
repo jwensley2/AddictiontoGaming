@@ -28,7 +28,7 @@
 	<script type="text/javascript" src="http://use.typekit.com/ove5wkp.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-	@if(App::environment() === 'production')
+	@if(App::environment('production'))
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -38,8 +38,6 @@
 			ga('create', 'UA-9313553-1', 'addictiontogaming.com');
 			ga('send', 'pageview');
 		</script>
-	@else
-		<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
 	@endif
 </head>
 <body data-csrf-token="{{ csrf_token() }}">
@@ -152,9 +150,14 @@
 
 	<!-- Scripts -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/js/zebra_dialog.js"></script>
-	<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
-	<script type="text/javascript" src="/assets/js/main.js"></script>
+	@if (App::environment('production'))
+		<script type="text/javascript" src="/assets/js/scripts.min.js"></script>
+	@else
+		<script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
+		<script type="text/javascript" src="/assets/js/zebra_dialog.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
+		<script type="text/javascript" src="/assets/js/main.js"></script>
+	@endif
 
 	<script type="text/javascript">
 		$(document).ready(function () {
