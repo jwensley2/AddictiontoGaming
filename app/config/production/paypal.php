@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'mode' => 'sandbox',
+	'mode' => 'live',
 
 	// Account Credentials
 	'acct1.UserName'  => $_ENV['paypal.username'],

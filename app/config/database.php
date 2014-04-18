@@ -48,21 +48,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'atg_live',
-			'username'  => 'atg_live',
-			'password'  => '***REMOVED***',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
-
-		'old' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'atg_old',
-			'username'  => 'atg_live',
-			'password'  => '***REMOVED***',
+			'host'      => '127.0.0.1',
+			'database'  => '',
+			'username'  => '',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

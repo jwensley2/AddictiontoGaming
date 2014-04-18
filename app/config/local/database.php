@@ -22,10 +22,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'atg_site',
-			'username'  => 'atg_site',
-			'password'  => '***REMOVED***',
+			'host'      => '127.0.0.1',
+			'database'  => $_ENV['db.name'],
+			'username'  => $_ENV['db.username'],
+			'password'  => $_ENV['db.password'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
@@ -33,10 +33,10 @@ return array(
 
 		'old' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'atg_site_old',
-			'username'  => 'atg_site',
-			'password'  => '***REMOVED***',
+			'host'      => '127.0.0.1',
+			'database'  => $_ENV['db.old.name'],
+			'username'  => $_ENV['db.old.username'],
+			'password'  => $_ENV['db.old.password'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
@@ -44,10 +44,10 @@ return array(
 
 		'phpbb' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'atg_phpbb3',
-			'username'  => 'atg_phpbb3',
-			'password'  => '***REMOVED***',
+			'host'      => '127.0.0.1',
+			'database'  => $_ENV['db.phpbb.name'],
+			'username'  => $_ENV['db.phpbb.username'],
+			'password'  => $_ENV['db.phpbb.password'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

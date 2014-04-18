@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'addictiontogaming@gmail.com',
+	'username' => $_ENV['smtp.username'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => '***REMOVED***',
+	'password' => $_ENV['smtp.password'],
 
 	/*
 	|--------------------------------------------------------------------------

@@ -12,9 +12,12 @@ composer.phar
 # Compiled Files
 /bootstrap/compiled.php
 
+# Laravel Files
+.env.*.php
+LARAVEL_ENV
+
 # Misc
 /forums/
 /dump.rdb
-LARAVEL_ENV
 public/packages/*
 node_modules/*

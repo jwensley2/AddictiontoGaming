@@ -41,16 +41,5 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-
-		'phpbb' => array(
-			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
-			'database'  => $_ENV['db.phpbb.name'],
-			'username'  => $_ENV['db.phpbb.username'],
-			'password'  => $_ENV['db.phpbb.password'],
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
 	),
 );
