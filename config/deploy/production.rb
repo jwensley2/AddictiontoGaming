@@ -41,6 +41,7 @@ role :web, %w{atg@addictiontogaming.com}
 set :deploy_to, "/home/atg/addictiontogaming.com"
 set :release_path, fetch(:latest_release_directory)
 set :linked_dirs, %w{public/games public/motd}
+set :linked_files, %w{.env.production.php}
 
 desc "Check that we can access everything"
 task :check_write_permissions do

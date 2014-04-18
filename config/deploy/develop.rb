@@ -39,8 +39,8 @@ role :web, %w{atg@addictiontogaming.com}
 # setting per server overrides global ssh_options
 
 set :deploy_to, "/home/atg/dev.addictiontogaming.com"
-
 set :release_path, fetch(:latest_release_directory)
+set :linked_files, %w{.env.develop.php}
 
 desc "Check that we can access everything"
 task :check_write_permissions do
