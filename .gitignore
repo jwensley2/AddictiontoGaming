@@ -13,6 +13,7 @@ composer.phar
 /bootstrap/compiled.php
 
 # Laravel Files
+.env.php
 .env.*.php
 LARAVEL_ENV
 

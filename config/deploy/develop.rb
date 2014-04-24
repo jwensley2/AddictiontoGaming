@@ -39,7 +39,6 @@ role :web, %w{atg@addictiontogaming.com}
 # setting per server overrides global ssh_options
 
 set :deploy_to, "/home/atg/dev.addictiontogaming.com"
-set :release_path, fetch(:latest_release_directory)
 set :linked_files, %w{.env.develop.php}
 
 desc "Check that we can access everything"
@@ -56,65 +55,30 @@ end
 
 # Laravel deployment
 namespace :deploy do
-	desc "Set the proper permissions on the release path"
-	task :finalize_update do
-		on roles(:web) do
-			execute "chmod -R g+w #{releases_path}/#{release_name}"
-		end
-	end
-
-	desc "Symlink to the new release path"
-	task :symlink do
-		on roles(:web) do
-			execute "ln -nfs /home/atg/addictiontogaming.com/public/games #{release_path}/games"
-
-			# Symlink the deploy
-			execute "rm -f #{current_path}"
-			execute "ln -nfs #{release_path} #{current_path}"
-		end
-	end
-
 	desc "Create a LARAVEL_ENV file"
 	task :set_environment do
 		on roles(:web) do
-			execute "cd #{release_path} && touch LARAVEL_ENV && echo -n 'develop' > LARAVEL_ENV"
-		end
-	end
-
-	desc "Symlink shared path"
-	task :link_shared do
-		on roles(:web) do
-			# run "ln -nfs #{shared_path}/system #{current_release}/public/system"
+			within release_path do
+				execute :touch, "LARAVEL_ENV && echo -n 'develop' > LARAVEL_ENV"
+			end
 		end
 	end
 
 	desc "Run Migrations"
 	task :laravel_migrate do
 		on roles(:web) do
-			execute "php  #{release_path}/artisan migrate --env=develop"
+			within release_path do
+				execute :php, "artisan migrate --env=develop"
+			end
 		end
 	end
 
 	desc "Rollback Migrations"
 	task :laravel_rollback do
 		on roles(:web) do
-			execute "php  #{release_path}/artisan migrate:rollback --env=develop"
-		end
-	end
-
-	task :fix_storage_permissions do
-		on roles(:web) do
-			# Set permissions and clean directories
-			execute "cd #{release_path}/app/storage; if [ -d cache ]; then chmod -R 777 cache; rm -f cache/*; fi"
-			execute "cd #{release_path}/app/storage; if [ -d purifier_cache ]; then chmod -R 777 purifier_cache; rm -f purifier_cache/*; fi"
-			execute "cd #{release_path}/app/storage; if [ -d views ]; then chmod -R 777 views; rm -f views/*; fi"
-
-			# Set permissions
-			execute "cd #{release_path}/app/storage; if [ -d database ]; then chmod -R 777 database; fi"
-			execute "cd #{release_path}/app/storage; if [ -d logs ]; then chmod -R 777 logs; fi"
-			execute "cd #{release_path}/app/storage; if [ -d meta ]; then chmod -R 777 meta; fi"
-			execute "cd #{release_path}/app/storage; if [ -d sessions ]; then chmod -R 777 sessions; fi"
-			execute "cd #{release_path}/app/storage; if [ -d work ]; then chmod -R 777 work; fi"
+			within release_path do
+				execute :php, "artisan migrate:rollback --env=develop"
+			end
 		end
 	end
 
@@ -127,17 +91,7 @@ namespace :deploy do
 		end
 	end
 
-	# This task lets you keep server-specific configuration files in "shared/config/".
-	# Any file there will just be copied to your app/config directory.
-	task :copy_config do
-		on roles(:web) do
-			# run "cp #{shared_path}/config/* #{current_release}/app/config/"
-		end
-	end
-
 	after :updated, "deploy:set_environment"
 	after :updated, "deploy:composer_install"
-	after :updated, "deploy:fix_storage_permissions"
 	after :updated, "deploy:laravel_migrate"
-	after :updated, "deploy:symlink"
 end
