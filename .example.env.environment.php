@@ -22,4 +22,7 @@ return array(
 	'paypal.username'  => '',
 	'paypal.password'  => '',
 	'paypal.signature' => '',
+
+	// Other Settings
+	'encryption_key' => '',
 );
