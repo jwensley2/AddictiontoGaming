@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class DonorsTableSeeder extends Seeder {
 
 	public function run()
@@ -7,30 +9,20 @@ class DonorsTableSeeder extends Seeder {
 		// Delete existing data
 		DB::table('donors')->truncate();
 
-		$old_donors = DB::connection('old')->table('donators')->get();
+		$donors = [
+			[
+				'id'          => 1,
+				'email'       => 'donor@exalmple.com',
+				'first_name'  => 'Testy',
+				'last_name'   => 'McTester',
+				'steam_id'    => 'STEAM_0:0:1234567',
+				'ingame_name' => 'TheTestinator',
+				'payer_id'    => '12345',
+				'expires_at'  => Carbon::now()->addMonths(2),
+			],
+		];
 
-		if ($old_donors)
-		{
-			foreach ($old_donors AS $donor)
-			{
-				$donors[] = array(
-					'id'          => $donor->id,
-					'email'       => $donor->email,
-					'first_name'  => $donor->first_name,
-					'last_name'   => $donor->last_name,
-					'steam_id'    => $donor->steam_id,
-					'ingame_name' => $donor->ingame_name,
-					'payer_id'    => $donor->payer_id,
-					'expires_at'  => $donor->expire_date,
-				);
-			}
-
-			// Insert the donors
-			foreach ($donors AS $donor)
-			{
-				Donor::create($donor);
-			}
-		}
+		DB::table('donors')->insert($donors);
 	}
 
 }

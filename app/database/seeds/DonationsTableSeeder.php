@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class DonationsTableSeeder extends Seeder {
 
 	public function run()
@@ -7,30 +9,30 @@ class DonationsTableSeeder extends Seeder {
 		// Delete the existing data
 		DB::table('donations')->truncate();
 
-		$old_donations = DB::connection('old')->table('donations')->get();
+		$donations = [
+			[
+				'donor_id'   => 1,
+				'txn_id'     => 'TRANSACTION1',
+				'gross'      => 10,
+				'fee'        => 0.5,
+				'status'     => 'Completed',
+				'type'       => 'instant',
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now(),
+			],
+			[
+				'donor_id'   => 1,
+				'txn_id'     => 'TRANSACTION2',
+				'gross'      => 10,
+				'fee'        => 0.5,
+				'status'     => 'Completed',
+				'type'       => 'instant',
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now(),
+			]
+		];
 
-		if ($old_donations)
-		{
-			foreach ($old_donations AS $donation)
-			{
-				$donations[] = array(
-					'donor_id'   => $donation->donor_id,
-					'txn_id'     => $donation->txn_id,
-					'gross'      => $donation->amount,
-					'fee'        => $donation->fee,
-					'status'     => 'completed',
-					'type'       => 'instant',
-					'created_at' => $donation->date,
-					'updated_at' => $donation->date,
-				);
-			}
-
-			// Insert the donations
-			foreach ($donations AS $donation)
-			{
-				Donation::create($donation);
-			}
-		}
+		DB::table('donations')->insert($donations);
 	}
 
 }

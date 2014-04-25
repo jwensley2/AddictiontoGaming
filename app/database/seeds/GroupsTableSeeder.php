@@ -7,20 +7,20 @@ class GroupsTableSeeder extends Seeder {
 		// Empty the groups table
 		DB::table('groups')->truncate();
 
-		$groups = array(
-			array(
+		$groups = [
+			[
 				'name'   => 'Founder',
 				'colour' => '990000',
-			),
-			array(
+			],
+			[
 				'name'   => 'Managers',
 				'colour' => '00CC33',
-			),
-			array(
+			],
+			[
 				'name'   => 'Community Team',
 				'colour' => '0099CC',
-			),
-		);
+			],
+		];
 
 		// Insert the groups
 		DB::table('groups')->insert($groups);

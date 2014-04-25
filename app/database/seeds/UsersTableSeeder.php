@@ -11,24 +11,18 @@ class UsersTableSeeder extends Seeder {
 
 		$now = Carbon::now();
 
-		$users = array(
-			array(
+		$users = [
+			[
 				'active'     => true,
 				'created_at' => $now,
-				'email'      => 'addictiontogaming@gmail.com',
+				'email'      => 'tester@example.com',
 				'founder'    => true,
+				'group_id'   => 1,
+				'password'   => Hash::make('supersecretpassword'),
 				'updated_at' => $now,
-				'username'   => 'atg',
-			),
-			array(
-				'active'     => true,
-				'created_at' => $now,
-				'email'      => 'jwensley2@gmail.com',
-				'founder'    => true,
-				'updated_at' => $now,
-				'username'   => 'joe',
-			),
-		);
+				'username'   => 'Tester',
+			],
+		];
 
 		// Insert the users
 		DB::table('users')->insert($users);
