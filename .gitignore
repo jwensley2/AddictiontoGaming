@@ -22,3 +22,5 @@ LARAVEL_ENV
 /dump.rdb
 public/packages/*
 node_modules/*
+.idea
+.vagrant
