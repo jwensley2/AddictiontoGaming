@@ -8,8 +8,9 @@
 		"barryvdh/laravel-debugbar": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"mews/purifier": "dev-master",
-		"paypal/merchant-sdk-php":"v3.6.106",
-		"way/generators": "1.*"
+		"paypal/merchant-sdk-php":"3.8.*",
+		"way/generators": "1.*",
+		"barryvdh/laravel-ide-helper": "1.*"
 	},
 	"autoload": {
 		"psr-4": {
