@@ -24,3 +24,7 @@ public/packages/*
 node_modules/*
 .idea
 .vagrant
+puphpet/files/dot/ssh
+_ide_helper.php
+.phpstorm.meta.php
+.capistrano/

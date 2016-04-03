@@ -4,13 +4,14 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
-		"barryvdh/laravel-debugbar": "1.*",
-		"laravelbook/ardent": "dev-master",
-		"mews/purifier": "dev-master",
-		"paypal/merchant-sdk-php":"3.8.*",
-		"way/generators": "1.*",
-		"barryvdh/laravel-ide-helper": "1.*"
+		"laravel/framework": "^4",
+		"barryvdh/laravel-debugbar": "^1",
+		"laravelbook/ardent": "^2",
+		"mews/purifier": "dev-master-l4",
+		"paypal/merchant-sdk-php":"^3",
+		"way/generators": "^1",
+		"barryvdh/laravel-ide-helper": "^1",
+		"willwashburn/phpamo": "^1.0"
 	},
 	"autoload": {
 		"psr-4": {
