@@ -133,6 +133,7 @@
 #   [*owner*]                   - Defines owner of the .conf file
 #   [*group*]                   - Defines group of the .conf file
 #   [*mode*]                    - Defines mode of the .conf file
+#   [*rewrites*]                - Rewrite rules for the server
 # Actions:
 #
 # Requires:
@@ -200,6 +201,7 @@ define nginx::resource::vhost (
   $location_custom_cfg_prepend  = undef,
   $location_custom_cfg_append   = undef,
   $try_files              = undef,
+  $rewrite                = undef,
   $auth_basic             = undef,
   $auth_basic_user_file   = undef,
   $client_body_timeout    = undef,
@@ -228,6 +230,7 @@ define nginx::resource::vhost (
   $owner                  = $nginx::config::global_owner,
   $group                  = $nginx::config::global_group,
   $mode                   = $nginx::config::global_mode,
+  $rewrites               = {},
 ) {
 
   validate_re($ensure, '^(present|absent)$',
@@ -422,6 +425,7 @@ define nginx::resource::vhost (
 
   $name_sanitized = regsubst($name, ' ', '_', 'G')
   $config_file = "${vhost_dir}/${name_sanitized}.conf"
+  validate_hash($rewrites)
 
   File {
     ensure => $ensure ? {
