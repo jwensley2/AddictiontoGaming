@@ -67,8 +67,8 @@
 			<ul class="main-nav">
 				<li><a href="{{ route('home') }}">Home</a></li>
 				<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
-				<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
-				<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
+				{{--<li><a href="http://stats.addictiontogaming.com">Stats</a></li>--}}
+				{{--<li><a href="http://bans.addictiontogaming.com">Bans</a></li>--}}
 				<li><a href="{{ route('donations') }}">Donations</a></li>
 			</ul>
 
@@ -127,8 +127,8 @@
 					<ul class="links">
 						<li><a href="/">Home</a></li>
 						<li><a href="http://forums.addictiontogaming.com">Forums</a></li>
-						<li><a href="http://stats.addictiontogaming.com">Stats</a></li>
-						<li><a href="http://bans.addictiontogaming.com">Bans</a></li>
+						{{--<li><a href="http://stats.addictiontogaming.com">Stats</a></li>--}}
+						{{--<li><a href="http://bans.addictiontogaming.com">Bans</a></li>--}}
 						<li><a href="{{ route('donations') }}">Donations</a></li>
 					</ul>
 				</div>
