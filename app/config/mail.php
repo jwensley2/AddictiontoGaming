@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.gmail.com',
+	'host' => $_ENV['smtp.host'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'addictiontogaming@gmail.com', 'name' => 'Addiction to Gaming'),
+	'from' => array('address' => 'admin@addictiontogaming.com', 'name' => 'Addiction to Gaming'),
 
 	/*
 	|--------------------------------------------------------------------------
