@@ -38,8 +38,8 @@ role :web, %w{atg@addictiontogaming.com}
 
 set :branch, 'master'
 set :deploy_to, "/home/atg/addictiontogaming.com"
-set :linked_dirs, %w{public/games public/motd}
-set :linked_files, %w{.env.php}
+set :linked_files, %w{.env}
+set :linked_dirs, %w{public/games public/motd storage/logs}
 
 desc "Check that we can access everything"
 task :check_write_permissions do
@@ -55,20 +55,11 @@ end
 
 # Laravel deployment
 namespace :deploy do
-	desc "Create a LARAVEL_ENV file"
-	task :set_environment do
-		on roles(:web) do
-			within release_path do
-				execute :touch, "LARAVEL_ENV && echo -n 'production' > LARAVEL_ENV"
-			end
-		end
-	end
-
 	desc "Run Migrations"
 	task :laravel_migrate do
 		on roles(:web) do
 			within release_path do
-				execute :php, "artisan migrate --env=production"
+				execute :php, "artisan migrate"
 			end
 		end
 	end
@@ -77,7 +68,7 @@ namespace :deploy do
 	task :laravel_rollback do
 		on roles(:web) do
 			within release_path do
-				execute :php, "artisan migrate:rollback --env=production"
+				execute :php, "artisan migrate:rollback"
 			end
 		end
 	end
@@ -91,7 +82,17 @@ namespace :deploy do
 		end
 	end
 
-	after :updated, "deploy:set_environment"
+    desc "Set permissions"
+    task :set_permissions do
+        on roles(:web) do
+            within release_path do
+                execute "chmod", "777", "storage/framework/views"
+            end
+        end
+    end
+
 	after :updated, "deploy:composer_install"
 	after :updated, "deploy:laravel_migrate"
+	after :updated, "deploy:set_permissions"
+	after :published, "restart_php"
 end

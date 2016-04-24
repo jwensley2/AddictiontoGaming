@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.4
-lock '3.4'
+lock '3.4.1'
 
 set :application, 'addiction_to_gaming'
 set :repo_url, 'git@github.com:jwensley2/AddictiontoGaming.git'
@@ -36,4 +36,11 @@ set :repo_url, 'git@github.com:jwensley2/AddictiontoGaming.git'
 
 namespace :deploy do
 	after :finishing, 'deploy:cleanup'
+end
+
+desc "Run composer install"
+task :restart_php do
+    on roles(:web) do
+        execute "sudo", "/etc/init.d/php7.0-fpm", "restart"
+    end
 end
