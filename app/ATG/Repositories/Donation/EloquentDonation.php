@@ -1,10 +1,10 @@
 <?php
 
-namespace ATG\Repositories\Donation;
+namespace App\ATG\Repositories\Donation;
 
 use Carbon\Carbon;
-use Settings;
-use Donation;
+use App\Settings;
+use App\Donation;
 
 class EloquentDonation
 {

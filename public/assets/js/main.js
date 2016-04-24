@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// Pass the CSRF Token with all ajax requests
 	$.ajaxSetup({
-		data: { _token: getCSRFToken() }
+		headers: { 'X-CSRF-TOKEN': getCSRFToken() }
 	});
 
 	$(".delete-news").on("click", function(e) {

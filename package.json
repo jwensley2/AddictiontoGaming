@@ -1,23 +1,12 @@
 {
-  "name": "atg",
-  "version": "1.0.0",
-  "description": "Addiction to Gaming Website",
-  "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jwensley2/AddictiontoGaming.git"
-  },
-  "author": "Joseph Wensley",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jwensley2/AddictiontoGaming/issues"
-  },
-  "homepage": "https://github.com/jwensley2/AddictiontoGaming",
+  "private": true,
   "devDependencies": {
-    "grunt": "^0.4.4",
-    "grunt-contrib-uglify": "^0.4.0"
+    "grunt": "^1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "laravel-elixir": "^5.0.0",
+    "bootstrap-sass": "^3.0.0"
   }
 }

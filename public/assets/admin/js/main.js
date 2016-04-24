@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	// Pass the CSRF Token with all ajax requests
 	$.ajaxSetup({
-		data: { _token: getCSRFToken() }
+		headers: { 'X-CSRF-TOKEN': getCSRFToken() }
 	});
 
 	// Setup the buttons to delete news posts

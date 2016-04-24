@@ -1,5 +1,6 @@
 # Require any additional compass plugins here.
 require 'bootstrap-sass'
+require 'compass/import-once/activate'
 
 # Set this to the root of your project when deployed:
 http_path = "/assets/admin/"
@@ -9,14 +10,13 @@ images_dir = "images"
 javascripts_dir = "js"
 fonts_dir = "fonts"
 
-output_style = :expanded
-environment = :development
+output_style = :compressed
 
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
 
 line_comments = false
-color_output = false
+color_output = true
 
 
 # If you prefer the indented syntax, you might want to regenerate this
