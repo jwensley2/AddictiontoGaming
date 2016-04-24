@@ -21,7 +21,7 @@ class AccountController extends Controller
     {
         $user = Auth::user();
 
-        return view('Admin.account.profile')
+        return view('admin.account.profile')
             ->with('user', $user)
             ->with('messages', Session::get('messages'));
     }

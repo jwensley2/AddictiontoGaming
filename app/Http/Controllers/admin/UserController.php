@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $users = User::all();
 
-        return view('Admin.users.list')
+        return view('admin.users.list')
             ->with('users', $users);
     }
 
@@ -63,7 +63,7 @@ class UserController extends Controller
             }
         }
 
-        return view('Admin.users.user')
+        return view('admin.users.user')
             ->with('messages', Session::get('messages'))
             ->with('permissions', $permissions)
             ->with('groups', $groups)

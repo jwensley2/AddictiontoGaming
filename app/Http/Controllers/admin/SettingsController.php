@@ -14,7 +14,7 @@ class SettingsController extends Controller
     {
         $settings = new Settings();
 
-        return view('Admin.settings.index')
+        return view('admin.settings.index')
             ->with('messages', Session::get('messages'))
             ->with('settings', $settings);
     }

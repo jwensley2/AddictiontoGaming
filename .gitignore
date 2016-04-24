@@ -4,25 +4,19 @@ composer.phar
 # Caches
 .sass-cache
 
-# Compiled Files
-/bootstrap/compiled.php
-
 # Laravel Files
-.env.php
-.env.*.php
-LARAVEL_ENV
+/*.env
+Homestead.yaml
+Homestead.json
+_ide_helper.php
+.phpstorm.meta.php
 
 # Misc
 /forums/
 /dump.rdb
-/public/storage
 /node_modules
 .idea
 .vagrant
 puphpet/files/dot/ssh
-_ide_helper.php
-.phpstorm.meta.php
 .capistrano
-Homestead.yaml
-Homestead.json
-.env
+/html
