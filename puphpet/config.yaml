@@ -19,15 +19,15 @@ vagrantfile:
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_mvz2bi68y2pk:
+                    vflm_me8esenvhi7e:
                         id: atg
+                        hostname: atg.local
                         network:
                             private_network: 192.168.56.101
                             forwarded_port:
-                                vflmnfp_cm9gjiyrovti:
-                                    host: '6408'
+                                vflmnfp_3nkfy017pj1g:
+                                    host: '9840'
                                     guest: '22'
-                        hostname: atg.local
                         memory: '1024'
                         cpus: '1'
         provision:
@@ -38,9 +38,9 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_5xnsolm72aru:
+            vflsf_1uba7kittm91:
                 source: ./
-                target: /var/www/
+                target: /var/www
                 sync_type: default
                 smb:
                     smb_host: ''
@@ -82,7 +82,6 @@ vagrantfile:
         https: ''
         ftp: ''
         no_proxy: ''
-        enabled: ''
 server:
     install: '1'
     packages:
@@ -90,8 +89,10 @@ server:
         - htop
 users_groups:
     install: '1'
-    groups: {  }
-    users: {  }
+    groups:
+        - atg
+    users:
+        - 'atg:atg'
 locale:
     install: '1'
     settings:
@@ -118,7 +119,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_el4sj8gwdwt0:
+        nxv_88g3wqc2yi6l:
             server_name: atg.dev
             server_aliases:
                 - www.atg.dev
@@ -138,10 +139,8 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_s4lngv9kryhb:
+                nxvl_h2mafhcr3lbt:
                     location: /
-                    autoindex: 'off'
-                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -151,10 +150,8 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_gl79w2dx03gx:
+                nxvl_icam4jdvuvti:
                     location: '~ \.php$'
-                    autoindex: 'off'
-                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -164,7 +161,7 @@ nginx:
                     fastcgi_split_path: '^(.+\.php)(/.*)$'
                     fast_cgi_params_extra:
                         - 'SCRIPT_FILENAME $request_filename'
-                        - 'APP_ENV dev'
+                        - 'APP_ENV local'
                     set:
                         - '$path_info $fastcgi_path_info'
                     proxy: ''
@@ -184,7 +181,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_0ssru8mackbm:
+        av_ugydz9m6dmyu:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -203,7 +200,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_4jfridwoipad:
+                avd_s8w2v48cim3d:
                     path: /var/www/awesome
                     options:
                         - Indexes
@@ -215,23 +212,25 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_076ze4dypyh5:
+                        avdfm_7flz0o7pnni1:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
                             provider: filesmatch
                     provider: directory
+letsencrypt:
+    install: '1'
+    settings:
+        email: ''
+    domains: {  }
 php:
     install: '1'
     settings:
-        version: '55'
+        version: '70'
     modules:
         php:
             - cli
             - intl
-            - imagick
-            - gd
-            - curl
         pear: {  }
         pecl: {  }
     ini:
@@ -242,7 +241,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_8vyqrzrs2u6i:
+        phpfp_yjmytynev9xt:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -281,14 +280,14 @@ wpcli:
     version: v0.21.1
 drush:
     install: '0'
-    version: 6.3.0
+    version: 8.0.5
 ruby:
     install: '1'
     versions:
-        rv_gndvwzdi13sz:
+        rv_dljxsanfwr6q:
             default: '1'
             bundler: '1'
-            version: 2.1.2
+            version: 2.3.0
             gems:
                 - deep_merge
                 - activesupport
@@ -324,23 +323,20 @@ hhvm:
 mariadb:
     install: '1'
     settings:
-        version: '5.5'
+        version: '10.1'
         root_password: '123'
         override_options: {  }
     adminer: 0
     users:
-        mariadbnu_luf0huaws1ep:
+        mariadbnu_zswuzc3w3erp:
             name: atg_site
             password: atg_site
     databases:
-        mariadbnd_1ortahrmsh16:
+        mariadbnd_afy1t9y5yasm:
             name: atg_site
             sql: ''
-        mariadbnd_ttx2xcua6q17:
-            name: atg_phpbb3
-            sql: ''
     grants:
-        mariadbng_jcfzjhivmq5b:
+        mariadbng_j5bgibgg1ktc:
             user: atg_site
             table: '*.*'
             privileges:
@@ -348,20 +344,20 @@ mariadb:
 mysql:
     install: '0'
     settings:
-        version: '5.6'
+        version: '5.7'
         root_password: '123'
         override_options: {  }
     adminer: 0
     users:
-        mysqlnu_z569ey7izl2e:
+        mysqlnu_dv6810xa3ha4:
             name: dbuser
             password: '123'
     databases:
-        mysqlnd_0icbu6xrx1af:
+        mysqlnd_37cmzzxstg8c:
             name: dbname
             sql: ''
     grants:
-        mysqlng_k5tzwv1kp09o:
+        mysqlng_0gjrvylqxrdn:
             user: dbuser
             table: '*.*'
             privileges:
@@ -403,7 +399,7 @@ mailhog:
         http_port: '8025'
         path: /usr/local/bin/mailhog
 beanstalkd:
-    install: '0'
+    install: '1'
     settings:
         listenaddress: 0.0.0.0
         listenport: '11300'
@@ -412,7 +408,7 @@ beanstalkd:
         binlogdir: /var/lib/beanstalkd/binlog
         binlogfsync: null
         binlogsize: '10485760'
-    beanstalk_console: 0
+    beanstalk_console: '1'
 rabbitmq:
     install: '0'
     settings:
@@ -423,10 +419,10 @@ rabbitmq:
 elastic_search:
     install: '0'
     settings:
-        version: 2.1.0
+        version: 2.3.1
         java_install: true
     instances:
-        esi_hqiqt514h4ic:
+        esi_wk3nin2yfwmk:
             name: es-01
 solr:
     install: '0'
