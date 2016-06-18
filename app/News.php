@@ -21,22 +21,24 @@ class News extends \Illuminate\Database\Eloquent\Model
         return $this->belongsTo('App\User', 'edit_user_id');
     }
 
-    public function getContentAttribute($value)
+    public function getDisplayContent()
     {
+        $content = $this->content;
+
         $phpamo = new \WillWashburn\Phpamo\Phpamo(
             \Config::get('services.camo.key'),
             \Config::get('services.camo.domain')
         );
 
         // Find http image urls
-        preg_match_all("/src=\"(http:\/\/(.*))\"/", $value, $matches, PREG_SET_ORDER);
+        preg_match_all("/src=\"(http:\/\/(.*))\"/", $content, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             $camoUrl = $phpamo->camo($match[1]);
 
-            $value = str_replace($match[1], $camoUrl, $value);
+            $content = str_replace($match[1], $camoUrl, $content);
         }
 
-        return $value;
+        return $content;
     }
 }

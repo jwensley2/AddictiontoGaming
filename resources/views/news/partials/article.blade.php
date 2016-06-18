@@ -1,6 +1,6 @@
 <article>
 	<h2>{{ $article->title }}</h2>
-	{!! $article->content !!}
+	{!! $article->getDisplayContent() !!}
 
 	<footer class="post-info">
 		<div class="left">
