@@ -56,44 +56,8 @@ end
 
 # Laravel deployment
 namespace :deploy do
-	desc "Run Migrations"
-	task :laravel_migrate do
-		on roles(:web) do
-			within release_path do
-				execute :php, "artisan migrate"
-			end
-		end
-	end
-
-	desc "Rollback Migrations"
-	task :laravel_rollback do
-		on roles(:web) do
-			within release_path do
-				execute :php, "artisan migrate:rollback"
-			end
-		end
-	end
-
-	desc "Run composer install"
-	task :composer_install do
-		on roles(:web) do
-			within release_path do
-				execute "composer", "install", "--no-dev", "--optimize-autoloader"
-			end
-		end
-	end
-
-    desc "Set permissions"
-    task :set_permissions do
-        on roles(:web) do
-            within release_path do
-                execute "chmod", "777", "storage/framework/views"
-            end
-        end
-    end
-
-	after :updated, "deploy:composer_install"
-	after :updated, "deploy:laravel_migrate"
-	after :updated, "deploy:set_permissions"
+	after :updated, "composer_install"
+	after :updated, "laravel_migrate"
+	after :updated, "set_permissions"
 	after :published, "restart_php"
 end

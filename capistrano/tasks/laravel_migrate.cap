@@ -1,0 +1,8 @@
+desc "Run Migrations"
+task :laravel_migrate do
+    on roles(:web) do
+        within release_path do
+            execute :php, "artisan migrate"
+        end
+    end
+end

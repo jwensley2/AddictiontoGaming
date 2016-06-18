@@ -1,3 +1,6 @@
+set :deploy_config_path, File.expand_path('capistrano/deploy.rb')
+set :stage_config_path, 'capistrano/deploy'
+
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
 
@@ -22,4 +25,4 @@ require 'capistrano/deploy'
 # require 'capistrano/rails/migrations'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
-Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
+Dir.glob('capistrano/tasks/*.cap').each { |r| import r }
