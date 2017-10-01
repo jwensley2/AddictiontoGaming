@@ -2,10 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,58 +35,60 @@ class User extends Authenticatable
     /**
      * Validation Rules
      */
-    public static $rules = array(
+    public static $rules = [
         'username' => 'required|alpha_dash|between:3,50|unique:users,username',
         'email'    => 'required|email|unique:users,email',
         'password' => 'required|min:6|confirmed',
-    );
+    ];
 
     /**
      * Rules for changing password
      */
-    public static $changePasswordRules = array(
+    public static $changePasswordRules = [
         'password' => 'required|min:6|confirmed',
-    );
+    ];
 
     /**
      * Rules for updating profile
      */
-    public static $updateProfileRules = array(
+    public static $updateProfileRules = [
         'username' => 'required|alpha_dash|between:3,50|unique:users,username',
         'email'    => 'required|email|unique:users,email',
-    );
+    ];
 
     /**
      * Rules for updating profile
      */
-    public static $updateRules = array(
+    public static $updateRules = [
         'username' => 'required|alpha_dash|between:3,50|unique:users,username',
         'email'    => 'required|email|unique:users,email',
         'group_id' => 'exists:groups,id',
-    );
+    ];
 
     /**
      * Return the group relationship
      *
-     * @return Relationship
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group()
+    public function group(): BelongsTo
     {
-        return $this->belongsTo('App\Group');
+        return $this->belongsTo(Group::class);
     }
 
-    public function permissions()
+    public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany('App\Permission', 'user_permissions')->withPivot('access');
+        return $this->belongsToMany(Permission::class, 'user_permissions')
+            ->withPivot('access');
     }
 
     /**
      * Check if user has a permission
      *
-     * @param type $key The key for the permission
+     * @param string $key The key for the permission
+     * @param bool   $checkFounder
      * @return bool
      */
-    public function hasPermission($key, $checkFounder = true)
+    public function hasPermission($key, $checkFounder = true): bool
     {
         $user_access  = 0;
         $group_access = 0;

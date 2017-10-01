@@ -5,9 +5,12 @@ composer.phar
 .sass-cache
 
 # Laravel Files
-/*.env
-Homestead.yaml
+.env
+/public/hot
+/public/storage
+/storage/*.key
 Homestead.json
+Homestead.yaml
 _ide_helper.php
 .phpstorm.meta.php
 
@@ -15,8 +18,8 @@ _ide_helper.php
 /forums/
 /dump.rdb
 /node_modules
-.idea
-.vagrant
+/.idea
+/.vagrant
 puphpet/files/dot/ssh
 .capistrano
 /html

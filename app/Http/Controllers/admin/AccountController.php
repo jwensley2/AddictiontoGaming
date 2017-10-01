@@ -15,13 +15,13 @@ class AccountController extends Controller
     /**
      * Display the user's profile
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function getIndex()
+    public function edit()
     {
         $user = Auth::user();
 
-        return view('admin.account.profile')
+        return view('admin.account.edit')
             ->with('user', $user)
             ->with('messages', Session::get('messages'));
     }
@@ -29,15 +29,15 @@ class AccountController extends Controller
     /**
      * Handle profile form
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function postProfile(Request $request)
+    public function update(Request $request)
     {
         $user = Auth::user();
 
-        $rules = User::$updateProfileRules;
+        $rules             = User::$updateProfileRules;
         $rules['username'] .= ",{$user->id}";
-        $rules['email'] .= ",{$user->id}";
+        $rules['email']    .= ",{$user->id}";
 
         $this->validate($request, $rules);
 
@@ -45,7 +45,7 @@ class AccountController extends Controller
         $user->email    = $request->input('email');
         $user->save();
 
-        return Redirect::route('profile')
+        return redirect()->route('admin.account.edit', [$user])
             ->with('messages', ['Your profile has been updated.']);
 
     }
@@ -53,9 +53,9 @@ class AccountController extends Controller
     /**
      * Handle password change form
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function postChangePassword(Request $request)
+    public function changePassword(Request $request)
     {
         $user = Auth::user();
 
@@ -66,7 +66,7 @@ class AccountController extends Controller
         $user->password              = $request->input('password');
         $user->password_confirmation = $request->input('password_confirmation');
 
-        return Redirect::route('profile')
+        return redirect()->route('admin.account.edit', [$user])
             ->with('messages', ['Password updated.']);
 
     }

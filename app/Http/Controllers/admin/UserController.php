@@ -21,13 +21,14 @@ class UserController extends Controller
      *
      * @return response
      */
-    public function getList()
+    public function index()
     {
         if (!Auth::user()->hasPermission('users_view')) {
-            return Redirect::route('Admin');
+            return redirect()->route('admin.home');
         }
 
-        $users = User::all();
+        $users = User::with('group')
+            ->get();
 
         return view('admin.users.list')
             ->with('users', $users);
@@ -40,64 +41,53 @@ class UserController extends Controller
      * @param int $userId The user's ID
      * @return response
      */
-    public function getUser($userId)
+    public function show(User $user)
     {
         if (!Auth::user()->hasPermission('users_edit')) {
-            return Redirect::route('Admin');
+            return redirect()->route('admin.home');
         }
 
+        $user->load('group');
         $permissions = DB::table('permissions')->get();
         $groups      = Group::all();
 
-        try {
-            $user = User::findOrFail($userId);
-        } catch (\Exception $e) {
-            \App::abort(404);
-        }
-
+        $userPermissions = [];
         foreach ($permissions as $permission) {
             if ($user->permissions->find($permission->id)) {
-                $user_permissions[$permission->key] = $user->permissions->find($permission->id)->pivot->access;
+                $userPermissions[$permission->key] = $user->permissions->find($permission->id)->pivot->access;
             } else {
-                $user_permissions[$permission->key] = 0;
+                $userPermissions[$permission->key] = 0;
             }
         }
 
-        return view('admin.users.user')
+        return view('admin.users.show')
             ->with('messages', Session::get('messages'))
             ->with('permissions', $permissions)
             ->with('groups', $groups)
-            ->with('user_permissions', $user_permissions)
+            ->with('user_permissions', $userPermissions)
             ->with('user', $user);
     }
 
 
-    public function postUser(Request $request, $userId)
+    public function update(Request $request, User $user)
     {
         if (!Auth::user()->hasPermission('users_edit')) {
-            return Redirect::route('Admin');
+            return redirect()->route('admin.home');
         }
 
-        try {
-            $user = User::findOrFail($userId);
-        } catch (\Exception $e) {
-            \App::abort(404);
-            die;
-        }
-
-        $rules = User::$updateRules;
+        $rules             = User::$updateRules;
         $rules['username'] .= ",{$user->id}";
-        $rules['email'] .= ",{$user->id}";
+        $rules['email']    .= ",{$user->id}";
 
         $this->validate($request, $rules);
 
         $user->username = $request->input('username');
         $user->email    = $request->input('email');
         $user->group_id = $request->input('group');
-        $user->active   = $request->input('active');
+        $user->active   = $request->input('active', false);
         $user->save();
 
-        return Redirect::action('Admin\UserController@getUser', $user->id)
+        return redirect()->route('admin.users.show', [$user])
             ->with('messages', ['User Updated.']);
     }
 
@@ -108,29 +98,16 @@ class UserController extends Controller
      * @param int $userId The user's ID
      * @return response
      */
-    public function postUpdatePermissions(Request $request, $userId)
+    public function updatePermissions(Request $request, User $user)
     {
         if (!Auth::user()->hasPermission('users_edit')) {
-            $response['success'] = false;
-            $response['message'] = 'You do not have permission to do that.';
-
-            return Response::json($response);
+            return response([
+                'success' => false,
+                'message' => 'You do not have permission to do that.',
+            ], 403);
         }
-
-        // Set default success
-        $result['success'] = true;
 
         $permissions = $request->input('permissions');
-
-        // Get the user or return an error
-        try {
-            $user = User::findOrFail($userId);
-        } catch (\Exception $e) {
-            $result['success'] = false;
-            $result['message'] = 'Could not find specified user.';
-
-            return Response::json($result);
-        }
 
         // Create an array to hold the permission IDs
         $ids = [];
@@ -147,9 +124,10 @@ class UserController extends Controller
         // Sync the pivot table to only have the submitted IDs
         $user->permissions()->sync($ids);
 
-        $result['message'] = 'Permissions Updated.';
-
-        return Response::json($result);
+        return response([
+            'success' => true,
+            'message' => 'Permissions Updated.',
+        ]);
     }
 
 
@@ -160,42 +138,30 @@ class UserController extends Controller
      * @param int $active
      * @return response
      */
-    public function postActiveStatus($userId = null, $active = 0)
+    public function setStatus(User $user, $active = 0)
     {
         if (!Auth::user()->hasPermission('users_edit')) {
-            $response['success'] = false;
-            $response['message'] = 'You do not have permission to do that.';
-
-            return Response::json($response);
-        }
-
-        // Set default status
-        $result['success'] = true;
-
-        // Find the user
-        try {
-            $user = User::findOrFail($userId);
-        } catch (Exception $e) {
-            $result['success'] = false;
-            $result['message'] = 'Could not find specified user.';
-
-            return Response::json($result);
+            return response([
+                'success' => false,
+                'message' => 'You do not have permission to do that.',
+            ], 403);
         }
 
         // A non-Founder cannot edit a founder
-        if (!Auth::user()->founder AND $user->founder) {
-            $result['success'] = false;
-            $result['message'] = 'A non-Founder cannot edit a founder.';
-
-            return Response::json($result);
+        if (!Auth::user()->founder && $user->founder) {
+            return response([
+                'success' => false,
+                'message' => 'A non-Founder cannot edit a founder.',
+            ], 403);
         }
 
         $user->active = $active;
-        $user->forceSave();
+        $user->save();
 
-        $result['message'] = 'Status Updated.';
-        $result['status']  = $user->active ? 'Active' : 'Inactive';
-
-        return Response::json($result);
+        return response([
+            'success' => true,
+            'message' => 'Status Updated.',
+            'status'  => $user->active ? 'Active' : 'Inactive',
+        ]);
     }
 }

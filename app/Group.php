@@ -16,7 +16,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->hasMany('User');
+        return $this->hasMany(User::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Group extends Model
      */
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission', 'group_permissions')->withPivot('access');
+        return $this->belongsToMany(Permission::class, 'group_permissions')->withPivot('access');
     }
 
     /**

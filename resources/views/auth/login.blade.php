@@ -11,8 +11,8 @@
                 @include("admin._partials.messages")
             @endif
 
-            <form role="form" method="POST" action="{{ url('/login') }}">
-                {!! csrf_field() !!}
+            <form role="form" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="f-username">Username</label>

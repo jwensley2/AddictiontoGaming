@@ -57,9 +57,9 @@ Administration
 				</thead>
 
 				<tbody>
-					@foreach ($news as $article)
+					@foreach ($articles as $article)
 						<tr>
-							<td><a href="{{ action('Admin\NewsController@getEdit', $article->id) }}">{{ $article->title }}</a></td>
+							<td><a href="{{ route('admin.articles.edit', $article) }}">{{ $article->title }}</a></td>
 							<td>{{ $article->created_at->toDateString() }}</td>
 						</tr>
 					@endforeach

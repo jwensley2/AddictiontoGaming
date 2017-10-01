@@ -10,7 +10,7 @@ use Session;
 
 class SettingsController extends Controller
 {
-    public function getIndex()
+    public function index()
     {
         $settings = new Settings();
 
@@ -19,7 +19,7 @@ class SettingsController extends Controller
             ->with('settings', $settings);
     }
 
-    public function postIndex(Request $request)
+    public function update(Request $request)
     {
         $rules = [
             'monthly_cost' => 'required|numeric|min:0',
@@ -30,6 +30,7 @@ class SettingsController extends Controller
         $settings               = new Settings();
         $settings->monthly_cost = $request->get('monthly_cost');
 
-        return Redirect::action('Admin\SettingsController@getIndex')->with('messages', ['Settings have been saved']);
+        return redirect()->route('admin.settings.index')
+            ->with('messages', ['Settings have been saved']);
     }
 }

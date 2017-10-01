@@ -6,10 +6,10 @@
             <h1>News and Announcements</h1>
         </header>
 
-        @foreach($news AS $article)
+        @foreach($articles AS $article)
             @include('news.partials.article', array('article' => $article))
         @endforeach
 
-        {{ $news->links() }}
+        {{ $articles->links() }}
     </section>
 @stop

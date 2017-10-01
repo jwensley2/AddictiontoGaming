@@ -19,8 +19,8 @@ Groups
 				<tbody>
 					@foreach($groups as $group)
 						<tr>
-							<td>{{ $group->id }}</a></td>
-							<td><a href="{{ action('Admin\GroupController@getGroup', $group->id) }}">{{{ $group->name }}}</a></td>
+							<td>{{ $group->id }}</td>
+							<td><a href="{{ route('admin.groups.show', [$group]) }}">{{{ $group->name }}}</a></td>
 							<td>
 								<span style="color: #{{{ $group->colour }}}">#{{ $group->colour }}</span>
 							</td>

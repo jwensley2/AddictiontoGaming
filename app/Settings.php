@@ -6,7 +6,6 @@ use DB;
 
 class Settings
 {
-
     static $settings = [];
 
     /**

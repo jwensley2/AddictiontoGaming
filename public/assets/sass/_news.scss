@@ -2,53 +2,65 @@
 // News Articles
 //========================================
 .news-articles {
-	h2 {
-		@include text-shadow(none);
-		border: 0;
-		background: $lightblue;
-		color: $gray;
-		font-size: 24px;
-		font-weight: bold;
-		letter-spacing: 1px;
-		margin: 0 0 15px;
-		padding: 10px 5px;
-	}
+    h2 {
+        @include text-shadow(none);
+        border: 0;
+        background: $lightblue;
+        color: $gray;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 0 0 15px;
+        padding: 10px 5px;
 
-	.post-info {
-		border-top: 1px dotted #FFF;
-		margin: 10px 0 0;
-		padding: 5px 0 0;
+        a {
+            color: inherit
+        }
+    }
 
-		.left { float: left }
+    .article-info {
+        border-top: 1px dotted #FFF;
+        margin: 10px 0 0;
+        padding: 5px 0 0;
 
-		.right {
-			float: right;
-			text-align: right;
+        .left {
+            float: left
+        }
 
-			p {
-				margin: 0;
+        .right {
+            float: right;
+            text-align: right;
 
-				+ p { margin-top: 5px }
-			}
-		}
-	}
+            p {
+                margin: 0;
 
-	article {
-		+article { margin-top: 100px }
-	}
+                + p {
+                    margin-top: 5px
+                }
+            }
+        }
+    }
+
+    article {
+        + article {
+            margin-top: 100px
+        }
+    }
 }
 
 //========================================
 // News Archive
 //========================================
 .news-archive {
-	.date {
-		font-size: 22px;
+    .date {
+        font-size: 22px;
 
-		+.date { margin-top: 5px }
+        + .date {
+            margin-top: 5px
+        }
 
-		&:before {
-			content: "»";
-		}
-	}
+        &:before {
+            content: "»";
+        }
+    }
 }

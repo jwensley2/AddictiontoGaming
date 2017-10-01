@@ -13,7 +13,7 @@
                 </div>
             @endif
 
-            <form role="form" method="POST" action="{{ url('/password/email') }}">
+            <form role="form" method="POST" action="{{ route('password.email') }}">
                 {!! csrf_field() !!}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -31,7 +31,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
                     </button>
-                    <a href="{{ route('admin') }}" class="btn btn-default">Cancel</a>
+                    <a href="{{ route('admin.home') }}" class="btn btn-default">Cancel</a>
                 </div>
             </form>
         </div>

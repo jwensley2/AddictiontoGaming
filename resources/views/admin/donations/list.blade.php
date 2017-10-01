@@ -25,7 +25,7 @@ Donations
 					<tbody>
 						@foreach($donations as $donation)
 							<tr>
-								<td><a href="{{ action('Admin\DonorsController@getDonor', $donation->donor->id) }}">{{{ $donation->donor->name }}}</a></td>
+								<td><a href="{{ route('admin.donors.show', $donation->donor->id) }}">{{{ $donation->donor->name }}}</a></td>
 								<td>{{{ $donation->donor->ingame_name }}}</td>
 								<td>${{ $donation->gross }}</td>
 								<td>${{ $donation->fee }}</td>

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\News;
-use Illuminate\Http\Request;
+use App\Article;
 
 class HomeController extends Controller
 {
@@ -14,11 +12,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        // Get some news items to show
-        $news = News::with('author', 'editor')
+        // Get some articles items to show
+        $news = Article::with('author.group', 'editor.group')
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        return view('home')->with('news', $news);
+        return view('home')->with('articles', $news);
     }
 }

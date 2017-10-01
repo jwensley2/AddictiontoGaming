@@ -72,16 +72,16 @@
 
 					@if (Auth::check())
 						@if(Auth::user()->hasPermission('news_view'))
-							<li class="dropdown {{Request::is('admin/news', 'admin/news/*') ? 'active' : ''}}">
+							<li class="dropdown {{Request::is('admin/articles', 'admin/articles/*') ? 'active' : ''}}">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b class="caret"></b></a>
 
 								<ul class="dropdown-menu">
-									<li class="{{Request::is('admin/news') ? 'active' : ''}}">
-                                        <a href="{{ action('Admin\NewsController@getIndex') }}">List News</a>
+									<li class="{{Request::is('articles') ? 'active' : ''}}">
+                                        <a href="{{ route('admin.articles.index') }}">List News</a>
                                     </li>
 									@if(Auth::user()->hasPermission('news_post'))
-                                        <li class="{{Request::is('admin/news/create') ? 'active' : ''}}">
-                                            <a href="{{ action('Admin\NewsController@getCreate') }}">Post News</a>
+                                        <li class="{{Request::is('admin/articles/create') ? 'active' : ''}}">
+                                            <a href="{{ route('admin.articles.create') }}">Post News</a>
                                         </li>
 									@endif
 								</ul>
@@ -95,13 +95,13 @@
 								<ul class="dropdown-menu">
 									@if(Auth::user()->hasPermission('donations_view'))
 										<li class="{{Request::is('admin/donations') ? 'active' : ''}}">
-											<a href="{{ action('Admin\DonationsController@getIndex') }}">List Donations</a>
+											<a href="{{ route('admin.donations.index') }}">List Donations</a>
 										</li>
 									@endif
 
 									@if(Auth::user()->hasPermission('donors_view'))
 										<li class="{{Request::is('admin/donors', 'admin/donors/*') ? 'active' : ''}}">
-											<a href="{{ action('Admin\DonorsController@getIndex') }}">List Donors</a>
+											<a href="{{ route('admin.donors.index') }}">List Donors</a>
 										</li>
 									@endif
 								</ul>
@@ -110,7 +110,7 @@
 
 						@if(Auth::user()->hasPermission('settings'))
 							<li class="{{Request::is('admin/settings') ? 'active' : ''}}">
-								<a href="{{ action('Admin\SettingsController@getIndex') }}">Settings</a>
+								<a href="{{ route('admin.settings.index') }}">Settings</a>
 							</li>
 						@endif
 
@@ -121,13 +121,13 @@
 								<ul class="dropdown-menu">
 									@if(Auth::user()->hasPermission('users_view'))
 										<li class="{{Request::is('admin/users/*') ? 'active' : ''}}">
-											<a href="{{ action('Admin\UserController@getList') }}">List Users</a>
+											<a href="{{ route('admin.users.index') }}">List Users</a>
 										</li>
 									@endif
 
 									@if(Auth::user()->hasPermission('groups_view'))
 										<li class="{{Request::is('admin/groups/*') ? 'active' : ''}}">
-											<a href="{{ action('Admin\GroupController@getList') }}">List Groups</a>
+											<a href="{{ route('admin.groups.index') }}">List Groups</a>
 										</li>
 									@endif
 								</ul>
@@ -138,8 +138,13 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::check())
-						<li><a href="{{ route('profile') }}">Account</a></li>
-						<li><a href="{{ url('/logout') }}">Logout</a></li>
+						<li><a href="{{ route('admin.account.edit') }}">Account</a></li>
+						<li>
+							<form class="navbar-form" method="post" action="{{ route('logout') }}">
+								{{ csrf_field() }}
+								<button class="btn btn-link btn-block">Logout</button>
+							</form>
+						</li>
 					@endif
 				</ul>
 			</div>

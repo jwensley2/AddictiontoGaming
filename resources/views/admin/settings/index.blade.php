@@ -15,8 +15,9 @@
                 @include('admin._partials.errors')
             @endif
 
-            <form class="form-horizontal" action="{{action('Admin\SettingsController@postIndex')}}" method="post">
-                {{csrf_field()}}
+            <form class="form-horizontal" action="{{ route('admin.settings.update') }}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('PATCH') }}
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Monthly Cost</label>

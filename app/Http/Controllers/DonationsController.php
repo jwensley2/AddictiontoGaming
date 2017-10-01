@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Donation;
+use App\Donor;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Response;
 use PayPal\IPN\PPIPNMessage;
 
@@ -12,6 +15,7 @@ class DonationsController extends Controller
 
     /**
      * Display a list of donations
+     *
      * @return mixed
      */
     public function index()
@@ -20,24 +24,33 @@ class DonationsController extends Controller
         $month_start = new Carbon('first day of this month', 'America/Winnipeg');
         $month_start->setTime(0, 0, 0);
 
-        $total_donations = Donation::sum('gross');
-        $monthly_total   = Donation::where('created_at', '>=', $month_start)->where('status', 'Completed')->sum('gross');
-        $donations       = Donation::with('donor')->where('created_at', '>=', $month_start)->where('status', 'Completed')->get();
+        $totalDonations = Donation::sum('gross');
+
+        $monthlyTotal = Donation::where('created_at', '>=', $month_start)
+            ->where('status', 'Completed')
+            ->sum('gross');
+
+        $donations = Donation::with('donor')
+            ->where('created_at', '>=', $month_start)
+            ->where('status', 'Completed')
+            ->get();
 
         // Get the top 10 donors
-        $top_donors = DB::table('donors')
-            ->select(DB::raw('ingame_name, SUM(gross) AS total'))
-            ->join('donations', 'donors.id', '=', 'donations.donor_id')
-            ->groupBy('donors.id')
+        $topDonors = Donor::select('*')
+            ->selectSub(function (Builder $qb) {
+                $qb->from('donations')
+                    ->select(DB::raw('SUM(gross)'))
+                    ->where('donor_id', '=', DB::raw('donors.id'));
+            }, 'total')
             ->orderBy('total', 'desc')
             ->take(10)
             ->get();
 
         return view('donations.index')
             ->with('donations', $donations)
-            ->with('top_donors', $top_donors)
-            ->with('monthly_total', $monthly_total)
-            ->with('total_donations', $total_donations);
+            ->with('top_donors', $topDonors)
+            ->with('monthly_total', $monthlyTotal)
+            ->with('total_donations', $totalDonations);
     }
 
     /**

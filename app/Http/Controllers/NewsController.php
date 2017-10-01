@@ -2,45 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\News;
+use App\Article;
+use Carbon\Carbon;
 use DB;
+use Illuminate\Http\Response;
 
 class NewsController extends Controller
 {
 
-	/**
-	 * Display the archive page
-	 *
-	 * @return response
-	 */
-	public function getArchive()
-	{
-		// Get some news items to show
-		$months = News::select('created_at')
-			->groupBy(DB::raw('EXTRACT(YEAR_MONTH FROM created_at)'))
-			->orderBy('created_at', 'desc')
-			->get();
+    public function article(Article $article)
+    {
+        return view('news.article')
+            ->with('articles', [$article]);
+    }
 
-		return view('news.archive')->with('months', $months);
-	}
+    /**
+     * Display the archive page
+     *
+     * @return Response
+     */
+    public function archive()
+    {
+        // Get some articles items to show
+        $months = Article::select([
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as created_at'),
+        ])
+            ->groupBy('created_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-	/**
-	 * Display a month worth of news
-	 *
-	 * @param int $year
-	 * @param int $month
-	 * @return response
-	 */
-	public function getMonth($year, $month)
-	{
-		// Get some news items to show
-		$news = News::with('author', 'editor')
-			->where(DB::raw('MONTH(created_at)'), $month)
-			->where(DB::raw('YEAR(created_at)'), $year)
-			->orderBy('created_at', 'desc')
-			->get();
+        return view('news.archive')
+            ->with('months', $months);
+    }
 
-		return view('news.month')->with('news', $news);
-	}
+    /**
+     * Display a month worth of articles
+     *
+     * @param int $year
+     * @param int $month
+     * @return \Illuminate\Http\Response
+     */
+    public function month($year, $month)
+    {
+        $date = Carbon::createFromDate($year, $month, 0);
 
+        // Get some articles items to show
+        $news = Article::with('author', 'editor')
+            ->where(DB::raw('MONTH(created_at)'), $month)
+            ->where(DB::raw('YEAR(created_at)'), $year)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('news.articles')
+            ->with('articles', $news)
+            ->with('title', "News from " . $date->format('F Y'));
+    }
 }

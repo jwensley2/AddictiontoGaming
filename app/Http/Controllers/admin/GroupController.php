@@ -19,10 +19,10 @@ class GroupController extends Controller
      *
      * @return response
      */
-    public function getList()
+    public function index()
     {
         if (!Auth::user()->hasPermission('groups_view')) {
-            return Redirect::route('admin');
+            return redirect()->route('admin.home');
         }
 
         $groups = Group::all();
@@ -35,34 +35,29 @@ class GroupController extends Controller
     /**
      * Display a single group
      *
-     * @param int $groupId The group's ID
+     * @param \App\Group $group
      * @return response
      */
-    public function getGroup($groupId)
+    public function show(Group $group)
     {
         if (!Auth::user()->hasPermission('groups_edit')) {
-            return Redirect::route('admin');
+            return redirect()->route('admin.home');
         }
 
         $permissions = DB::table('permissions')->get();
 
-        try {
-            $group = Group::findOrFail($groupId);
-        } catch (\Exception $e) {
-            \App::abort(404);
-        }
-
+        $groupPermissions = [];
         foreach ($permissions as $permission) {
             if ($group->permissions->find($permission->id)) {
-                $group_permissions[$permission->key] = $group->permissions->find($permission->id)->pivot->access;
+                $groupPermissions[$permission->key] = $group->permissions->find($permission->id)->pivot->access;
             } else {
-                $group_permissions[$permission->key] = 0;
+                $groupPermissions[$permission->key] = 0;
             }
         }
 
-        return view('admin.groups.group')
+        return view('admin.groups.show')
             ->with('permissions', $permissions)
-            ->with('group_permissions', $group_permissions)
+            ->with('group_permissions', $groupPermissions)
             ->with('group', $group);
     }
 
@@ -70,32 +65,20 @@ class GroupController extends Controller
     /**
      * Update a users permissions
      *
-     * @param int $groupId The user's ID
-     * @return response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Group               $group
+     * @return Response
      */
-    public function postUpdatePermissions(Request $request,$groupId)
+    public function updatePermissions(Request $request, Group $group)
     {
         if (!Auth::user()->hasPermission('groups_edit')) {
-            $response['success'] = false;
-            $response['message'] = 'You do not have permission to do that.';
-
-            return Response::json($response);
+            return response([
+                'success' => false,
+                'message' => 'You do not have permission to do that.',
+            ], 403);
         }
-
-        // Set default success
-        $result['success'] = true;
 
         $permissions = $request->input('permissions');
-
-        // Get the user or return an error
-        try {
-            $user = Group::findOrFail($groupId);
-        } catch (Exception $e) {
-            $result['success'] = false;
-            $result['message'] = 'Could not find specified group.';
-
-            return Response::json($result);
-        }
 
         // Create an array to hold the permission IDs
         $ids = [];
@@ -110,10 +93,11 @@ class GroupController extends Controller
         }
 
         // Sync the pivot table to only have the submitted IDs
-        $user->permissions()->sync($ids);
+        $group->permissions()->sync($ids);
 
-        $result['message'] = 'Permissions Updated.';
-
-        return Response::json($result);
+        return response([
+            'success' => true,
+            'message' => 'Permissions Updated.',
+        ]);
     }
 }

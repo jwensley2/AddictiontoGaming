@@ -28,7 +28,7 @@ class Donor extends Model
      */
     public function donations()
     {
-        return $this->hasMany('App\Donation');
+        return $this->hasMany(Donation::class);
     }
 
     /**
@@ -51,8 +51,6 @@ class Donor extends Model
     public function getTotalDonatedAttribute()
     {
         $this->attributes['total_donated'] = '';
-
-        $total = 0;
 
         $total = $this->donations()
             ->where('status', 'completed')
