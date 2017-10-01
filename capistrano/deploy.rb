@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.5
-lock '3.5'
+# config valid only for Capistrano 3.6
+lock '3.6'
 
 set :application, 'addiction_to_gaming'
 set :repo_url, 'git@github.com:jwensley2/AddictiontoGaming.git'
