@@ -1,0 +1,64 @@
+//========================================
+// Misc
+//========================================
+.cf {
+    @include clearfix();
+}
+
+//========================================
+// Zebra Dialog
+//========================================
+.ZebraDialog {
+    background: $gray;
+    border: 2px solid $black;
+}
+
+.ZebraDialog_Title {
+    background: $lightblue;
+    color: $gray;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    position: relative;
+}
+
+.ZebraDialog_Close {
+    font-size: 25px;
+    margin: 0;
+    position: absolute;
+}
+
+.ZebraDialog_Body {
+    padding: 10px;
+
+    span {
+        font-style: italic;
+        font-weight: bold;
+    }
+}
+
+.ZebraDialog_Buttons {
+    border-top: 1px dotted white;
+    padding: 10px;
+
+    a {
+        background: $lightblue;
+        border: 1px solid white;
+        color: $gray;
+        display: inline-block;
+        padding: 5px 10px;
+
+        + a { margin-left: 10px }
+
+        &:hover {
+            background: $black;
+            color: white;
+        }
+    }
+
+    .ZebraDialog_Button_1 {
+        background: $tfred;
+        color: white;
+    }
+}

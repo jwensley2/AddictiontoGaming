@@ -1,0 +1,69 @@
+//========================================
+// News Articles
+//========================================
+.news-articles {
+    h2 {
+        background: $lightblue;
+        border: 0;
+        color: $gray;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 0 0 15px;
+        padding: 10px 5px;
+        text-shadow: none;
+
+        a {
+            color: inherit
+        }
+    }
+
+    .article-info {
+        border-top: 1px dotted #fff;
+        margin: 10px 0 0;
+        padding: 5px 0 0;
+
+        .left {
+            float: left
+        }
+
+        .right {
+            float: right;
+            text-align: right;
+
+            p {
+                margin: 0;
+
+                + p {
+                    margin-top: 5px
+                }
+            }
+        }
+    }
+
+    article {
+        + article {
+            margin-top: 100px
+        }
+    }
+}
+
+//========================================
+// News Archive
+//========================================
+.news-archive {
+    list-style: none;
+    padding: 0;
+
+    .date {
+        font-size: 22px;
+
+        + .date {
+            margin-top: 5px
+        }
+
+        &:before {
+            content: "»";
+        }
+    }
+}

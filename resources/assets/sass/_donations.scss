@@ -1,0 +1,103 @@
+//========================================
+// Donations
+//========================================
+.donations {
+    table {
+        border-collapse: collapse;
+        text-align: left;
+        width: 100%;
+
+        tr:nth-child(odd) { background: rgba(255, 255, 255, 0.25) }
+
+        thead {
+            border-bottom: 2px solid #fff;
+
+            tr { background: none !important }
+        }
+
+        tfoot {
+            border-top: 2px solid #fff;
+
+            tr { background: none !important }
+        }
+
+        td, th {
+            border: 0;
+            padding: 2px 5px;
+        }
+
+        .rank { text-align: right }
+        .amount { text-align: right }
+    }
+
+    .total-donations {
+        font-size: 40px;
+        line-height: 1;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .donations {
+        table {
+            display: block;
+            font-size: 0;
+            position: relative;
+
+            thead, tbody, tfoot { border: 0 }
+
+            td, th {
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+
+            thead {
+                float: left;
+
+                tr { display: block }
+
+                th {
+                    border-left: 1px solid #fff;
+                    border-right: 1px solid #fff;
+                    border-top: 1px solid #fff;
+                    display: block;
+                }
+            }
+
+            tbody {
+                display: block;
+                overflow-x: auto;
+                position: relative;
+                white-space: nowrap;
+                width: auto;
+
+                tr {
+                    border-right: 1px solid #fff;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+
+                td {
+                    border-top: 1px solid #fff;
+                    display: block;
+                }
+            }
+
+            tfoot {
+                border-top: 1px solid #fff;
+                clear: both;
+                display: block;
+                width: auto;
+
+                tr {
+                    display: block;
+                    width: auto;
+                }
+
+                th, td { display: inline-block }
+            }
+
+            .rank { text-align: center }
+            .amount { text-align: left }
+        }
+    }
+}

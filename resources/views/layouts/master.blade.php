@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @if(!empty($title))
         <title>[ATG] Addiction to Gaming - {{ $title }}</title>
     @else
@@ -15,14 +17,11 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/master.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/app.css">
 
     <!-- TypeKit Fonts -->
     <script src="https://use.typekit.net/ove5wkp.js"></script>
-    <script>try {
-            Typekit.load({async: true});
-        } catch (e) {
-        }</script>
+    <script>try {Typekit.load({async: true});} catch (e) {}</script>
 
     @if(App::environment('production'))
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
@@ -141,15 +140,7 @@
 </footer>
 
 <!-- Scripts -->
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-@if (App::environment('production'))
-    <script type="text/javascript" src="/assets/js/scripts.min.js"></script>
-@else
-    <script type="text/javascript" src="/assets/js/cssrefresh.js"></script>
-    <script type="text/javascript" src="/assets/js/zebra_dialog.js"></script>
-    <script type="text/javascript" src="/assets/js/jquery.h5validate.js"></script>
-    <script type="text/javascript" src="/assets/js/main.js"></script>
-@endif
+<script type="text/javascript" src="/assets/js/app.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

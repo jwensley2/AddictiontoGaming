@@ -8,14 +8,15 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
 	<title>@yield('title') - [ATG] Addiction to Gaming</title>
 
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="/assets/admin/css/theme.bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/assets/admin/css/master.css">
+	<link rel="stylesheet" type="text/css" href="/assets/admin/css/app.css">
 
 	@if(App::environment('production'))
 		<script>
@@ -170,30 +171,18 @@
 	</div>
 
 	<!-- Scripts -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-
-	@if (App::environment('production'))
-		<script type="text/javascript" src="/assets/admin/js/scripts.min.js"></script>
-	@else
-		<script type="text/javascript" src="/assets/admin/js/bootstrap/alert.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/bootstrap/transition.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/bootstrap/dropdown.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/bootstrap/collapse.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/jquery.tablesorter.widgets.js"></script>
-		<script type="text/javascript" src="/assets/admin/js/main.js"></script>
-	@endif
+	<script type="text/javascript" src="/assets/admin/js/app.js"></script>
 
 	<!-- Load and setup CKEditor -->
 	<script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".editor").each(function() {
-				CKEDITOR.replace($(this)[0], {
-					customConfig: '/assets/ckeditor/config-admin.js'
-				});
-			});
-		});
+        $(document).ready(function () {
+            $(".editor").each(function () {
+                CKEDITOR.replace($(this)[0], {
+                    customConfig: '/assets/ckeditor/config-admin.js'
+                });
+            });
+        });
 	</script>
 </body>
 </html>

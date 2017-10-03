@@ -1,0 +1,86 @@
+form {
+    // Reset buttons for Firefox
+    button::-moz-focus-inner,
+    input[type="reset"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner,
+    input[type="submit"]::-moz-focus-inner,
+    input[type="file"] > input[type="button"]::-moz-focus-inner {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    input {
+        border-radius: 0;
+        margin: 0;
+
+        + input { margin-top: 5px }
+    }
+
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+        box-sizing: border-box;
+        border: 0;
+        color: #000;
+        font-size: 14px;
+        outline: 0;
+        padding: 8px;
+        width: 100%;
+
+        &:focus { background: #ccc }
+
+        &.error {
+            background: lighten(rgb(255, 0, 0), 35%);
+            color: #000;
+            font-weight: normal;
+        }
+    }
+
+    input[type="submit"] {
+        appearance: none;
+        border-radius: 0;
+        box-sizing: border-box;
+        background: $lightblue;
+        border: 1px solid $lightblue;
+        color: $black;
+        display: block;
+        font-size: 16px;
+        padding: 8px;
+        width: 100%;
+
+        &:hover, &:focus {
+            background: $gray;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+    }
+
+    select {
+        border: 0;
+        padding: 8px;
+        width: 100%;
+        font-size: 14px;
+
+        option { margin: 5px }
+
+        &:focus { background: #eee }
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin: 0 0 3px;
+
+        &.required:before {
+            content: "*";
+            display: inline;
+        }
+    }
+
+    .row {
+        + .row, + input {
+            margin-top: 10px;
+        }
+    }
+
+    .cke_skin_kama { box-sizing: border-box }
+}

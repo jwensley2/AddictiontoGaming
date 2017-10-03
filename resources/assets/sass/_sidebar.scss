@@ -1,0 +1,71 @@
+//========================================
+// Sidebar
+//========================================
+.sidebar {
+    @include column(4);
+
+    .block {
+        + .block { margin-top: 50px }
+    }
+
+    h2 {
+        border-bottom: 2px solid #fff;
+        border-top: 2px solid #fff;
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0 0 15px;
+        padding: 5px;
+        text-shadow: #333 0 2px 3px;
+    }
+
+    .progress-bar {
+        background: $tfred;
+        border: 2px solid #fff;
+        color: #fff;
+        height: 30px;
+        position: relative;
+        width: 100%;
+
+        p {
+            height: 100%;
+            line-height: 30px;
+            margin: 0;
+            position: relative;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .fill {
+            background: $tfblue;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0%;
+        }
+    }
+
+    .potm {
+        img { width: 100% }
+
+        dl {
+            clear: both;
+            overflow: hidden;
+        }
+
+        dt {
+            clear: left;
+            float: left;
+            font-weight: bold;
+            margin: 0 5px 0 0;
+        }
+
+        dd { float: left }
+
+        .interview {
+            clear: both;
+            display: block;
+            margin: 10px 0 0;
+        }
+    }
+}

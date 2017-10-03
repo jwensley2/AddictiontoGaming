@@ -1,5 +1,3 @@
-set :branch, 'develop'
-
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
@@ -38,6 +36,7 @@ role :web, %w{atg@addictiontogaming.com}
 #   }
 # setting per server overrides global ssh_options
 
+set :branch, 'develop'
 set :deploy_to, "/home/atg/dev.addictiontogaming.com"
 set :linked_files, %w{.env}
 set :linked_dirs, %w{storage/logs}
