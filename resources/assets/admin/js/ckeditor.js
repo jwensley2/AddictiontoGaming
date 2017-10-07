@@ -1,3 +1,3 @@
-if (document.querySelector('#editor')) {
-    ClassicEditor.create(document.querySelector('#editor'));
+if (document.querySelector('.editor')) {
+    ClassicEditor.create(document.querySelector('.editor'));
 }

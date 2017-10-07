@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreArticle;
+use App\Http\Requests\UpdateArticle;
 use Illuminate\Http\Request;
 use App\Article;
 use App\User;
@@ -41,7 +43,7 @@ class ArticleController extends Controller
         return view('admin.articles.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreArticle $request)
     {
         if (!Auth::user()->hasPermission('news_post')) {
             return redirect()->route('admin.home');
@@ -54,10 +56,11 @@ class ArticleController extends Controller
         $article->content = \Purifier::clean($request->input('content'));
 
         if ($article->save()) {
-            return Redirect::action('Admin\NewsController@getEdit', $article->id)->with('messages',
-                ['News post has been created']);
+            return redirect()->route('admin.articles.edit', $article)->with('messages', [
+                'News post has been created',
+            ]);
         } else {
-            return Redirect::action('Admin\NewsController@getCreate')->withErrors($article->validationErrors);
+            return redirect()->route('admin.articles.create', $article)->withErrors($article->validationErrors);
         }
     }
 
@@ -75,7 +78,7 @@ class ArticleController extends Controller
             ->with('article', $article);
     }
 
-    public function update(Request $request, Article $article)
+    public function update(UpdateArticle $request, Article $article)
     {
         if (!Auth::user()->hasPermission('news_edit')) {
             return redirect()->route('admin.home');
