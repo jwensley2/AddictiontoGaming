@@ -12,7 +12,18 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/assets/js')
-   .sass('resources/assets/sass/app.scss', 'public/assets/css');
+    .sass('resources/assets/sass/app.scss', 'public/assets/css');
 
 mix.js('resources/assets/admin/js/app.js', 'public/assets/admin/js')
-    .sass('resources/assets/admin/sass/app.scss', 'public/assets/admin/css');
+    .js('resources/assets/admin/js/ckeditor.js', 'public/assets/admin/js')
+    .sass('resources/assets/admin/sass/app.scss', 'public/assets/admin/css')
+;
+
+// mix.browserSync({
+//     proxy: 'atg.dev',
+//     files: [
+//         'public/assets/**/*.css',
+//         'public/assets/**/*.js',
+//         'resources/views/**/*.php',
+//     ]
+// });

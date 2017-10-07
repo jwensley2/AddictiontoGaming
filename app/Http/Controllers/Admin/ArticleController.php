@@ -95,8 +95,6 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
-        $response['success'] = true;
-
         if (!Auth::user()->hasPermission('news_delete')) {
             return response([
                 'success' => false,
@@ -111,6 +109,8 @@ class ArticleController extends Controller
             ], 400);
         }
 
-        return response($response);
+        return response([
+            'success' => true,
+        ]);
     }
 }

@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6,8 +5,7 @@
  */
 
 require('./bootstrap');
-require('./jquery.tablesorter');
-require('./jquery.tablesorter.widgets');
+require('tablesorter');
 require('./main');
 
 window.Vue = require('vue');
@@ -18,8 +16,24 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
+Vue.component('alert', require('./components/Alert.vue'));
 
-// const app = new Vue({
-//     el: '#app'
-// });
+const app = new Vue({
+    el: '#app',
+    data() {
+        return {
+            alerts: []
+        }
+    },
+    methods: {
+        closeAlert(i) {
+            this.$data.alerts.splice(i, 1);
+        }
+    }
+});
+
+app.$on('alert', function (alert) {
+    this.$data.alerts.push(alert);
+});
+
+export {app};

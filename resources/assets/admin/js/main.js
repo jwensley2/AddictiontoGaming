@@ -1,66 +1,41 @@
-var $alertDeleteTmpl, $alertErrorTmpl, $alertSuccessTmpl;
+import {app} from './app';
 
 $(document).ready(function () {
-    // Set alert templates
-    $alertDeleteTmpl  = $("#delete-alert-template");
-    $alertErrorTmpl   = $("#error-alert-template");
-    $alertSuccessTmpl = $("#success-alert-template");
-
     initTableSorter();
     initUserList();
     initPermissionsEditor();
 
-    // Pass the CSRF Token with all ajax requests
-    $.ajaxSetup({
-        headers: {'X-CSRF-TOKEN': getCSRFToken()}
-    });
-
     // Setup the buttons to delete articles posts
     $(".articles-item .delete").on("click", function () {
-        var $btn    = $(this),
-            $alert  = $alertDeleteTmpl.clone().attr("id", null),
-            $row    = $btn.parents(".articles-item").eq(0),
-            $keep   = $alert.find("[data-action=keep]"),
-            $delete = $alert.find("[data-action=delete]");
-
-        var id = $row.data("id");
+        let $btn = $(this),
+            $row = $btn.parents(".articles-item").eq(0),
+            url  = $row.data("delete");
 
         $(window).scrollTop(0);
 
-        // If an alert already exists then we don't need to do anything
-        if ($("#delete-post-" + id).length > 0) return;
-
-        // Setup the alert
-        $alert.attr("id", "delete-post-" + id);
-        $alert.find(".title").text($row.data("title"));
-        $alert.insertBefore("#articles-list").show().alert();
-
-        // Bind the keep button
-        $keep.on("click", function () {
-            $alert.alert("close");
-        });
-
-        // Bind the delete button
-        $delete.on("click", function () {
-            var url = $row.data("delete");
-
-            $alert.alert("close");
-
-            $.ajax({
-                method: 'DELETE',
-                url: url,
-                dataType: "json",
-                complete: function (result) {
-                    if (result.success) {
-                        $row.fadeOut();
-                    } else {
-                        var $errorAlert = $alertErrorTmpl.clone();
-
-                        $errorAlert.append(result.message);
-                        $errorAlert.insertBefore("#articles-list").show();
+        app.$emit("alert", {
+            title: "Are you sure you want to delete that?",
+            message: `You are about to delete "<strong>${$row.data("title")}</strong>" , are you absolutely sure you want to delete it?`,
+            buttons: [
+                {
+                    type: "danger",
+                    label: "Delete it",
+                    handle() {
+                        axios.delete(url)
+                            .then(response => {
+                                if (response.data.success) {
+                                    $row.fadeOut();
+                                }
+                            })
+                            .catch(function (error) {
+                                if (error.response) {
+                                    app.$emit('alert', {message: error.response.data.message});
+                                }
+                            });
                     }
-                }
-            });
+                },
+                {label: "Keep It"},
+            ]
         });
     });
 });
@@ -68,115 +43,109 @@ $(document).ready(function () {
 // ------------------------------------------------------------------------
 
 function initUserList() {
-    var $actions = $("#user-list .user-actions");
+    let $actions = $("#user-list").find(".user-actions");
 
     $actions.on("click", ".activate, .de-activate", function (e) {
-        var url          = $(this).data("url");
-        var $thisActions = $(e.delegateTarget);
-        var $activate    = $thisActions.find(".activate");
-        var $deActivate  = $thisActions.find(".de-activate");
-        var $status      = $thisActions.find(".status");
+        let url          = $(this).data("url");
+        let $thisActions = $(e.delegateTarget);
+        let $activate    = $thisActions.find(".activate");
+        let $deActivate  = $thisActions.find(".de-activate");
+        let $status      = $thisActions.find(".status");
 
-        $.post(url, function (response) {
-            if (response.success) {
+        axios.post(url)
+            .then(response => {
+                $(window).scrollTop(0);
 
-                $status.text(response.status);
+                $status.text(response.data.status);
                 $activate.toggle();
                 $deActivate.toggle();
 
-                showSuccessAlert(response.message);
-            } else {
-                showErrorAlert(response.message);
-            }
-        }, "json");
+                app.$emit('alert', {type: 'success', message: response.data.message, timer: 5000});
+            })
+            .catch(error => {
+                $(window).scrollTop(0);
+
+                if (error.response) {
+                    app.$emit('alert', {message: error.response.data.message})
+                }
+            });
     })
 }
 
 // ------------------------------------------------------------------------
 
 function initPermissionsEditor() {
-    var $save        = $("#save-permissions");
-    var $permissions = $("input.permission");
+    let $save        = $("#save-permissions");
+    let $permissions = $("input.permission");
+    let url          = $save.data('url');
 
     $save.on("click", function () {
-        $.post($save.data('url'), $permissions.serialize(), function (result) {
-            $(window).scrollTop(0);
+        axios.post(url, $permissions.serialize())
+            .then(response => {
+                $(window).scrollTop(0);
 
-            if (result.success) {
-                showSuccessAlert(result.message);
-            } else {
-                showErrorAlert(result.message);
-            }
-        }, "json");
+                app.$emit('alert', {type: 'success', message: response.data.message, timer: 1000});
+            })
+            .catch(error => {
+                $(window).scrollTop(0);
+
+                if (error.response) {
+                    app.$emit('alert', {message: error.response.data.message})
+                }
+            });
     })
 }
 
 // ------------------------------------------------------------------------
 
 function initTableSorter() {
-    $.extend($.tablesorter.themes.bootstrap, {
+    // NOTE: $.tablesorter.theme.bootstrap is ALREADY INCLUDED in the jquery.tablesorter.widgets.js
+    // file; it is included here to show how you can modify the default classes
+    $.tablesorter.themes.bootstrap = {
         // these classes are added to the table. To see other table classes available,
-        // look here: http://twitter.github.com/bootstrap/base-css.html#tables
-        table: 'table table-bordered',
+        // look here: http://getbootstrap.com/css/#tables
+        table: 'table table-bordered table-striped',
         caption: 'caption',
-        header: 'bootstrap-header', // give the header a gradient background
+        // header class names
+        header: 'bootstrap-header', // give the header a gradient background (theme.bootstrap_2.css)
+        sortNone: '',
+        sortAsc: '',
+        sortDesc: '',
+        active: '', // applied when column is sorted
+        hover: '', // custom css required - a defined bootstrap style may not override other classes
+        // icon class names
+        icons: '', // add "bootstrap-icon-white" to make them white; this icon class is added to the <i> in the header
+        iconSortNone: 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
+        iconSortAsc: 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+        iconSortDesc: 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+        filterRow: '', // filter row class; use widgetOptions.filter_cssFilter for the input/select element
         footerRow: '',
         footerCells: '',
-        icons: '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
-        sortNone: 'bootstrap-icon-unsorted',
-        sortAsc: 'icon-chevron-up glyphicon glyphicon-chevron-up',     // includes classes for Bootstrap v2 & v3
-        sortDesc: 'icon-chevron-down glyphicon glyphicon-chevron-down', // includes classes for Bootstrap v2 & v3
-        active: '', // applied when column is sorted
-        hover: '', // use custom css here - bootstrap class may not override it
-        filterRow: '', // filter row class
-        even: '', // odd row zebra striping
-        odd: ''  // even row zebra striping
-    });
+        even: '', // even row zebra striping
+        odd: ''  // odd row zebra striping
+    };
 
-    $(".sortable").tablesorter({
+    // call the tablesorter plugin and apply the uitheme widget
+    $("table").tablesorter({
+        // this will apply the bootstrap theme if "uitheme" widget is included
+        // the widgetOptions.uitheme is no longer required to be set
         theme: "bootstrap",
-        headerTemplate: '{content} {icon}',
-        widgets: ["uitheme"],
+
+        widthFixed: true,
+
+        headerTemplate: '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+        // widget code contained in the jquery.tablesorter.widgets.js file
+        // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+        widgets: ["uitheme", "columns", "zebra"],
+
+        widgetOptions: {
+            // using the default zebra striping class name, so it actually isn't included in the theme letiable above
+            // this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+            zebra: ["even", "odd"],
+
+            // class names added to columns when sorted
+            columns: ["primary", "secondary", "tertiary"],
+        }
     });
-}
-
-// ------------------------------------------------------------------------
-
-// Get the CSRF Token
-function getCSRFToken() {
-    return $("body").data("csrf-token");
-}
-
-// ------------------------------------------------------------------------
-
-function showSuccessAlert(message, $before) {
-    var $alert = $alertSuccessTmpl.clone();
-
-    showAlert($alert, message, $before);
-}
-
-// ------------------------------------------------------------------------
-
-function showErrorAlert(message, $before) {
-    var $alert = $alertErrorTmpl.clone();
-
-    showAlert($alert, message, $before);
-}
-
-// ------------------------------------------------------------------------
-
-function showAlert($alert, message, $before) {
-    $alert.find(".close").before(message);
-
-    if (!$before) {
-        $alert.appendTo($("#alert-container"));
-    } else {
-        $alert.insertBefore($before);
-    }
-
-    setTimeout(function () {
-        $alert.fadeOut(function () {
-            $alert.remove();
-        });
-    }, 5000);
 }

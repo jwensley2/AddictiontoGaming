@@ -97,3 +97,56 @@ table {
 
     .disabled { cursor: default }
 }
+
+//========================================
+// Modal
+//========================================
+.confirmation-modal {
+    background-color: $gray;
+    border: 2px solid black;
+
+    h3 {
+        background: $lightblue;
+        color: $gray;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .content {
+        display: block;
+        float: none;
+        margin: auto;
+        padding: 10px;
+        width: auto;
+    }
+
+    .buttons {
+        border-top: 1px dotted;
+        padding: 10px;
+    }
+
+    button {
+        background: #c9dff2;
+        border: 1px solid white;
+        color: #4c4f59;
+        display: inline-block;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &.yes {
+            background-color: $tfred;
+            color: white;
+        }
+
+        + button {
+            margin-left: 10px
+        }
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+}

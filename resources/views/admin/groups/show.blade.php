@@ -33,7 +33,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Key</th>
-                    <th>Enabled</th>
+                    <th data-sorter="false">Enabled</th>
                 </tr>
                 </thead>
 

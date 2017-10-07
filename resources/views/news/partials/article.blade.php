@@ -1,4 +1,4 @@
-<article>
+<article id="article-{{ $article->id }}">
     <h2><a href="{{ route('news.article', [$article]) }}">{{ $article->title }}</a></h2>
     {!! $article->getDisplayContent() !!}
 
@@ -6,9 +6,13 @@
         <div class="left">
             @if (Auth::check() AND Auth::user()->hasPermission('news_edit'))
                 <a href="{{ route('admin.articles.edit', $article) }}">Edit</a> |
-                <a class="delete-article"
-                   href="{{ route('admin.articles.destroy', $article) }}"
-                   data-title="{{ $article->title }}">Delete</a>
+                <delete-button
+                        url="{{ route('admin.articles.destroy', $article) }}"
+                        title="{{ $article->title }}"
+                        remove="#article-{{ $article->id }}"
+                >
+                    Delete
+                </delete-button>
             @endif
         </div>
         <div class="right">

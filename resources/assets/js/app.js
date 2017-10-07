@@ -1,14 +1,13 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import VModal from 'vue-js-modal'
+
 require('./bootstrap');
 require('./jquery.h5validate');
-require('./zebra_dialog');
-require('./main');
 
 window.Vue = require('vue');
 
@@ -18,8 +17,11 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.use(VModal, {dialog: true});
 
-// const app = new Vue({
-//     el: '#app'
-// });
+Vue.component('delete-button', require('./components/DeleteButton.vue'));
+Vue.component('confirmation', require('./components/ConfirmationModal.vue'));
+
+const app = new Vue({
+    el: '#app'
+});

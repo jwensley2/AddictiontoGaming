@@ -25,7 +25,7 @@ Administration
 		<div class="col-md-6">
 			<h3>Latest Donations</h3>
 			<table class="table table-hover table-bordered sortable">
-				<thead class="tablesorter-header">
+				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Amount</th>

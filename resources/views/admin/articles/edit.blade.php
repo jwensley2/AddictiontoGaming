@@ -40,7 +40,7 @@ News - Edit Post
 
 				<div class="form-group">
 					<label>Content</label>
-					<textarea class="form-control editor" name="content">{{ Request::old('content', $article->content) }}</textarea>
+					<textarea id="editor" class="form-control editor" name="content">{{ Request::old('content', $article->content) }}</textarea>
 				</div>
 
 				<div class="form-actions">
