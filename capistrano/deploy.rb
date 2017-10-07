@@ -38,9 +38,9 @@ namespace :deploy do
 	after :finishing, 'deploy:cleanup'
 end
 
-desc "Run composer install"
+desc "Restart PHP"
 task :restart_php do
     on roles(:web) do
-        execute "sudo", "/etc/init.d/php7.0-fpm", "restart"
+        execute "sudo", "/etc/init.d/php7.1-fpm", "restart"
     end
 end

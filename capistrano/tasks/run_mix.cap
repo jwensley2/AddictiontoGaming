@@ -1,0 +1,9 @@
+desc "Run mix"
+task :run_mix do
+    on roles(:web) do
+        within release_path do
+            execute :npm, "install"
+            execute :npm, "run", "production"
+        end
+    end
+end

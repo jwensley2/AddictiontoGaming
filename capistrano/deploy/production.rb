@@ -55,6 +55,7 @@ end
 # Laravel deployment
 namespace :deploy do
 	after :updated, "composer_install"
+	after :updated, "run_mix"
 	after :updated, "laravel_migrate"
 	after :updated, "set_permissions"
 	after :published, "restart_php"
