@@ -38,26 +38,14 @@
                                     <span class="status">{{ ($user->active) ? 'Active' : 'Inactive' }}</span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a class="de-activate"
-                                           data-url="{{ route('admin.users.status', [$user, 0]) }}"
-                                           href="#"
-                                           style="display: {{ ($user->active) ? 'block' : 'none' }}"
-                                        >De-Activate</a>
-                                    </li>
-                                    <li>
-                                        <a class="activate"
-                                           data-url="{{ route('admin.users.status', [$user, 1]) }}"
-                                           href="#"
-                                           style="display: {{ ($user->active) ? 'none' : 'block' }}"
-                                        >Activate</a>
-                                    </li>
-                                    {{--
-                                    <li class="divider"></li>
-                                    <li><a href="#">Delete</a></li>
-                                    --}}
-                                </ul>
+                                <div class="dropdown-menu" role="menu">
+                                    <button class="de-activate dropdown-item {{ ($user->active) ? '' : 'd-none' }}"
+                                       data-url="{{ route('admin.users.status', [$user, 0]) }}"
+                                    >De-Activate</button>
+                                    <button class="activate dropdown-item {{ ($user->active) ? 'd-none' : '' }}"
+                                       data-url="{{ route('admin.users.status', [$user, 1]) }}"
+                                    >Activate</button>
+                                </div>
                             </div>
                         </td>
                     </tr>

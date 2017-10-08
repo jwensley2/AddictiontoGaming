@@ -9,21 +9,21 @@ Donors - View Donor
 		<div class="col-md-12">
 			<h3>Donor Information:</h3>
 
-			<dl class="dl-horizontal">
-				<dt>Name:</dt>
-				<dd>{{{ $donor->name }}}</dd>
+			<dl class="row">
+				<dt class="col-sm-2 text-right">Name:</dt>
+				<dd class="col-sm-10">{{{ $donor->name }}}</dd>
 
-				<dt>Ingame Name:</dt>
-				<dd>{{{ $donor->ingame_name }}}</dd>
+				<dt class="col-sm-2 text-right">Ingame Name:</dt>
+				<dd class="col-sm-10">{{{ $donor->ingame_name }}}</dd>
 
-				<dt>Steam ID:</dt>
-				<dd>{{{ $donor->steam_id }}}</dd>
+				<dt class="col-sm-2 text-right">Steam ID:</dt>
+				<dd class="col-sm-10">{{{ $donor->steam_id }}}</dd>
 
-				<dt>Total Donated:</dt>
-				<dd>${{{ $donor->total_donated }}}</dd>
+				<dt class="col-sm-2 text-right">Total Donated:</dt>
+				<dd class="col-sm-10">${{{ $donor->total_donated }}}</dd>
 
-				<dt>Expire Date:</dt>
-				<dd>{{{ $donor->expires_at->toDateString() }}}</dd>
+				<dt class="col-sm-2 text-right">Expire Date:</dt>
+				<dd class="col-sm-10">{{{ $donor->expires_at->toDateString() }}}</dd>
 			</dl>
 		</div>
 	</div>

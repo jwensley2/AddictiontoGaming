@@ -31,98 +31,89 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ action('Admin\AdminController@index') }}">ATG Admin</a>
-            </div>
+            <a class="navbar-brand" href="{{ action('Admin\AdminController@index') }}">ATG Admin</a>
 
-            <div id="navbar-collapse" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ route('home') }}">Home</a></li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                    </li>
 
                     @if (Auth::check())
                         @if(Auth::user()->hasPermission('news_view'))
-                            <li class="dropdown {{Request::is('admin/articles', 'admin/articles/*') ? 'active' : ''}}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">News <b
-                                            class="caret"></b></a>
+                            <li class="nav-item dropdown {{Request::is('admin/articles', 'admin/articles/*') ? 'active' : ''}}">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">News</a>
 
-                                <ul class="dropdown-menu">
-                                    <li class="{{Request::is('articles') ? 'active' : ''}}">
-                                        <a href="{{ route('admin.articles.index') }}">List News</a>
-                                    </li>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item {{Request::is('articles') ? 'active' : ''}}"
+                                       href="{{ route('admin.articles.index') }}">List News</a>
                                     @if(Auth::user()->hasPermission('news_post'))
-                                        <li class="{{Request::is('admin/articles/create') ? 'active' : ''}}">
-                                            <a href="{{ route('admin.articles.create') }}">Post News</a>
-                                        </li>
+                                        <a class="dropdown-item {{Request::is('admin/articles/create') ? 'active' : ''}}"
+                                           href="{{ route('admin.articles.create') }}">Post News</a>
                                     @endif
-                                </ul>
+                                </div>
                             </li>
                         @endif
 
                         @if(Auth::user()->hasPermission('donations_view') OR Auth::user()->hasPermission('donors_view'))
-                            <li class="dropdown {{Request::is('admin/donations*', 'admin/donors*') ? 'active' : ''}}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Donations <b
-                                            class="caret"></b></a>
+                            <li class="nav-item dropdown {{Request::is('admin/donations*', 'admin/donors*') ? 'active' : ''}}">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Donations</a>
 
-                                <ul class="dropdown-menu">
+                                <div class="dropdown-menu">
                                     @if(Auth::user()->hasPermission('donations_view'))
-                                        <li class="{{Request::is('admin/donations') ? 'active' : ''}}">
-                                            <a href="{{ route('admin.donations.index') }}">List Donations</a>
-                                        </li>
+                                        <a class="dropdown-item {{Request::is('admin/donations') ? 'active' : ''}}"
+                                           href="{{ route('admin.donations.index') }}">List Donations</a>
                                     @endif
 
                                     @if(Auth::user()->hasPermission('donors_view'))
-                                        <li class="{{Request::is('admin/donors', 'admin/donors/*') ? 'active' : ''}}">
-                                            <a href="{{ route('admin.donors.index') }}">List Donors</a>
-                                        </li>
+                                        <a class="dropdown-item {{Request::is('admin/donors', 'admin/donors/*') ? 'active' : ''}}"
+                                           href="{{ route('admin.donors.index') }}">List Donors</a>
                                     @endif
-                                </ul>
+                                </div>
                             </li>
                         @endif
 
                         @if(Auth::user()->hasPermission('settings'))
-                            <li class="{{Request::is('admin/settings') ? 'active' : ''}}">
-                                <a href="{{ route('admin.settings.index') }}">Settings</a>
+                            <li class="nav-item {{Request::is('admin/settings') ? 'active' : ''}}">
+                                <a class="nav-link" href="{{ route('admin.settings.index') }}">Settings</a>
                             </li>
                         @endif
 
                         @if(Auth::user()->hasPermission('users_view') OR Auth::user()->hasPermission('groups_view'))
-                            <li class="dropdown {{Request::is('admin/users', 'admin/users/*', 'admin/groups/*') ? 'active' : ''}}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users <b
-                                            class="caret"></b></a>
+                            <li class="nav-item dropdown {{Request::is('admin/users', 'admin/users/*', 'admin/groups/*') ? 'active' : ''}}">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Users</a>
 
-                                <ul class="dropdown-menu">
+                                <div class="dropdown-menu">
                                     @if(Auth::user()->hasPermission('users_view'))
-                                        <li class="{{Request::is('admin/users/*') ? 'active' : ''}}">
-                                            <a href="{{ route('admin.users.index') }}">List Users</a>
-                                        </li>
+                                        <a class="dropdown-item {{Request::is('admin/users/*') ? 'active' : ''}}"
+                                           href="{{ route('admin.users.index') }}">List Users</a>
                                     @endif
 
                                     @if(Auth::user()->hasPermission('groups_view'))
-                                        <li class="{{Request::is('admin/groups/*') ? 'active' : ''}}">
-                                            <a href="{{ route('admin.groups.index') }}">List Groups</a>
-                                        </li>
+                                        <a class="dropdown-item {{Request::is('admin/groups/*') ? 'active' : ''}}"
+                                           href="{{ route('admin.groups.index') }}">List Groups</a>
                                     @endif
-                                </ul>
+                                </div>
                             </li>
                         @endif
                     @endif
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="navbar-nav">
                     @if (Auth::check())
-                        <li><a href="{{ route('admin.account.edit') }}">Account</a></li>
-                        <li>
-                            <form class="navbar-form" method="post" action="{{ route('logout') }}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.account.edit') }}">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{{ route('logout') }}">
                                 {{ csrf_field() }}
-                                <button class="btn btn-link btn-block">Logout</button>
+                                <button class="btn btn-link nav-link">Logout</button>
                             </form>
                         </li>
                     @endif
@@ -140,19 +131,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-header">
+                <h1 class="mt-5 mb-3">
                     @yield('title')
                 </h1>
 
-                <alert v-for="(alert, i) in alerts"
-                       :key="i"
-                       :title="alert.title"
-                       :message="alert.message"
-                       :type="alert.type"
-                       :buttons="alert.buttons"
-                       :timer="alert.timer"
-                       @close="closeAlert(i)"
-                ></alert>
+                <hr>
+
+                <div v-for="alert in alerts">
+                    <alert
+                            :key="alert.key"
+                            :alert-data="alert"
+                            @close="closeAlert(alert)"
+                    ></alert>
+                </div>
 
                 @yield('content')
             </div>

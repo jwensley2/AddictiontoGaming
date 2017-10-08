@@ -9,15 +9,15 @@
         <div class="col-md-12">
             <h3>Group Information:</h3>
 
-            <dl class="dl-horizontal">
-                <dt>Group ID:</dt>
-                <dd>{{ $group->id }}</dd>
+            <dl class="row">
+                <dt class="col-sm-2 text-right my-0">Group ID:</dt>
+                <dd class="col-sm-10 my-0">{{ $group->id }}</dd>
 
-                <dt>Name:</dt>
-                <dd>{{{ $group->name }}}</dd>
+                <dt class="col-sm-2 text-right my-0">Name:</dt>
+                <dd class="col-sm-10 my-0">{{{ $group->name }}}</dd>
 
-                <dt>Colour:</dt>
-                <dd style="color: #{{ $group->colour }}">#{{ $group->colour }}</dd>
+                <dt class="col-sm-2 text-right my-0">Colour:</dt>
+                <dd class="col-sm-10 my-0" style="color: #{{ $group->colour }}">#{{ $group->colour }}</dd>
             </dl>
         </div>
     </div>
@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3>Permissions:</h3>
+            <h3 class="mb-3">Permissions:</h3>
 
             <table class="table table-hover table-bordered sortable">
                 <thead>
@@ -43,21 +43,30 @@
                         <td>{{ $permission->name }}</td>
                         <td>{{{ $permission->key }}}</td>
                         <td>
-                            <label class="radio-inline">
-                                <input class="permission" type="radio" name="permissions[{{ $permission->key }}]"
-                                       value="1" {{($group_permissions[$permission->key] == 1) ? 'checked' : ''}}>
-                                Yes
-                            </label>
-                            <label class="radio-inline">
-                                <input class="permission" type="radio" name="permissions[{{ $permission->key }}]"
-                                       value="0" {{($group_permissions[$permission->key] == 0) ? 'checked' : ''}}>
-                                No
-                            </label>
-                            <label class="radio-inline">
-                                <input class="permission" type="radio" name="permissions[{{ $permission->key }}]"
-                                       value="-1" {{($group_permissions[$permission->key] == -1) ? 'checked' : ''}}>
-                                Never
-                            </label>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input permission" type="radio"
+                                           name="permissions[{{ $permission->key }}]"
+                                           value="1" {{($group_permissions[$permission->key] == 1) ? 'checked' : ''}}>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input permission" type="radio"
+                                           name="permissions[{{ $permission->key }}]"
+                                           value="0" {{($group_permissions[$permission->key] == 0) ? 'checked' : ''}}>
+                                    No
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input permission" type="radio"
+                                           name="permissions[{{ $permission->key }}]"
+                                           value="-1" {{($group_permissions[$permission->key] == -1) ? 'checked' : ''}}>
+                                    Never
+                                </label>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

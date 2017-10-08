@@ -37,9 +37,9 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="remember"> Remember Me
                         </label>
                     </div>
                 </div>
@@ -47,9 +47,11 @@
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Login</button>
                     <a href="{{ route('home') }}" class="btn btn-default">Cancel</a>
-                </div>
 
-                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                    <p class="mt-3">
+                        <a href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                    </p>
+                </div>
             </form>
         </div>
     </div>

@@ -22,18 +22,20 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
+            alertCount: 0,
             alerts: []
         }
     },
     methods: {
-        closeAlert(i) {
-            this.$data.alerts.splice(i, 1);
+        closeAlert(alert) {
+            this.alerts.splice(this.alerts.indexOf(alert), 1);
         }
     }
 });
 
 app.$on('alert', function (alert) {
-    this.$data.alerts.push(alert);
+    alert.key = this.alertCount++;
+    this.alerts.push(alert);
 });
 
 export {app};

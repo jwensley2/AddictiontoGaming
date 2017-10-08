@@ -4,8 +4,8 @@
             <button class="close" type="button" @click="closeClicked">×</button>
 
             <h4 class="alert-heading" v-if="title">{{ title }}</h4>
-            <p v-html="message">{{ message }}</p>
-            <p v-if="buttons">
+            <div v-if="message" v-html="message">{{ message }}</div>
+            <div v-if="buttons" class="mt-3">
                 <button
                         v-for="button in buttons"
                         :class="`btn ${buttonType(button)}`"
@@ -13,7 +13,7 @@
                 >
                     {{ button.label }}
                 </button>
-            </p>
+            </div>
         </div>
     </transition>
 </template>
@@ -21,16 +21,7 @@
 <script>
     export default {
         props: {
-            title: String,
-            message: String,
-            type: {
-                type: String,
-                default: 'danger'
-            },
-            timer: {
-                type: Number,
-            },
-            buttons: Array
+            alertData: Object,
         },
         data() {
             return {}
@@ -54,10 +45,27 @@
                 return '';
             }
         },
+        computed: {
+            type() {
+                return this.alertData.type || 'danger';
+            },
+            title() {
+                return this.alertData.title;
+            },
+            message() {
+                return this.alertData.message;
+            },
+            buttons() {
+                return this.alertData.buttons;
+            },
+            timer() {
+                return this.alertData.timer;
+            },
+        },
         mounted() {
             if (this.timer) {
                 setTimeout(() => {
-                    this.$emit('close')
+                    this.$emit('close');
                 }, this.timer);
             }
         }
@@ -68,7 +76,8 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s
     }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+    .fade-enter, .fade-leave-to {
         opacity: 0
     }
 

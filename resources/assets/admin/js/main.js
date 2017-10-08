@@ -57,8 +57,8 @@ function initUserList() {
                 $(window).scrollTop(0);
 
                 $status.text(response.data.status);
-                $activate.toggle();
-                $deActivate.toggle();
+                $activate.toggleClass('d-none');
+                $deActivate.toggleClass('d-none');
 
                 app.$emit('alert', {type: 'success', message: response.data.message, timer: 5000});
             })
@@ -84,7 +84,7 @@ function initPermissionsEditor() {
             .then(response => {
                 $(window).scrollTop(0);
 
-                app.$emit('alert', {type: 'success', message: response.data.message, timer: 1000});
+                app.$emit('alert', {type: 'success', message: response.data.message, timer: 2000});
             })
             .catch(error => {
                 $(window).scrollTop(0);
