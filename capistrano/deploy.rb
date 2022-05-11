@@ -41,6 +41,6 @@ end
 desc "Restart PHP"
 task :restart_php do
     on roles(:web) do
-        execute "sudo", "/etc/init.d/php7.1-fpm", "restart"
+        execute "sudo", "/etc/init.d/php8.0-fpm", "restart"
     end
 end
