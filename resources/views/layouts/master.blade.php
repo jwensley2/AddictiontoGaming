@@ -78,9 +78,11 @@
             </ul>
         </nav>
 
-    @yield('content')
+        <div class="content-container">
+            @yield('content')
+        </div>
 
-    <!-- Sidebar -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="block">
                 <h2>Donation Progress</h2>
@@ -148,10 +150,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#donate-form").h5Validate({
-            "errorAttribute": "data-error",
-            "errorClass": "error",
-            "validClass": "valid"
+        $('#donate-form').h5Validate({
+            'errorAttribute': 'data-error',
+            'errorClass': 'error',
+            'validClass': 'valid',
         });
     });
 </script>

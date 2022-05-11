@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Donor;
+use App\Models\Donor;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;

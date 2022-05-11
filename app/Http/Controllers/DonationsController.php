@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Donation;
-use App\Donor;
+use App\Models\Donation;
+use App\Models\Donor;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Query\Builder;

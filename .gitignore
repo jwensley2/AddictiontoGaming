@@ -1,5 +1,6 @@
 /vendor
 composer.phar
+/node_modules
 
 # Caches
 .sass-cache
@@ -10,22 +11,23 @@ composer.phar
 /public/storage
 /storage/*.key
 Homestead.json
-Homestead.yaml
-_ide_helper.php
-.phpstorm.meta.php
 
-# Compiled Files
+# Compiled/Generated Files
 /public/assets/css
 /public/assets/js
 /public/assets/admin/css
 /public/assets/admin/js
+/public/mix-manifest.json
+/public/fonts
+
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
 
 # Misc
 /forums/
 /dump.rdb
-/node_modules
 /.idea
 /.vagrant
-puphpet/files/dot/ssh
 .capistrano
-/html
+/log

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Group;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
-use App\Permission;
-use App\User;
+use App\Models\Permission;
+use App\Models\User;
 use Auth;
 use DB;
 use Illuminate\Http\Request;

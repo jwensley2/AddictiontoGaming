@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Donation;
+use App\Models\Donation;
 use Auth;
 use App\Http\Controllers\Controller;
 

@@ -3,8 +3,8 @@
 namespace App\ATG\Repositories\Donation;
 
 use Carbon\Carbon;
-use App\Settings;
-use App\Donation;
+use App\Models\Settings;
+use App\Models\Donation;
 
 class EloquentDonation
 {

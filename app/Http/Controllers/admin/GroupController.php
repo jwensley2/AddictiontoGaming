@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Group;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
-use App\Permission;
+use App\Models\Permission;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class GroupController extends Controller
     /**
      * Display a single group
      *
-     * @param \App\Group $group
+     * @param \App\Models\Group $group
      * @return response
      */
     public function show(Group $group)
@@ -66,7 +66,7 @@ class GroupController extends Controller
      * Update a users permissions
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Group               $group
+     * @param \App\Models\Group        $group
      * @return Response
      */
     public function updatePermissions(Request $request, Group $group)

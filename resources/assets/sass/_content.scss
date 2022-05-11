@@ -1,76 +1,84 @@
 //========================================
 // Content
 //========================================
+.content-container {
+  @include column(9);
+}
+
 .content {
-    @include column(9);
+  article {
+    overflow: hidden;
 
-    article {
-        overflow: hidden;
+    + article { margin-top: 20px }
+  }
 
-        + article { margin-top: 20px }
+  h1 {
+    border-bottom: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0 0 20px;
+    padding: 10px 5px;
+    text-shadow: #333333 0 2px 3px;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    border-bottom: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0 0 15px;
+    padding: 5px;
+    text-shadow: #333333 0 2px 3px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  a {
+    color: $lightblue;
+
+    &:hover { text-decoration: underline }
+  }
+
+  img { max-width: 100% }
+
+  p, ul, ol, blockquote {
+    line-height: 22px;
+    margin: 15px 0;
+
+    &:first-child { margin-top: 0 }
+
+    &:last-child { margin-bottom: 0 }
+  }
+
+  blockquote {
+    border-left: 2px solid #ffffff;
+    font-size: 15px;
+    font-style: italic;
+    padding: 5px 20px;
+
+    &:before {
+      content: attr(data-source) " said:";
+      display: block;
+      font-style: normal;
+      font-weight: bold;
     }
+  }
+}
 
-    h1 {
-        border-bottom: 2px solid #fff;
-        border-top: 2px solid #fff;
-        color: #fff;
-        font-size: 25px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin: 0 0 20px;
-        padding: 10px 5px;
-        text-shadow: #333 0 2px 3px;
-        text-transform: uppercase;
-    }
-
-    h2 {
-        border-bottom: 2px solid #fff;
-        border-top: 2px solid #fff;
-        font-size: 20px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin: 0 0 15px;
-        padding: 5px;
-        text-shadow: #333 0 2px 3px;
-    }
-
-    h3 {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    h4 {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    a {
-        color: $lightblue;
-
-        &:hover { text-decoration: underline }
-    }
-
-    img { max-width: 100% }
-
-    p, ul, ol, blockquote {
-        line-height: 22px;
-        margin: 15px 0;
-
-        &:first-child { margin-top: 0 }
-        &:last-child { margin-bottom: 0 }
-    }
-
-    blockquote {
-        border-left: 2px solid #fff;
-        font-size: 15px;
-        font-style: italic;
-        padding: 5px 20px;
-
-        &:before {
-            content: attr(data-source) " said:";
-            display: block;
-            font-style: normal;
-            font-weight: bold;
-        }
-    }
+.pagination {
+  padding: 0;
+  margin: 10px 0 0;
 }

@@ -33,9 +33,10 @@
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
         <div class="container">
-            <a class="navbar-brand" href="{{ action('Admin\AdminController@index') }}">ATG Admin</a>
+            <a class="navbar-brand" href="{{ route('admin.home') }}">ATG Admin</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -45,18 +46,20 @@
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
 
-                    @if (Auth::check())
-                        @if(Auth::user()->hasPermission('news_view'))
-                            <li class="nav-item dropdown {{Request::is('admin/articles', 'admin/articles/*') ? 'active' : ''}}">
+                    @if (auth()->check())
+                        @if(Gate::check('list', \App\Models\Article::class) || Gate::check('create', \App\Models\Article::class) )
+                            <li class="nav-item dropdown {{ request()->is('admin/articles*') ? 'active' : ''}}">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">News</a>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item {{Request::is('articles') ? 'active' : ''}}"
-                                       href="{{ route('admin.articles.index') }}">List News</a>
-                                    @if(Auth::user()->hasPermission('news_post'))
+                                    @can('viewAny', \App\Models\Article::class)
+                                        <a class="dropdown-item {{ request()->is('admin/articles') ? 'active' : ''}}"
+                                           href="{{ route('admin.articles.index') }}">List News</a>
+                                    @endcan
+                                    @can('create', \App\Models\Article::class)
                                         <a class="dropdown-item {{Request::is('admin/articles/create') ? 'active' : ''}}"
                                            href="{{ route('admin.articles.create') }}">Post News</a>
-                                    @endif
+                                    @endcan
                                 </div>
                             </li>
                         @endif

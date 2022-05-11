@@ -4,11 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Vue from 'vue';
+import Alert from './components/Alert';
+
 require('./bootstrap');
 require('tablesorter');
 require('./main');
 
-window.Vue = require('vue');
+window.Vue = Vue;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,7 +19,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('alert', require('./components/Alert.vue'));
+Vue.component('alert', Alert);
 
 const app = new Vue({
     el: '#app',

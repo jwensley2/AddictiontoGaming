@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            {{ $donations->links('vendor.pagination.bootstrap-4') }}
+            {{ $donations->links() }}
 
             <div class="table-responsive">
                 <table class="table table-hover table-bordered sortable">
@@ -39,7 +39,7 @@
                 </table>
             </div>
 
-            {{ $donations->links('vendor.pagination.bootstrap-4') }}
+            {{ $donations->links() }}
         </div>
     </div>
 @stop

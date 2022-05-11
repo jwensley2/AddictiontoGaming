@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreArticle;
 use App\Http\Requests\UpdateArticle;
 use Illuminate\Http\Request;
-use App\Article;
-use App\User;
+use App\Models\Article;
+use App\Models\User;
 use Auth;
 use Redirect;
 use Response;
@@ -15,6 +15,11 @@ use Session;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class);
+    }
+
     /**
      * Display a listing of articles.
      *

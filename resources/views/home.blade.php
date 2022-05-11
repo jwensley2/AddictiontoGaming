@@ -9,7 +9,7 @@
         @foreach($articles AS $article)
             @include('news.partials.article', array('article' => $article))
         @endforeach
-
-        {{ $articles->links() }}
     </section>
+
+    {{ $articles->links() }}
 @stop

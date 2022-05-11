@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Settings;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;

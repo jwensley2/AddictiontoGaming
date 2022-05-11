@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Donation;
+use App\Models\Donation;
 use App\Http\Controllers\Controller;
-use App\Article;
+use App\Models\Article;
 use App\ATG\Repositories\Donation\EloquentDonation as Donations;
 use Illuminate\Http\Request;
 

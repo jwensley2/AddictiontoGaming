@@ -17,7 +17,6 @@ class Repository
         $this->service = new PayPalAPIInterfaceServiceService($config);
     }
 
-
     /**
      * Get the PayPal account balance
      *
@@ -25,6 +24,8 @@ class Repository
      */
     public function getBalance()
     {
+        return 0;
+
         if (Cache::has('paypal_balance')) {
             return Cache::get('paypal_balance');
         }
@@ -36,7 +37,7 @@ class Repository
         try {
             $getBalanceResponse = $this->service->GetBalance($getBalanceReq);
         } catch (Exception $ex) {
-            App::abort(500);
+            \App::abort(500);
         }
 
         if (isset($getBalanceResponse)) {

@@ -11,10 +11,10 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/assets/js')
+mix.js('resources/assets/js/app.js', 'public/assets/js').vue({ version: 2 })
     .sass('resources/assets/sass/app.scss', 'public/assets/css');
 
-mix.js('resources/assets/admin/js/app.js', 'public/assets/admin/js')
+mix.js('resources/assets/admin/js/app.js', 'public/assets/admin/js').vue({ version: 2 })
     .js('resources/assets/admin/js/ckeditor.js', 'public/assets/admin/js')
     .sass('resources/assets/admin/sass/app.scss', 'public/assets/admin/css')
 ;

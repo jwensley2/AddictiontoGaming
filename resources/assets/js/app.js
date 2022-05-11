@@ -5,11 +5,14 @@
  */
 
 import VModal from 'vue-js-modal'
+import Vue from 'vue';
+import DeleteButton from './components/DeleteButton';
+import ConfirmationModal from './components/ConfirmationModal';
 
 require('./bootstrap');
 require('./jquery.h5validate');
 
-window.Vue = require('vue');
+window.Vue = Vue;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -19,9 +22,9 @@ window.Vue = require('vue');
 
 Vue.use(VModal, {dialog: true});
 
-Vue.component('delete-button', require('./components/DeleteButton.vue'));
-Vue.component('confirmation', require('./components/ConfirmationModal.vue'));
+Vue.component('delete-button', DeleteButton);
+Vue.component('confirmation', ConfirmationModal);
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });
