@@ -45,4 +45,17 @@ class Article extends Model
 
         return $content;
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $article) {
+            $article->author()->associate(auth()->user());
+        });
+
+        static::updating(function (self $article) {
+            $article->editor()->associate(auth()->user());
+        });
+    }
 }

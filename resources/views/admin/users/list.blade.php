@@ -33,10 +33,9 @@
                         </td>
                         <td>{{ $user->created_at->toDateString() }}</td>
                         <td>
-                            <div class="user-actions btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span class="status">{{ ($user->active) ? 'Active' : 'Inactive' }}</span>
-                                    <span class="caret"></span>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                    {{ ($user->active) ? 'Active' : 'Inactive' }}
                                 </button>
                                 <div class="dropdown-menu" role="menu">
                                     <button class="de-activate dropdown-item {{ ($user->active) ? '' : 'd-none' }}"

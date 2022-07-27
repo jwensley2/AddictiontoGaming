@@ -19,11 +19,13 @@
                 {{ csrf_field() }}
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Monthly Cost</label>
+                    <label for="monthly-cost" class="col-sm-2 col-form-label">Monthly Cost</label>
 
                     <div class="col-sm-3 input-group">
-                        <span class="input-group-addon">$</span>
-                        <input class="form-control" type="text" name="monthly_cost"
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input id="monthly-cost" class="form-control" type="text" name="monthly_cost"
                                value="{{{ $settings->monthly_cost }}}">
                     </div>
                 </div>

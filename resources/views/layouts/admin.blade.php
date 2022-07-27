@@ -111,10 +111,10 @@
                 <ul class="navbar-nav">
                     @if (Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.account.edit') }}">Account</a>
+                            <a class="btn btn-link nav-link" href="{{ route('admin.account.edit') }}">Account</a>
                         </li>
                         <li class="nav-item">
-                            <form method="post" action="{{ route('logout') }}">
+                            <form class="form-inline" method="post" action="{{ route('logout') }}">
                                 {{ csrf_field() }}
                                 <button class="btn btn-link nav-link">Logout</button>
                             </form>
